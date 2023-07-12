@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import Layout from "../components/Layout";
 import Introduction from "../components/Introduction";
 import { devices } from "../utils/devices";
+import Navbar from "../components/Navbar";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -10,7 +11,7 @@ const Container = styled.div`
     text-align: center;
     gap: 4em;
     height: inherit;
-    @media only screen and (${devices.phones}){
+    @media only screen and (${devices.phones}) {
         gap: 2rem;
     }
 `;
@@ -40,7 +41,7 @@ const CreateButton = styled.button`
         border-bottom: 2px solid #989898;
         cursor: pointer;
     }
-    @media only screen and (${devices.phones}){
+    @media only screen and (${devices.phones}) {
         font-size: 1.2rem;
         width: 9rem;
         padding: 0rem;
@@ -53,6 +54,7 @@ const JoinGameButton = styled(CreateButton)`
 const Home = () => {
     return (
         <Layout>
+            <Navbar />
             <Container>
                 <Introduction />
                 <ButtonContainer>

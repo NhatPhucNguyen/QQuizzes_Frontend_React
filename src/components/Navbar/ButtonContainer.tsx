@@ -1,11 +1,12 @@
-import { styled } from "styled-components"
-import { devices } from "../../utils/devices"
+import { styled } from "styled-components";
+import { devices } from "../../utils/devices";
+import { useNavigate } from "react-router-dom";
 
 const BtnContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 1rem;
-`
+`;
 const LoginButton = styled.button`
     width: 8rem;
     border: 2px solid #ffffff;
@@ -15,7 +16,7 @@ const LoginButton = styled.button`
     font-weight: bolder;
     background-color: inherit;
     color: #ffffff;
-    &:hover{
+    &:hover {
         cursor: pointer;
         background-color: #edba9b;
     }
@@ -23,18 +24,31 @@ const LoginButton = styled.button`
         width: 5rem;
         font-size: 1rem;
     }
-`
+`;
 const SignUpButton = styled(LoginButton)`
     border: 2px solid #05386b;
-    color:#05386b;
-`
+    color: #05386b;
+`;
 const ButtonContainer = () => {
-  return (
-    <BtnContainer>
-        <LoginButton>Login</LoginButton>
-        <SignUpButton>Sign Up</SignUpButton>
-    </BtnContainer>
-  )
-}
+    const navigate = useNavigate();
+    return (
+        <BtnContainer>
+            <LoginButton
+                onClick={() => {
+                    navigate("/auth");
+                }}
+            >
+                Login
+            </LoginButton>
+            <SignUpButton
+                onClick={() => {
+                    navigate("/auth", { state: { isSwitch: true } });
+                }}
+            >
+                Sign Up
+            </SignUpButton>
+        </BtnContainer>
+    );
+};
 
-export default ButtonContainer
+export default ButtonContainer;

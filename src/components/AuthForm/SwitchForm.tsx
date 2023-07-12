@@ -1,8 +1,7 @@
 import { styled } from "styled-components";
-import { LoginButton, SignUpButton } from ".";
+import { FormTitle, LoginButton, SignUpButton } from ".";
 import { useContext } from "react";
 import { AuthFormContext } from "../../context/AuthFormContext";
-
 const SwitchFormContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -12,11 +11,6 @@ const SwitchFormContainer = styled.div`
     text-align: center;
     border-left: 1px solid #acacac;
 `;
-const Title = styled.span`
-    font-size: 1.2rem;
-    text-align: center;
-    font-weight: bold;
-`;
 const SwitchForm = () => {
     const authFormContext = useContext(AuthFormContext);
     const handleClick = () => {
@@ -24,11 +18,11 @@ const SwitchForm = () => {
     };
     return (
         <SwitchFormContainer>
-            <Title>
+            <FormTitle>
                 {authFormContext.isSwitch
                     ? "Already have an account ?"
                     : "Do not have an account ?"}
-            </Title>
+            </FormTitle>
             {authFormContext.isSwitch ? (
                 <LoginButton onClick={handleClick}>Login</LoginButton>
             ) : (

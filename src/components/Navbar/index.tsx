@@ -2,6 +2,10 @@ import styled from "styled-components";
 import ButtonContainer from "./ButtonContainer";
 import { devices } from "../../utils/devices";
 
+type navProps = {
+    isHideButtons?: boolean;
+};
+
 const NavContainer = styled.nav`
     width: 100%;
     background-color: #e7717d;
@@ -16,11 +20,18 @@ const Logo = styled.img`
         width: 6rem;
     }
 `;
-const Navbar = () => {
+const Link = styled.a`
+    &:hover{
+        cursor: pointer;
+    }
+`;
+const Navbar = (props: navProps) => {
     return (
         <NavContainer>
-            <Logo src="logo3.png" />
-            <ButtonContainer />
+            <Link href="/">
+                <Logo src="logo3.png"/>
+            </Link>
+            {!props.isHideButtons && <ButtonContainer />}
         </NavContainer>
     );
 };

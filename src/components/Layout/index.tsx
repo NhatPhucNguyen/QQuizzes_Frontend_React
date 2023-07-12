@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import Navbar from "../Navbar";
 
 const Container = styled.div`
     display: flex;
@@ -10,7 +9,6 @@ const Container = styled.div`
 const Layout = ({ children }: { children?: React.ReactNode }) => {
     return (
         <Container>
-            <Navbar />
             {children}
         </Container>
     );
