@@ -3,6 +3,8 @@ import Layout from "../components/Layout";
 import Introduction from "../components/Introduction";
 import { devices } from "../utils/devices";
 import Navbar from "../components/Navbar";
+import { faPlus, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -27,7 +29,7 @@ const CreateButton = styled.button`
     border: 2px solid #989898;
     border-bottom: 8px solid #989898;
     background-color: #ffffff;
-    width: 18rem;
+    width: 20rem;
     height: 5rem;
     color: #e7717d;
     font-size: 1.8rem;
@@ -43,8 +45,8 @@ const CreateButton = styled.button`
     }
     @media only screen and (${devices.phones}) {
         font-size: 1.2rem;
-        width: 9rem;
-        padding: 0rem;
+        width:9rem;
+        padding: 0.2rem;
     }
 `;
 const JoinGameButton = styled(CreateButton)`
@@ -58,8 +60,10 @@ const Home = () => {
             <Container>
                 <Introduction />
                 <ButtonContainer>
-                    <CreateButton>Create quizzes</CreateButton>
-                    <JoinGameButton>Join a game</JoinGameButton>
+                    <CreateButton>
+                        Create quizzes <FontAwesomeIcon icon={faPlus} />
+                    </CreateButton>
+                    <JoinGameButton>Join a game <FontAwesomeIcon icon={faRightToBracket} /></JoinGameButton>
                 </ButtonContainer>
             </Container>
         </Layout>
