@@ -92,7 +92,7 @@ const AuthForm = () => {
         if (location.state?.isSwitch) {
             setIsSwitch(true);
         }
-    }, []);
+    }, [location.state?.isSwitch]);
     return (
         <AuthFormContext.Provider value={{ isSwitch, setIsSwitch }}>
             <MainContainer>
