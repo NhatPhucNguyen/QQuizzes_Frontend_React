@@ -5,8 +5,11 @@ const IntroTitle = styled.span`
     font-family: "Slackey", cursive;
     font-size: 3.5rem;
     color: #05386b;
-    @media only screen and (${devices.phones}) {
-        font-size: 2.5rem;
+    @media only screen and (${devices.phones}) and (${devices.laptops}){
+        font-size: 2rem;
+    }
+    @media only screen and (${devices.laptops}){
+        font-size: 2rem;
     }
 `;
 const BriefDesc = styled.span`
@@ -16,8 +19,11 @@ const BriefDesc = styled.span`
     padding: 0.5rem;
     background-color: rgb(126, 104, 90, 0.3);
     border-radius: 25px;
+    @media only screen and (${devices.laptops}){
+        font-size: 1%.5rem;
+    }
     @media only screen and (${devices.phones}) {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 `;
 const KeyWord = styled.span`

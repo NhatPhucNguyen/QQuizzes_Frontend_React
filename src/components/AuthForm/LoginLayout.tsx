@@ -1,11 +1,12 @@
 import { AuthLayout } from ".";
 import LoginForm from "./LoginForm";
+import SwitchForm from "./SwitchForm";
 
 const LoginLayout = () => {
     return (
         <AuthLayout>
             <LoginForm />
-            <h2>Sign up link</h2>
+            <SwitchForm />
         </AuthLayout>
     );
 };

@@ -4,7 +4,7 @@ import Navbar from "../Navbar";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     height: inherit;
 `;
 const Layout = ({ children }: { children?: React.ReactNode }) => {

@@ -1,16 +1,23 @@
-import { styled } from "styled-components";
-import { FormLayout } from ".";
+import { FormLayout, FormTitle, LoginButton } from ".";
 import FormController from "./FormController";
-const Title = styled.span`
-    font-size: 1.2rem;
-    text-align: center;
-    font-weight: bold;
-`
+
 const LoginForm = () => {
     return (
         <FormLayout>
-            <Title>Login to QQuizzes</Title>
-            <FormController name="username" label="Username" type="text"/>
+            <FormTitle>Login to QQuizzes</FormTitle>
+            <FormController
+                name="username"
+                label="Username"
+                type="text"
+                value="test"
+            />
+            <FormController
+                name="password"
+                label="Password"
+                type="password"
+                value="password"
+            />
+            <LoginButton type="submit">Login</LoginButton>
         </FormLayout>
     );
 };

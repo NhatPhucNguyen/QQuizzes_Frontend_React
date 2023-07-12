@@ -10,13 +10,16 @@ const Container = styled.div`
     text-align: center;
     gap: 4em;
     height: inherit;
+    @media only screen and (${devices.phones}){
+        gap: 2rem;
+    }
 `;
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 1em;
     @media only screen and (${devices.tablets}) {
-        flex-direction: column;
+        flex-direction: row;
     }
 `;
 const CreateButton = styled.button`
@@ -36,6 +39,11 @@ const CreateButton = styled.button`
         transform: translateY(6px);
         border-bottom: 2px solid #989898;
         cursor: pointer;
+    }
+    @media only screen and (${devices.phones}){
+        font-size: 1.2rem;
+        width: 9rem;
+        padding: 0rem;
     }
 `;
 const JoinGameButton = styled(CreateButton)`
