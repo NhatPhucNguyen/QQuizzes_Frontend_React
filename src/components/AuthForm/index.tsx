@@ -21,15 +21,14 @@ const MainContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: inherit;
+    height: 100%;
     padding: 1rem;
 `;
-export const AuthLayout = styled.div`
+export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
     display: grid;
     grid-template-columns: auto auto;
     width: 60%;
-    height: max-content;
-    padding: 2rem 0rem;
+    height: ${(props) => (props.$isAutoHeight ? "auto" : "100%")};
     background-color: #ffffff;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;

@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
-
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { IUser } from "../../interfaces/app_interfaces";
 type FormControllerProps = {
     label: string;
     name: string;
@@ -7,6 +8,7 @@ type FormControllerProps = {
     type: string;
     value?: string;
     placeHolder?: string;
+    setUserData: Dispatch<SetStateAction<IUser>>;
 };
 const ControllerContainer = styled.div`
     display: flex;
@@ -38,7 +40,16 @@ function FormController(props: FormControllerProps) {
                 placeholder={props.placeHolder}
                 name={props.name}
                 id={props.id}
-            ></FormInput>
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    const { name, value } = e.currentTarget;
+                    props.setUserData((prevUser) => {
+                        return {
+                            ...prevUser,
+                            [name]: value,
+                        };
+                    });
+                }}
+            />
         </ControllerContainer>
     );
 }

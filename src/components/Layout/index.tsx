@@ -4,7 +4,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    height: inherit;
+    height: 100%;
 `;
 const Layout = ({ children }: { children?: React.ReactNode }) => {
     return (

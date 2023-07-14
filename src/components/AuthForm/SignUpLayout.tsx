@@ -4,7 +4,7 @@ import SwitchForm from "./SwitchForm";
 
 const SignUpLayout = () => {
     return (
-        <AuthLayout>
+        <AuthLayout $isAutoHeight={true}>
             <SignUpForm />
             <SwitchForm />
         </AuthLayout>
