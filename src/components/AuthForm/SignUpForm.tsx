@@ -3,6 +3,9 @@ import { FormLayout, FormTitle, SignUpButton } from ".";
 import FormController from "./FormController";
 import { IAlert, IUser } from "../../interfaces/app_interfaces";
 import Alert from "./Alert";
+import axios, { AxiosError } from "axios";
+import { API } from "../../config/API";
+import { useNavigate } from "react-router-dom";
 
 const defaultUserData: IUser = {
     fullName: "",
@@ -12,9 +15,13 @@ const defaultUserData: IUser = {
     purpose: "",
 };
 
+const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
 const SignUpForm = () => {
     const [userData, setUserData] = useState<IUser>(defaultUserData);
     const [alert, setAlert] = useState({} as IAlert);
+    const navigate = useNavigate();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let isFulfill = true;
@@ -24,10 +31,38 @@ const SignUpForm = () => {
             }
         });
         if (isFulfill) {
-            const emailRegex =
-                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
             if (emailRegex.test(userData.email)) {
-                console.log(userData);
+                const submit = async () => {
+                    try {
+                        const response = await axios.post(
+                            API + "/auth/register",
+                            JSON.stringify(userData),
+                            {
+                                headers: {
+                                    Accept: "application/json",
+                                    "Content-Type": "application/json",
+                                },
+                            }
+                        );
+                        if (response.status === 200) {
+                            navigate(0);
+                        }
+                        if (response.status == 409) {
+                            const { message } = response.data as {
+                                message: string;
+                            };
+                            setAlert({ isShow: true, message: message });
+                        }
+                    } catch (err) {
+                        if (err instanceof AxiosError) {
+                            const { message } = err.response?.data as {
+                                message: string;
+                            };
+                            setAlert({ isShow: true, message: message });
+                        }
+                    }
+                };
+                void submit();
             } else {
                 setAlert({
                     isShow: true,
