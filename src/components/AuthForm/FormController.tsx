@@ -1,6 +1,14 @@
 import { styled } from "styled-components";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import {
+    ChangeEvent,
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import { IUser } from "../../interfaces/app_interfaces";
+import { emailValidate } from "../../utils/emailValidate";
 type FormControllerProps = {
     label: string;
     name: string;
@@ -19,18 +27,31 @@ const ControllerContainer = styled.div`
 const Label = styled.label`
     font-weight: bold;
 `;
-const FormInput = styled.input`
+const FormInput = styled.input<{ $isValid?: boolean }>`
     font-size: inherit;
     font-family: inherit;
     padding: 0.5rem 1rem;
-    outline: solid 1px #000000;
+    outline: ${(props) =>
+        props.$isValid ? "solid 2px #AFD270" : "solid 2px #df0000"};
     border: none;
     &:focus {
-        outline: solid 2px #e7717d;
+        outline: ${(props) =>
+            props.$isValid ? "solid 2px #AFD270" : "solid 2px #df0000"};
     }
     border-radius: 10px;
 `;
 function FormController(props: FormControllerProps) {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [isValid, setIsValid] = useState(false);
+    useEffect(() => {
+        if (!inputRef.current?.value) {
+            setIsValid(false);
+        } else if (inputRef.current.name === "email") {
+            setIsValid(emailValidate(inputRef.current.value));
+        } else {
+            setIsValid(true);
+        }
+    }, []);
     return (
         <ControllerContainer>
             <Label htmlFor={props.id}>{props.label}</Label>
@@ -42,6 +63,13 @@ function FormController(props: FormControllerProps) {
                 id={props.id}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     const { name, value } = e.currentTarget;
+                    if (!value) {
+                        setIsValid(false);
+                    } else if (name === "email") {
+                        setIsValid(emailValidate(value));
+                    } else {
+                        setIsValid(true);
+                    }
                     props.setUserData((prevUser) => {
                         return {
                             ...prevUser,
@@ -49,6 +77,8 @@ function FormController(props: FormControllerProps) {
                         };
                     });
                 }}
+                $isValid={isValid}
+                ref={inputRef}
             />
         </ControllerContainer>
     );

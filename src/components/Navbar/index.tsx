@@ -29,7 +29,7 @@ const Navbar = (props: navProps) => {
     return (
         <NavContainer>
             <Link href="/">
-                <Logo src="logo3.png"/>
+                <Logo src="/logo3.png"/>
             </Link>
             {!props.isHideButtons && <ButtonContainer />}
         </NavContainer>

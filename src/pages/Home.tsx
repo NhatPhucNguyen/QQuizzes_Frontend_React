@@ -45,7 +45,7 @@ const CreateButton = styled.button`
     }
     @media only screen and (${devices.phones}) {
         font-size: 1.2rem;
-        width:9rem;
+        width: 9rem;
         padding: 0.2rem;
     }
 `;
@@ -53,6 +53,8 @@ const JoinGameButton = styled(CreateButton)`
     color: #ffffff;
     background-color: #7e685a;
 `;
+
+
 const Home = () => {
     return (
         <Layout>
@@ -63,7 +65,9 @@ const Home = () => {
                     <CreateButton>
                         Create quizzes <FontAwesomeIcon icon={faPlus} />
                     </CreateButton>
-                    <JoinGameButton>Join a game <FontAwesomeIcon icon={faRightToBracket} /></JoinGameButton>
+                    <JoinGameButton>
+                        Join a game <FontAwesomeIcon icon={faRightToBracket} />
+                    </JoinGameButton>
                 </ButtonContainer>
             </Container>
         </Layout>

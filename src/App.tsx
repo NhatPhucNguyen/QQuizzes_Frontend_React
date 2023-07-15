@@ -1,18 +1,26 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+    Route,
+    createBrowserRouter,
+    createRoutesFromElements,
+    RouterProvider,
+} from "react-router-dom";
 import Home from "./pages/Home";
-import Authentication from "./pages/Authentication";
-
-function App() {
-    return (
+import Authentication, { authLoader } from "./pages/Authentication";
+import { navLoader } from "./components/Navbar/ButtonContainer";
+const router = createBrowserRouter(
+    createRoutesFromElements(
         <>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/auth" element={<Authentication />} />
-                </Routes>
-            </BrowserRouter>
+            <Route path="/" element={<Home />} loader={navLoader} />
+            <Route
+                path="/auth"
+                element={<Authentication />}
+                loader={authLoader}
+            />
         </>
-    );
+    )
+);
+function App() {
+    return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -6,6 +6,7 @@ import Alert from "./Alert";
 import axios, { AxiosError } from "axios";
 import { API } from "../../config/API";
 import { useNavigate } from "react-router-dom";
+import { emailValidate } from "../../utils/emailValidate";
 
 const defaultUserData: IUser = {
     fullName: "",
@@ -15,15 +16,13 @@ const defaultUserData: IUser = {
     purpose: "",
 };
 
-const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
 const SignUpForm = () => {
     const [userData, setUserData] = useState<IUser>(defaultUserData);
     const [alert, setAlert] = useState({} as IAlert);
     const navigate = useNavigate();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        //to check empty fields
         let isFulfill = true;
         Object.values(userData).forEach((field) => {
             if (field === "" || field === undefined) {
@@ -31,7 +30,9 @@ const SignUpForm = () => {
             }
         });
         if (isFulfill) {
-            if (emailRegex.test(userData.email)) {
+            //validate email
+            if (emailValidate(userData.email)) {
+                //submit data
                 const submit = async () => {
                     try {
                         const response = await axios.post(
@@ -45,7 +46,7 @@ const SignUpForm = () => {
                             }
                         );
                         if (response.status === 200) {
-                            navigate(0);
+                            navigate("/auth",{ state: { isSwitch: false } });
                         }
                         if (response.status == 409) {
                             const { message } = response.data as {
@@ -54,6 +55,7 @@ const SignUpForm = () => {
                             setAlert({ isShow: true, message: message });
                         }
                     } catch (err) {
+                        //set alert based on response
                         if (err instanceof AxiosError) {
                             const { message } = err.response?.data as {
                                 message: string;
@@ -64,12 +66,14 @@ const SignUpForm = () => {
                 };
                 void submit();
             } else {
+                //set alert if email not valid
                 setAlert({
                     isShow: true,
                     message: "Please enter a valid email",
                 });
             }
         } else {
+            //set alert if missing required fields
             setAlert({
                 isShow: true,
                 message: "Please fulfill required fields",
