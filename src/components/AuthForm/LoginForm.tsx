@@ -29,10 +29,12 @@ const LoginForm = () => {
                         JSON.stringify(userData)
                     );
                     if (response.status === 200) {
-                        const { accessToken } = response.data as {
+                        const { accessToken, fullName } = response.data as {
                             accessToken: string;
+                            fullName: string;
                         };
                         localStorage.setItem("accessToken", accessToken);
+                        localStorage.setItem("fullName", fullName);
                         navigate("/");
                     }
                 } catch (err) {
