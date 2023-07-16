@@ -3,6 +3,8 @@ import { devices } from "../../utils/devices";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { authenticatedCheck } from "../../utils/authenticatedCheck";
 import { Fragment } from "react";
+import { API } from "../../config/API";
+import { customAxios } from "../../config/axiosConfig";
 
 const BtnContainer = styled.div`
     display: flex;
@@ -43,7 +45,18 @@ const ButtonContainer = () => {
     return (
         <BtnContainer>
             {isAuthenticated ? (
-                <LogoutButton>Logout</LogoutButton>
+                <LogoutButton
+                    onClick={() => {
+                        const logout = async () => {
+                            await customAxios.get(API + "/auth/logout");
+                            localStorage.clear();
+                            navigate(0);
+                        };
+                        void logout();
+                    }}
+                >
+                    Logout
+                </LogoutButton>
             ) : (
                 <Fragment>
                     <LoginButton

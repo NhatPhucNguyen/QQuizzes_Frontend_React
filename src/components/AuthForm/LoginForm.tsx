@@ -2,8 +2,8 @@ import { FormLayout, FormTitle, LoginButton } from ".";
 import { IAlert, IUser } from "../../interfaces/app_interfaces";
 import FormController from "./FormController";
 import { useState, FormEvent } from "react";
-import axios, { AxiosError } from "axios";
-import { API } from "../../config/API";
+import { AxiosError } from "axios";
+import { customAxios } from "../../config/axiosConfig";
 import Alert from "./Alert";
 import { useNavigate } from "react-router-dom";
 
@@ -24,15 +24,9 @@ const LoginForm = () => {
         } else {
             const login = async () => {
                 try {
-                    const response = await axios.post(
-                        API + "/auth/login",
-                        JSON.stringify(userData),
-                        {
-                            headers: {
-                                Accept: "application/json",
-                                "Content-Type": "application/json",
-                            },
-                        }
+                    const response = await customAxios.post(
+                        "/auth/login",
+                        JSON.stringify(userData)
                     );
                     if (response.status === 200) {
                         const { accessToken } = response.data as {

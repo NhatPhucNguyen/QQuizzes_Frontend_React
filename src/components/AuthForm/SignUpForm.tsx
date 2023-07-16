@@ -7,6 +7,7 @@ import axios, { AxiosError } from "axios";
 import { API } from "../../config/API";
 import { useNavigate } from "react-router-dom";
 import { emailValidate } from "../../utils/emailValidate";
+import { customAxios } from "../../config/axiosConfig";
 
 const defaultUserData: IUser = {
     fullName: "",
@@ -35,7 +36,7 @@ const SignUpForm = () => {
                 //submit data
                 const submit = async () => {
                     try {
-                        const response = await axios.post(
+                        let response = await axios.post(
                             API + "/auth/register",
                             JSON.stringify(userData),
                             {
@@ -46,7 +47,18 @@ const SignUpForm = () => {
                             }
                         );
                         if (response.status === 200) {
-                            navigate("/auth",{ state: { isSwitch: false } });
+                            response = await customAxios.post(
+                                "/auth/login",
+                                JSON.stringify({
+                                    username: userData.username,
+                                    password: userData.password,
+                                })
+                            );
+                            const { accessToken } = response.data as {
+                                accessToken: string;
+                            };
+                            localStorage.setItem("accessToken", accessToken);
+                            navigate("/");
                         }
                         if (response.status == 409) {
                             const { message } = response.data as {

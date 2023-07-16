@@ -1,11 +1,10 @@
-import axios from "axios";
-import { API } from "../config/API";
+import { customAxios } from "../config/axiosConfig";
+
 export const authenticatedCheck = async () => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken") as string;
     try {
         if (accessToken) {
-            const response = await axios.get(API + "/auth", {
-                withCredentials: true,
+            const response = await customAxios.get("/auth", {
                 headers: {
                     Authorization: "Bearer " + accessToken,
                 },
@@ -16,8 +15,9 @@ export const authenticatedCheck = async () => {
         } else {
             return false;
         }
-    } catch (error) {
+    } catch (err) {
+        console.log(err);
         return false;
     }
-    return false;
+    //return false;
 };
