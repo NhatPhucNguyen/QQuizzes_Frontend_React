@@ -4,10 +4,13 @@ import { devices } from "../../utils/devices";
 
 type navProps = {
     isHideButtons?: boolean;
+    isHideLogo?: boolean;
+    height?: string;
 };
 
-const NavContainer = styled.nav`
+const NavContainer = styled.nav<{ $height?: string }>`
     width: 100%;
+    height: ${(props) => props.$height || "auto"};
     background-color: #e7717d;
     display: flex;
     flex-direction: row;
@@ -21,16 +24,18 @@ const Logo = styled.img`
     }
 `;
 const Link = styled.a`
-    &:hover{
+    &:hover {
         cursor: pointer;
     }
 `;
 const Navbar = (props: navProps) => {
     return (
-        <NavContainer>
-            <Link href="/">
-                <Logo src="/logo3.png"/>
-            </Link>
+        <NavContainer $height={props.height}>
+            {!props.isHideLogo && (
+                <Link href="/">
+                    <Logo src="/logo3.png" />
+                </Link>
+            )}
             {!props.isHideButtons && <ButtonContainer />}
         </NavContainer>
     );

@@ -7,6 +7,7 @@ import {
 import Home from "./pages/Home";
 import Authentication, { authLoader } from "./pages/Authentication";
 import { navLoader } from "./components/Navbar/ButtonContainer";
+import DashBoard from "./pages/DashBoard";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -16,6 +17,7 @@ const router = createBrowserRouter(
                 element={<Authentication />}
                 loader={authLoader}
             />
+            <Route path="/dashboard" element={<DashBoard />} />
         </>
     )
 );
