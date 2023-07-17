@@ -58,7 +58,7 @@ const Sidebar = () => {
     return (
         <SideContainer>
             <LogoContainer>
-                <Link>
+                <Link href="/dashboard">
                     <Logo src="/logo3.png" />
                 </Link>
             </LogoContainer>

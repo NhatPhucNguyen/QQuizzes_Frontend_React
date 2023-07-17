@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import InitialContent from "../components/InitialContent";
 
 const Container = styled.div`
     display: grid;
@@ -18,7 +19,12 @@ const DashBoard = () => {
         <Container>
             <Sidebar />
             <Content>
-                <Navbar isHideLogo={true} isHideButtons={true} height="3.5rem"/>
+                <Navbar
+                    isHideLogo={true}
+                    isHideButtons={true}
+                    height="3.5rem"
+                />
+                <InitialContent />
             </Content>
         </Container>
     );

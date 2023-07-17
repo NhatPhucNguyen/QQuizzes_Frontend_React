@@ -5,9 +5,9 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import Authentication, { authLoader } from "./pages/Authentication";
-import { navLoader } from "./components/Navbar/ButtonContainer";
+import Authentication from "./pages/Authentication";
 import DashBoard from "./pages/DashBoard";
+import { navLoader, requireAuth } from "./utils/loader";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -15,7 +15,7 @@ const router = createBrowserRouter(
             <Route
                 path="/auth"
                 element={<Authentication />}
-                loader={authLoader}
+                loader={requireAuth}
             />
             <Route path="/dashboard" element={<DashBoard />} />
         </>

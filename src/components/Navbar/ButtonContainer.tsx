@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { devices } from "../../utils/devices";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { authenticatedCheck } from "../../utils/authenticatedCheck";
 import { Fragment } from "react";
 import { API } from "../../config/API";
 import { customAxios } from "../../config/axiosConfig";
@@ -43,10 +42,6 @@ const Name = styled.span`
     font-weight: bold;
     text-decoration: underline;
 `
-export const navLoader = async () => {
-    const isAuthenticated = await authenticatedCheck();
-    return isAuthenticated;
-};
 
 const ButtonContainer = () => {
     const navigate = useNavigate();
