@@ -1,5 +1,11 @@
 import React from "react";
 import { styled } from "styled-components";
+import SelectionBoard from "../SelectionBoard";
+
+type CustomProps = {
+    isShowModal: boolean;
+    closeModal: () => void;
+};
 
 const Container = styled.div`
     display: flex;
@@ -9,6 +15,7 @@ const Container = styled.div`
     justify-content: center;
     height: inherit;
     font-weight: bold;
+    position: relative;
 `;
 
 const Title = styled.span`
@@ -41,24 +48,25 @@ const SearchButton = styled.button`
 `;
 const JoinContainer = styled(SearchBoxContainer)`
     width: 30rem;
-`
-const SelectionBoard = styled.div`
-    display: flex;
 `;
 
-const InitialContent = () => {
+const InitialContent = (props: CustomProps) => {
     return (
         <Container>
             <Title>What are you looking for today ?</Title>
             <SearchBoxContainer>
-                <SearchBox type="text" placeholder="Search for quizzes on any topic"/>
-                <SearchButton >Search</SearchButton>
+                <SearchBox
+                    type="text"
+                    placeholder="Search for quizzes on any topic"
+                />
+                <SearchButton>Search</SearchButton>
             </SearchBoxContainer>
             <Title>Or Join a game ?</Title>
             <JoinContainer>
-                <SearchBox type="text" placeholder="Enter code"/>
+                <SearchBox type="text" placeholder="Enter code" />
                 <SearchButton>Join</SearchButton>
             </JoinContainer>
+            {props.isShowModal && <SelectionBoard closeModal={props.closeModal}/>}
         </Container>
     );
 };

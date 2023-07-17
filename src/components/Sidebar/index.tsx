@@ -1,7 +1,13 @@
 import { styled } from "styled-components";
 import { devices } from "../../utils/devices";
 import Tabs from "./Tabs";
-import { MouseEvent } from "react";
+import { customAxios } from "../../config/axiosConfig";
+import { useNavigate } from "react-router-dom";
+
+type CustomProps = {
+    openModal: () => void;
+};
+
 const SideContainer = styled.nav`
     height: 100%;
     width: 100%;
@@ -54,7 +60,8 @@ const LogoutButton = styled(CreateButton)`
     background-color: #e7717d;
     color: #ffffff;
 `;
-const Sidebar = () => {
+const Sidebar = (props: CustomProps) => {
+    const navigate = useNavigate();
     return (
         <SideContainer>
             <LogoContainer>
@@ -63,9 +70,20 @@ const Sidebar = () => {
                 </Link>
             </LogoContainer>
             <UserSummary>Hello, {localStorage.getItem("fullName")}</UserSummary>
-            <CreateButton>Create</CreateButton>
+            <CreateButton onClick={props.openModal}>Create</CreateButton>
             <Tabs />
-            <LogoutButton>Logout</LogoutButton>
+            <LogoutButton
+                onClick={() => {
+                    const logout = async () => {
+                        await customAxios.get("/auth/logout");
+                        localStorage.clear();
+                        navigate("/");
+                    };
+                    void logout();
+                }}
+            >
+                Logout
+            </LogoutButton>
         </SideContainer>
     );
 };

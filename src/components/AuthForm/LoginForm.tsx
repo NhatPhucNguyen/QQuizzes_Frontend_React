@@ -35,7 +35,7 @@ const LoginForm = () => {
                         };
                         localStorage.setItem("accessToken", accessToken);
                         localStorage.setItem("fullName", fullName);
-                        navigate("/");
+                        navigate("/dashboard");
                     }
                 } catch (err) {
                     if (err instanceof AxiosError) {
@@ -44,7 +44,14 @@ const LoginForm = () => {
                                 message: string;
                             };
                             setAlert({ isShow: true, message: message });
-                        } else {
+                        }
+                        if(err.request){
+                            const { message } = err as {
+                                message: string;
+                            };
+                            setAlert({ isShow: true, message: message });
+                        }
+                        else {
                             console.log(err);
                         }
                     }

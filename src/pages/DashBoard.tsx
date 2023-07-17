@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import InitialContent from "../components/InitialContent";
+import { useState } from "react";
 
 const Container = styled.div`
     display: grid;
@@ -15,16 +16,23 @@ const Content = styled.div`
     height: 100%;
 `;
 const DashBoard = () => {
+    const [isShow, setIsShow] = useState(false);
+    const openModal = () => {
+        setIsShow(true);
+    };
+    const closeModal = () => {
+        setIsShow(false);
+    };
     return (
         <Container>
-            <Sidebar />
+            <Sidebar openModal={openModal} />
             <Content>
                 <Navbar
                     isHideLogo={true}
                     isHideButtons={true}
                     height="3.5rem"
                 />
-                <InitialContent />
+                <InitialContent isShowModal={isShow} closeModal={closeModal}/>
             </Content>
         </Container>
     );

@@ -54,7 +54,7 @@ const ButtonContainer = () => {
                     <LogoutButton
                         onClick={() => {
                             const logout = async () => {
-                                await customAxios.get(API + "/auth/logout");
+                                await customAxios.get("/auth/logout");
                                 localStorage.clear();
                                 navigate(0);
                             };
