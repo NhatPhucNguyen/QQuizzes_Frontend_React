@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Authentication from "./pages/Authentication";
 import DashBoard from "./pages/DashBoard";
 import { authFormAccess, navLoader, requireAuth } from "./utils/loader";
+import MultipleChoiceCreate from "./pages/MultipleChoiceCreate";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -21,7 +22,8 @@ const router = createBrowserRouter(
                 path="/dashboard"
                 element={<DashBoard />}
                 loader={requireAuth}
-            ></Route>
+            />
+            <Route path="/collection/create" element={<MultipleChoiceCreate/>} loader={requireAuth}/>
         </>
     )
 );

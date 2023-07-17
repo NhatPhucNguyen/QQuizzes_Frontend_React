@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import Modal from "../Modal";
+import { useNavigate } from "react-router-dom";
 
 type CustomProps = {
     closeModal: () => void;
@@ -47,15 +48,22 @@ const CloseMark = styled.button`
     right: 0;
     top: 0;
     padding: 1rem;
-`
+`;
 const SelectionBoard = (props: CustomProps) => {
+    const navigate = useNavigate();
     return (
         <Modal>
             <Container>
                 <CloseMark onClick={props.closeModal}>X</CloseMark>
                 <Title>What would you like to create ?</Title>
                 <SelectionsContainer>
-                    <SelectionItem>Multiple Choices</SelectionItem>
+                    <SelectionItem
+                        onClick={() => {
+                            navigate("/collection/create");
+                        }}
+                    >
+                        Multiple Choices
+                    </SelectionItem>
                     <SelectionItem disabled>Fill in blank</SelectionItem>
                     <SelectionItem disabled>Reorder</SelectionItem>
                     <SelectionItem disabled>True/False</SelectionItem>
