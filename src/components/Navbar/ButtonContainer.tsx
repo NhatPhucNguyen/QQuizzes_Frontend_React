@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import { devices } from "../../utils/devices";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
-import { API } from "../../config/API";
 import { customAxios } from "../../config/axiosConfig";
 
 const BtnContainer = styled.div`

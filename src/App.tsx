@@ -18,12 +18,13 @@ const router = createBrowserRouter(
                 element={<Authentication />}
                 loader={authFormAccess}
             />
-            <Route
-                path="/dashboard"
-                element={<DashBoard />}
-                loader={requireAuth}
-            />
-            <Route path="/collection/create" element={<MultipleChoiceCreate/>} loader={requireAuth}/>
+            <Route path="/dashboard" loader={requireAuth}>
+                <Route index element={<DashBoard />} />
+                <Route
+                    path={"collection/create"}
+                    element={<MultipleChoiceCreate />}
+                />
+            </Route>
         </>
     )
 );

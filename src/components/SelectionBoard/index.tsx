@@ -59,7 +59,7 @@ const SelectionBoard = (props: CustomProps) => {
                 <SelectionsContainer>
                     <SelectionItem
                         onClick={() => {
-                            navigate("/collection/create");
+                            navigate("collection/create");
                         }}
                     >
                         Multiple Choices

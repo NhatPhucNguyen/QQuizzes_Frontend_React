@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import InitialContent from "../components/InitialContent";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 const Container = styled.div`
     display: grid;
