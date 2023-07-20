@@ -22,7 +22,7 @@ export interface Collection {
 }
 export interface IQuiz {
     _id?: string;
-    number: number;
+    questionNumber: number;
     question: string;
     desc?: string;
     selections: Selection[];

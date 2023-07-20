@@ -21,7 +21,7 @@ const router = createBrowserRouter(
             <Route path="/dashboard" loader={requireAuth}>
                 <Route index element={<DashBoard />} />
                 <Route
-                    path={"collection/create"}
+                    path={"collection/create/"}
                     element={<MultipleChoiceCreate />}
                 />
             </Route>

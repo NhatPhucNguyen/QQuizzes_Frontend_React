@@ -1,6 +1,9 @@
-import React from "react";
 import { styled } from "styled-components";
-
+import QuestionSelection, {
+    QuestionNumber,
+    QuestionNumberContainer,
+} from "./QuestionSelection";
+import { useFormContext } from "react-hook-form";
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -20,24 +23,6 @@ const CollectionName = styled.input`
         color: #c9c9c9;
     }
 `;
-const QuestionNumberContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-`;
-const QuestionNumber = styled.select`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: #844349;
-    height: 100%;
-    width: 50%;
-    border: none;
-    outline: none;
-`;
 const LimitContainer = styled(QuestionNumberContainer)`
     flex-direction: row;
     gap: 1rem;
@@ -51,26 +36,25 @@ const TimeLimit = styled(QuestionNumber)`
     width: 30%;
 `;
 const SubNav = () => {
+    const { register } = useFormContext();
     return (
         <Container>
-            <CollectionName type="text" placeholder="Collection Name..." />
-            <QuestionNumberContainer>
-                <QuestionNumber defaultValue={"default"}>
-                    <option value={"default"}>Question 1</option>
-                    <option>Question 2</option>
-                    <option>Question 3</option>
-                </QuestionNumber>
-            </QuestionNumberContainer>
+            <CollectionName
+                name="collection"
+                type="text"
+                placeholder="Collection Name..."
+            />
+            <QuestionSelection />
             <LimitContainer>
-                <Point>
-                    <option value={"default"}>1 pts</option>
-                    <option>2 pts</option>
-                    <option>3 pts</option>
+                <Point defaultValue={1} {...register("point")}>
+                    <option value={1}>1 pts</option>
+                    <option value={2}>2 pts</option>
+                    <option value={3}>3 pts</option>
                 </Point>
-                <TimeLimit>
-                    <option value={"default"}>30s</option>
-                    <option>45s</option>
-                    <option>60s</option>
+                <TimeLimit defaultValue={30} {...register("timeLimit")}>
+                    <option value={30}>30s</option>
+                    <option value={45}>45s</option>
+                    <option value={60}>60s</option>
                 </TimeLimit>
             </LimitContainer>
         </Container>

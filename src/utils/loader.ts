@@ -8,13 +8,13 @@ export const requireAuth = async () => {
     }
     return null;
 };
-export const authFormAccess =async () => {
+export const authFormAccess = async () => {
     const isAuthenticated = await authenticatedCheck();
     if (isAuthenticated) {
         return redirect("/dashboard");
     }
     return null;
-}
+};
 export const navLoader = async () => {
     const isAuthenticated = await authenticatedCheck();
     return isAuthenticated;

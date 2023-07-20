@@ -1,6 +1,6 @@
+import { AxiosError } from "axios";
 import { customAxios } from "../config/axiosConfig";
 export const refreshToken = async () => {
-    console.log("run me");
     try {
         const response = await customAxios.get("/auth/refreshToken");
         const { accessToken } = response.data as { accessToken: string };
@@ -8,7 +8,11 @@ export const refreshToken = async () => {
         //return true if access token is refreshed
         return true;
     } catch (err) {
-        console.log(err);
+        if (err instanceof AxiosError) {
+            if (err.response?.status === 422) {
+                localStorage.clear();
+            }
+        }
         return false;
     }
 };
