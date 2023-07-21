@@ -10,7 +10,7 @@ export const refreshToken = async () => {
     } catch (err) {
         if (err instanceof AxiosError) {
             if (err.response?.status === 422) {
-                localStorage.clear();
+                localStorage.removeItem("accessToken");
             }
         }
         return false;

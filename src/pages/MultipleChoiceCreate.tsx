@@ -44,8 +44,9 @@ const MultipleChoiceCreate = () => {
         e?.preventDefault();
         console.log(data);
         setQuizArr((prevArr) => {
-            return { ...prevArr, data };
+            return [...prevArr, data];
         });
+        console.log(quizArr);
     };
     return (
         <FormProvider {...methods}>

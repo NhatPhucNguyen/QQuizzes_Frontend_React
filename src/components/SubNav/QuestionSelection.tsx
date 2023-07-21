@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { useFormContext } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { MultiChoiceContext } from "../../context/MultiChoiceContext";
 
 export const QuestionNumberContainer = styled.div`
@@ -28,16 +28,16 @@ const QuestionSelection = () => {
         <QuestionNumberContainer>
             <QuestionNumber
                 {...register("questionNumber")}
-                defaultValue={quizArr.length + 1 || 1}
+                defaultValue={quizArr.length + 1}
+                autoFocus
             >
-                <option value={quizArr.length + 1 || 1}>{`Question ${
-                    quizArr.length + 1 || 1
-                }`}</option>
+                <option value={quizArr.length + 1 | 1}>{`Question ${quizArr.length + 1}`}</option>
                 {quizArr.length > 0 &&
                     quizArr.map((quiz) => {
                         return (
                             <option
-                                value={quiz.questionNumber}
+                                key={quizArr.indexOf(quiz)}
+                                value={quizArr.indexOf(quiz).toString()}
                             >{`Question ${quiz.questionNumber}`}</option>
                         );
                     })}

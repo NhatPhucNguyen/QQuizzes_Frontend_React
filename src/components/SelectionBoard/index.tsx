@@ -1,21 +1,30 @@
 import { styled } from "styled-components";
 import Modal from "../Modal";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Selections from "./Selections";
+import CollectionCreate from "./CollectionCreate";
 
 type CustomProps = {
     closeModal: () => void;
 };
 
+export type ShowForm = {
+    selection: string;
+    selectionTitle: string;
+    isShow: boolean;
+};
+
 const Container = styled.div`
     width: 70%;
-    height: 70%;
+    padding: 1rem;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    position: absolute;
+    position: relative;
 `;
 
 const Title = styled.span`
@@ -23,26 +32,7 @@ const Title = styled.span`
     font-weight: bold;
     text-align: center;
 `;
-const SelectionsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem;
-    padding: 1rem;
-    justify-content: center;
-`;
-const SelectionItem = styled.button`
-    width: 15rem;
-    outline: none;
-    border: none;
-    padding: 1rem;
-    font-size: 1.2rem;
-    border-radius: 50px;
-    background-color: #39f339;
-    &:hover {
-        cursor: pointer;
-    }
-`;
+
 const CloseMark = styled.button`
     position: absolute;
     right: 0;
@@ -51,23 +41,22 @@ const CloseMark = styled.button`
 `;
 const SelectionBoard = (props: CustomProps) => {
     const navigate = useNavigate();
+    const [showForm, setShowForm] = useState({} as ShowForm);
     return (
         <Modal>
             <Container>
                 <CloseMark onClick={props.closeModal}>X</CloseMark>
-                <Title>What would you like to create ?</Title>
-                <SelectionsContainer>
-                    <SelectionItem
-                        onClick={() => {
-                            navigate("collection/create");
-                        }}
-                    >
-                        Multiple Choices
-                    </SelectionItem>
-                    <SelectionItem disabled>Fill in blank</SelectionItem>
-                    <SelectionItem disabled>Reorder</SelectionItem>
-                    <SelectionItem disabled>True/False</SelectionItem>
-                </SelectionsContainer>
+                {!showForm.isShow ? (
+                    <>
+                        <Title>What would you like to create ?</Title>
+                        <Selections setShowForm={setShowForm} />
+                    </>
+                ) : (
+                    <CollectionCreate
+                        selection={showForm.selection}
+                        selectionTitle={showForm.selectionTitle}
+                    />
+                )}
             </Container>
         </Modal>
     );

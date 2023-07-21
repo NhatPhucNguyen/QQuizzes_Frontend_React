@@ -13,7 +13,7 @@ export interface IAlert {
     isShow: boolean;
     message: string;
 }
-export interface Collection {
+export interface ICollection {
     _id?: string;
     collectionName: string;
     topic?: string;
