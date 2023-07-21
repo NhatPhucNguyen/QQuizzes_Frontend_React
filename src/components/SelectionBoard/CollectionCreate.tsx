@@ -13,6 +13,9 @@ import {
 import { ICollection } from "../../interfaces/app_interfaces";
 import { useState } from "react";
 import Alert from "../AuthForm/Alert";
+import { customAxios } from "../../config/axiosConfig";
+import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 type CustomProps = {
     selection: string;
@@ -45,15 +48,34 @@ const Button = styled.button`
 
 const CollectionCreate = (props: CustomProps) => {
     const methods = useForm<ICollection>();
+    const navigate = useNavigate();
     const [alert, setAlert] = useState({ isShow: false, message: "" });
     const { handleSubmit } = methods;
-    const onSubmit: SubmitHandler<ICollection> = (data, e) => {
+    const onSubmit: SubmitHandler<ICollection> = async (data, e) => {
         e?.preventDefault();
-        console.log(data);
+        try {
+            const response = await customAxios.post(
+                "/api/collection/create",
+                JSON.stringify(data)
+            );
+            if(response.status === 200){
+                navigate(`collection/${data.collectionName}/create`)
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                const { message } = error.response?.data as { message: string };
+                setAlert({
+                    isShow: true,
+                    message: message,
+                });
+            }
+        }
     };
     const onInvalid: SubmitErrorHandler<ICollection> = (err, e) => {
         e?.preventDefault();
-        setAlert({ isShow: true, message: "Missing required fields" });
+        if (err) {
+            setAlert({ isShow: true, message: "Missing required fields" });
+        }
     };
     return (
         <FormProvider {...methods}>

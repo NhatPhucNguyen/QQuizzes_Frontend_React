@@ -4,6 +4,7 @@ import QuestionSelection, {
     QuestionNumberContainer,
 } from "./QuestionSelection";
 import { useFormContext } from "react-hook-form";
+import { useParams } from "react-router-dom";
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -37,12 +38,14 @@ const TimeLimit = styled(QuestionNumber)`
 `;
 const SubNav = () => {
     const { register } = useFormContext();
+    const {collectionName} = useParams();
     return (
         <Container>
             <CollectionName
                 name="collection"
                 type="text"
-                placeholder="Collection Name..."
+                value={collectionName}
+                readOnly
             />
             <QuestionSelection />
             <LimitContainer>

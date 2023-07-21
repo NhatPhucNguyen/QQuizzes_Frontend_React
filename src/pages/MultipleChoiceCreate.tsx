@@ -7,6 +7,7 @@ import { FormEvent, useState } from "react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { IQuiz } from "../interfaces/app_interfaces";
 import { MultiChoiceContext } from "../context/MultiChoiceContext";
+import { useParams } from "react-router-dom";
 
 const BigForm = styled.form`
     display: flex;
@@ -46,7 +47,6 @@ const MultipleChoiceCreate = () => {
         setQuizArr((prevArr) => {
             return [...prevArr, data];
         });
-        console.log(quizArr);
     };
     return (
         <FormProvider {...methods}>
