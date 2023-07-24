@@ -7,8 +7,14 @@ import {
 import Home from "./pages/Home";
 import Authentication from "./pages/Authentication";
 import DashBoard from "./pages/DashBoard";
-import { authFormAccess, navLoader, requireAuth } from "./utils/loader";
+import {
+    authFormAccess,
+    collectionLoader,
+    navLoader,
+    requireAuth,
+} from "./utils/loader";
 import MultipleChoiceCreate from "./pages/MultipleChoiceCreate";
+import InitialContent from "./components/InitialContent";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -19,12 +25,16 @@ const router = createBrowserRouter(
                 loader={authFormAccess}
             />
             <Route path="/dashboard" loader={requireAuth}>
-                <Route index element={<DashBoard />} />
+                <Route path="" element={<DashBoard />}>
+                    <Route index element={<InitialContent />} />
+                </Route>
                 <Route
                     path={"collection/:collectionName/create/"}
                     element={<MultipleChoiceCreate />}
+                    loader={collectionLoader}
                 />
             </Route>
+            <Route path="*" element={<h1>Not found</h1>} />
         </>
     )
 );

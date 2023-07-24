@@ -17,7 +17,7 @@ const Content = styled.div`
     height: 100%;
 `;
 const DashBoard = () => {
-    const [isShow, setIsShow] = useState(false);
+    const [isShowModal, setIsShow] = useState(false);
     const openModal = () => {
         setIsShow(true);
     };
@@ -33,7 +33,7 @@ const DashBoard = () => {
                     isHideButtons={true}
                     height="3.5rem"
                 />
-                <InitialContent isShowModal={isShow} closeModal={closeModal}/>
+                <Outlet context={{isShowModal,closeModal}}/>
             </Content>
         </Container>
     );

@@ -4,7 +4,11 @@ import QuestionSelection, {
     QuestionNumberContainer,
 } from "./QuestionSelection";
 import { useFormContext } from "react-hook-form";
-import { useParams } from "react-router-dom";
+
+type CustomProps = {
+    collectionName: string;
+};
+
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -36,15 +40,14 @@ const Point = styled(QuestionNumber)`
 const TimeLimit = styled(QuestionNumber)`
     width: 30%;
 `;
-const SubNav = () => {
+const SubNav = (props: CustomProps) => {
     const { register } = useFormContext();
-    const {collectionName} = useParams();
     return (
         <Container>
             <CollectionName
                 name="collection"
                 type="text"
-                value={collectionName}
+                value={props.collectionName}
                 readOnly
             />
             <QuestionSelection />
