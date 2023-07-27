@@ -4,6 +4,10 @@ import Navbar from "../components/Navbar";
 import InitialContent from "../components/InitialContent";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import SelectionBoard from "../components/SelectionBoard";
+import { ICollection, ShowModal } from "../interfaces/app_interfaces";
+import CollectionForm from "../components/CollectionForm";
+import Modal from "../components/Modal";
 
 const Container = styled.div`
     display: grid;
@@ -17,12 +21,17 @@ const Content = styled.div`
     height: 100%;
 `;
 const DashBoard = () => {
-    const [isShowModal, setIsShow] = useState(false);
-    const openModal = () => {
-        setIsShow(true);
+    const [showModal, setShowModal] = useState<ShowModal>({ isShow: false });
+    const openModal = (formName?: string, collectionData?: ICollection) => {
+        setShowModal({
+            ...showModal,
+            isShow: true,
+            formName: formName,
+            collectionData: collectionData,
+        });
     };
     const closeModal = () => {
-        setIsShow(false);
+        setShowModal({ ...showModal, isShow: false });
     };
     return (
         <Container>
@@ -33,7 +42,21 @@ const DashBoard = () => {
                     isHideButtons={true}
                     height="3.5rem"
                 />
-                <Outlet context={{isShowModal,closeModal}}/>
+                {/* Display main content base on specific route*/}
+                <Outlet context={{ openModal, closeModal }} />
+                {showModal.isShow &&
+                    showModal.formName === "CollectionForm" && (
+                        <Modal>
+                            <CollectionForm
+                                collectionData={showModal.collectionData}
+                                closeModal={closeModal}
+                            />
+                        </Modal>
+                    )}
+                {showModal.isShow &&
+                    showModal.formName === "CollectionCreate" && (
+                        <SelectionBoard closeModal={closeModal} />
+                    )}
             </Content>
         </Container>
     );

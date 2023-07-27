@@ -44,3 +44,16 @@ export const collectionLoader: ActionFunction = async ({ params }) => {
         }
     }
 };
+
+export const myCollectionsLoader = async () => {
+    try {
+        const response = await customAxios.get("/api/collection/myCollection/getAll");
+        if (response.status === 200) {
+            const data = response.data as ICollection[];
+            return data;
+        }
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};

@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import DashBoard from '../../pages/DashBoard';
 
 const TabContainer = styled.div`
     display: flex;
@@ -22,11 +24,17 @@ const TabItem = styled.div`
     }
 `;
 const Tabs = () => {
+    const navigate = useNavigate();
     return (
         <TabContainer>
+            <TabItem onClick={()=>{
+                navigate("/dashboard")
+            }}>
+                <span>DashBoard</span>
+            </TabItem>
             <TabItem
                 onClick={() => {
-                    console.log("Hello");
+                    navigate("myCollection")
                 }}
             >
                 <span>My Collections</span>

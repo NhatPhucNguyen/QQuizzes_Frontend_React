@@ -1,12 +1,4 @@
-import React from "react";
 import { styled } from "styled-components";
-import SelectionBoard from "../SelectionBoard";
-import { useOutletContext } from "react-router-dom";
-
-type CustomProps = {
-    isShowModal: boolean;
-    closeModal: () => void;
-};
 
 const Container = styled.div`
     display: flex;
@@ -52,7 +44,6 @@ const JoinContainer = styled(SearchBoxContainer)`
 `;
 
 const InitialContent = () => {
-    const {isShowModal,closeModal} = useOutletContext<CustomProps>();
     return (
         <Container>
             <Title>What are you looking for today ?</Title>
@@ -68,7 +59,6 @@ const InitialContent = () => {
                 <SearchBox type="text" placeholder="Enter code" />
                 <SearchButton>Join</SearchButton>
             </JoinContainer>
-            {isShowModal && <SelectionBoard closeModal={closeModal}/>}
         </Container>
     );
 };

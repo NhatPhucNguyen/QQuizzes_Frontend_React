@@ -10,11 +10,13 @@ import DashBoard from "./pages/DashBoard";
 import {
     authFormAccess,
     collectionLoader,
+    myCollectionsLoader,
     navLoader,
     requireAuth,
 } from "./utils/loader";
 import MultipleChoiceCreate from "./pages/MultipleChoiceCreate";
 import InitialContent from "./components/InitialContent";
+import MyCollection from "./components/MyCollection";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -27,6 +29,11 @@ const router = createBrowserRouter(
             <Route path="/dashboard" loader={requireAuth}>
                 <Route path="" element={<DashBoard />}>
                     <Route index element={<InitialContent />} />
+                    <Route
+                        path="myCollection"
+                        element={<MyCollection />}
+                        loader={myCollectionsLoader}
+                    />
                 </Route>
                 <Route
                     path={"collection/:collectionName/create/"}

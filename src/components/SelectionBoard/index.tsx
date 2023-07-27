@@ -3,7 +3,7 @@ import Modal from "../Modal";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Selections from "./Selections";
-import CollectionCreate from "./CollectionCreate";
+import CollectionForm from "../CollectionForm";
 
 type CustomProps = {
     closeModal: () => void;
@@ -16,7 +16,7 @@ export type ShowForm = {
 };
 
 const Container = styled.div`
-    width: 70%;
+    width: 50%;
     padding: 1rem;
     background-color: #ffffff;
     display: flex;
@@ -44,20 +44,19 @@ const SelectionBoard = (props: CustomProps) => {
     const [showForm, setShowForm] = useState({} as ShowForm);
     return (
         <Modal>
-            <Container>
-                <CloseMark onClick={props.closeModal}>X</CloseMark>
-                {!showForm.isShow ? (
-                    <>
-                        <Title>What would you like to create ?</Title>
-                        <Selections setShowForm={setShowForm} />
-                    </>
-                ) : (
-                    <CollectionCreate
-                        selection={showForm.selection}
-                        selectionTitle={showForm.selectionTitle}
-                    />
-                )}
-            </Container>
+            {!showForm.isShow ? (
+                <Container>
+                    <CloseMark onClick={props.closeModal}>X</CloseMark>
+                    <Title>What would you like to create ?</Title>
+                    <Selections setShowForm={setShowForm} />
+                </Container>
+            ) : (
+                <CollectionForm
+                    selection={showForm.selection}
+                    selectionTitle={showForm.selectionTitle}
+                    closeModal={props.closeModal}
+                />
+            )}
         </Modal>
     );
 };

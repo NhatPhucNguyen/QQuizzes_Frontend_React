@@ -32,7 +32,7 @@ const Navbar = (props: navProps) => {
     return (
         <NavContainer $height={props.height}>
             {!props.isHideLogo && (
-                <Link href="/">
+                <Link href="/dashboard">
                     <Logo src="/logo3.png" />
                 </Link>
             )}

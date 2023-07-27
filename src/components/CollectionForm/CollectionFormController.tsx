@@ -1,13 +1,12 @@
-import React from "react";
-import { FieldError, FieldErrors, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { styled } from "styled-components";
-import { ICollection } from "../../interfaces/app_interfaces";
 
 type CustomProps = {
     label: string;
     type: string;
     id: string;
     name?: string;
+    defaultValue?:string
 };
 
 const Container = styled.div`
@@ -40,6 +39,7 @@ const CollectionFormController = (props: CustomProps) => {
                 {...register(props.id, { required: true })}
                 aria-invalid={errors[props.id] ? "true" : "false"}
                 $isValid={errors[props.id] === undefined && true}
+                defaultValue={props.defaultValue}
             />
         </Container>
     );

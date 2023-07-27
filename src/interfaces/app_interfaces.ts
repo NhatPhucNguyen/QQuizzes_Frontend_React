@@ -18,7 +18,7 @@ export interface ICollection {
     collectionName: string;
     topic?: string;
     level?: string;
-    quantity?: string;
+    quantity?: number;
 }
 export interface IQuiz {
     _id?: string;
@@ -36,3 +36,12 @@ export interface Selection {
     desc: string;
     isAnswer: boolean;
 }
+export type ModalContext = {
+    openModal: (formName?:string,collectionData?:ICollection) => void;
+    closeModal: () => void;
+};
+export type ShowModal = {
+    isShow: boolean;
+    formName?: string;
+    collectionData?: ICollection;
+};
