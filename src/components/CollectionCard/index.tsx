@@ -1,7 +1,9 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { styled } from "styled-components";
 import { ICollection, ModalContext } from "../../interfaces/app_interfaces";
+import { customAxios } from "../../config/axiosConfig";
+import { API } from "../../config/API";
 
 type CustomProps = {
     collection: ICollection;
@@ -49,6 +51,23 @@ const Button = styled.button`
 
 const CollectionCard = ({ collection }: CustomProps) => {
     const outletContext = useOutletContext<ModalContext>();
+    const navigate = useNavigate();
+    const handleDeleteClick = () => {
+        const deleteCollection = async () => {
+            try {
+                console.log(collection.collectionName);
+                const response = await customAxios.delete(
+                    API + `/api/collection/delete/${collection.collectionName}`
+                );
+                if (response.status === 200) {
+                    navigate(0);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        void deleteCollection();
+    };
     return (
         <Container>
             <CollectionName>{collection.collectionName || " "}</CollectionName>
@@ -66,7 +85,7 @@ const CollectionCard = ({ collection }: CustomProps) => {
                 >
                     Update
                 </Button>
-                <Button>Delete</Button>
+                <Button onClick={handleDeleteClick}>Delete</Button>
             </ButtonContainer>
         </Container>
     );

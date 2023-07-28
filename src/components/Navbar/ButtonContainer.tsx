@@ -23,7 +23,7 @@ const LoginButton = styled.button`
     color: #ffffff;
     &:hover {
         cursor: pointer;
-        background-color: #edba9b;
+        background-color: #F2B263;
     }
     @media only screen and (${devices.phones}) {
         width: 5rem;

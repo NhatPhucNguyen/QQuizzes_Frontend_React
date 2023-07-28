@@ -20,12 +20,12 @@ export const authFormAccess = async () => {
 };
 export const navLoader = async () => {
     const isAuthenticated = await authenticatedCheck();
-    return isAuthenticated;
+    if (isAuthenticated) {
+        return redirect("/dashboard");
+    }
+    return null;
 };
 
-type CollectionParams = {
-    collectionName: string;
-};
 
 export const collectionLoader: ActionFunction = async ({ params }) => {
     const { collectionName } = params;

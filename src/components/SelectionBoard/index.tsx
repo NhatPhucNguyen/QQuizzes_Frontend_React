@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
 import Modal from "../Modal";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Selections from "./Selections";
 import CollectionForm from "../CollectionForm";
+import CloseMark from "../CloseMark";
 
 type CustomProps = {
     closeModal: () => void;
@@ -27,33 +27,25 @@ const Container = styled.div`
     position: relative;
 `;
 
-const Title = styled.span`
-    font-size: 1.2rem;
+const Title = styled.h2`
     font-weight: bold;
     text-align: center;
 `;
 
-const CloseMark = styled.button`
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 1rem;
-`;
 const SelectionBoard = (props: CustomProps) => {
-    const navigate = useNavigate();
     const [showForm, setShowForm] = useState({} as ShowForm);
     return (
         <Modal>
             {!showForm.isShow ? (
                 <Container>
-                    <CloseMark onClick={props.closeModal}>X</CloseMark>
+                    <CloseMark closeModal={props.closeModal}/>
                     <Title>What would you like to create ?</Title>
                     <Selections setShowForm={setShowForm} />
                 </Container>
             ) : (
                 <CollectionForm
                     selection={showForm.selection}
-                    selectionTitle={showForm.selectionTitle}
+                    title={showForm.selectionTitle}
                     closeModal={props.closeModal}
                 />
             )}

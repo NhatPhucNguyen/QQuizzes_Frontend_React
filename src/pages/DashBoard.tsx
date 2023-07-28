@@ -50,6 +50,7 @@ const DashBoard = () => {
                             <CollectionForm
                                 collectionData={showModal.collectionData}
                                 closeModal={closeModal}
+                                title="Update Collection"
                             />
                         </Modal>
                     )}

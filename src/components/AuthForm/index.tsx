@@ -29,7 +29,7 @@ export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
     grid-template-columns: auto auto;
     width: 60%;
     height: ${(props) => (props.$isAutoHeight ? "auto" : "100%")};
-    background-color: #ffffff;
+    background-color: #F2E8DF;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     border-radius: 15px;
@@ -71,9 +71,9 @@ export const LoginButton = styled.button`
     }
 `;
 export const SignUpButton = styled(LoginButton)`
-    background-color: #e7717d;
+    background-color: #d2284d;
     &:hover {
-        background-color: #fc4658;
+        background-color: #aa1434
     }
 `;
 export const FormTitle = styled.span`

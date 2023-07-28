@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
-import Layout from "../components/Layout";
 import Introduction from "../components/Introduction";
 import { devices } from "../utils/devices";
 import Navbar from "../components/Navbar";
 import { faPlus, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Main from "../Layout/Main";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -26,12 +26,12 @@ const ButtonContainer = styled.div`
     }
 `;
 const CreateButton = styled.button`
-    border: 2px solid #989898;
-    border-bottom: 8px solid #989898;
-    background-color: #ffffff;
+    border: 2px solid #bc2445;
+    border-bottom: 8px solid #bc2445;
+    background-color: #d2284d;
+    color: #ffffff;
     width: 20rem;
     height: 5rem;
-    color: #e7717d;
     font-size: 1.8rem;
     padding: 1rem 2rem;
     font-family: inherit;
@@ -40,7 +40,7 @@ const CreateButton = styled.button`
     transition: all 0.4s ease-in-out;
     &:hover {
         transform: translateY(6px);
-        border-bottom: 2px solid #989898;
+        border-bottom: 2px solid #bc2445;
         cursor: pointer;
     }
     @media only screen and (${devices.phones}) {
@@ -50,14 +50,14 @@ const CreateButton = styled.button`
     }
 `;
 const JoinGameButton = styled(CreateButton)`
-    color: #ffffff;
-    background-color: #7e685a;
+    color: #000000;
+    background-color: #f2bac6;
 `;
 
 
 const Home = () => {
     return (
-        <Layout>
+        <Main>
             <Navbar />
             <Container>
                 <Introduction />
@@ -70,7 +70,7 @@ const Home = () => {
                     </JoinGameButton>
                 </ButtonContainer>
             </Container>
-        </Layout>
+        </Main>
     );
 };
 

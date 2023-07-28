@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 import CollectionFormController from "./CollectionFormController";
 import {
     FormProvider,
@@ -13,23 +13,34 @@ import Alert from "../AuthForm/Alert";
 import { customAxios } from "../../config/axiosConfig";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import CloseMark from "../CloseMark";
+import { topicSelections } from "../../config/topicSelections";
 
 type CustomProps = {
     selection?: string;
-    selectionTitle?: string;
+    title?: string;
     collectionData?: ICollection;
     closeModal: () => void;
 };
 
-const Title = styled.span`
-    font-size: 1.2rem;
+const Title = styled.h2`
     font-weight: bold;
     text-align: center;
 `;
 
+const moveLeft = keyframes`
+    from{
+        opacity: 0;
+        transform: translateX(10px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+`
+
 const Container = styled.div`
-    width: 50%;
-    padding: 1rem;
+    padding: 1rem 5rem;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -37,6 +48,7 @@ const Container = styled.div`
     align-items: center;
     gap: 2rem;
     position: relative;
+    animation: ${moveLeft} 0.4s ease-in-out;
 `;
 
 const FormContainer = styled.form`
@@ -48,21 +60,21 @@ const FormContainer = styled.form`
 `;
 
 const Button = styled.button`
+    background-color: #8ac222;
+    font-size: inherit;
+    font-family: inherit;
+    width: 8rem;
+    padding: 0.5rem;
     border: none;
-    padding: 1rem;
-    background-color: green;
+    border-radius: 50px;
     color: #ffffff;
+    font-weight: bolder;
     &:hover {
         cursor: pointer;
+        background-color: #afd270;
     }
 `;
 
-const CloseMark = styled.button`
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 1rem;
-`;
 const CollectionForm = (props: CustomProps) => {
     const methods = useForm<ICollection>();
     const navigate = useNavigate();
@@ -113,13 +125,13 @@ const CollectionForm = (props: CustomProps) => {
     };
     return (
         <Container>
-            <CloseMark onClick={props.closeModal}>X</CloseMark>
+            <CloseMark closeModal={props.closeModal} />
             <FormProvider {...methods}>
                 <FormContainer
                     onSubmit={handleSubmit(onSubmit, onInvalid)}
                     name={props.collectionData ? "update" : "create"}
                 >
-                    <Title>{props.selectionTitle}</Title>
+                    <Title>{props.title}</Title>
                     {alert.isShow && <Alert message={alert.message} />}
                     <CollectionFormController
                         type="text"
@@ -128,16 +140,18 @@ const CollectionForm = (props: CustomProps) => {
                         defaultValue={props.collectionData?.collectionName}
                     />
                     <CollectionFormController
-                        type="text"
+                        type="select"
                         label="Topic"
                         id="topic"
-                        defaultValue={props.collectionData?.topic}
+                        defaultValue={props.collectionData?.topic || topicSelections.GK}
+                        selectOptions={Object.values(topicSelections)}
                     />
                     <CollectionFormController
-                        type="text"
+                        type="select"
                         label="Level"
                         id="level"
                         defaultValue={props.collectionData?.level}
+                        selectOptions={["Basic","Medium","Hard"]}
                     />
                     <Button type="submit">
                         {props.collectionData ? "Update" : "Create"}

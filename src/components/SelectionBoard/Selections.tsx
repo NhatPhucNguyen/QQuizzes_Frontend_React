@@ -17,9 +17,15 @@ const SelectionItem = styled.button`
     padding: 1rem;
     font-size: 1.2rem;
     border-radius: 50px;
-    background-color: #39f339;
+    background-color: #DBF227;
+    color: #042940;
+    font-weight: bold;
     &:hover {
         cursor: pointer;
+        background-color: #9FC131;
+    }
+    &:disabled{
+        background-color: #bdbdbd;
     }
 `;
 const Selections = ({
