@@ -19,6 +19,8 @@ const CardsContainer = styled.div`
     flex-wrap: wrap;
     gap: 1rem;
     padding: 1rem;
+    justify-content: flex-start;
+    flex: 1;
 `;
 const MyCollection = () => {
     const collectionsData = useLoaderData() as ICollection[];

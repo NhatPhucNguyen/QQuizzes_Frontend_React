@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 import Modal from "../Modal";
 import { useState } from "react";
 import Selections from "./Selections";
@@ -15,7 +15,18 @@ export type ShowForm = {
     isShow: boolean;
 };
 
-const Container = styled.div`
+const moveLeft = keyframes`
+    from{
+        opacity: 0;
+        transform: translateX(10px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+`;
+
+const SelectionsContainer = styled.div`
     width: 50%;
     padding: 1rem;
     background-color: #ffffff;
@@ -25,6 +36,8 @@ const Container = styled.div`
     align-items: center;
     gap: 2rem;
     position: relative;
+    border-radius: 25px;
+    animation: ${moveLeft} 0.4s ease-in-out;
 `;
 
 const Title = styled.h2`
@@ -34,19 +47,23 @@ const Title = styled.h2`
 
 const SelectionBoard = (props: CustomProps) => {
     const [showForm, setShowForm] = useState({} as ShowForm);
+    const backToSelection = () => {
+        setShowForm({ ...showForm, isShow: false });
+    };
     return (
         <Modal>
             {!showForm.isShow ? (
-                <Container>
-                    <CloseMark closeModal={props.closeModal}/>
+                <SelectionsContainer>
+                    <CloseMark closeModal={props.closeModal} />
                     <Title>What would you like to create ?</Title>
                     <Selections setShowForm={setShowForm} />
-                </Container>
+                </SelectionsContainer>
             ) : (
                 <CollectionForm
                     selection={showForm.selection}
                     title={showForm.selectionTitle}
                     closeModal={props.closeModal}
+                    backToSelection={backToSelection}
                 />
             )}
         </Modal>

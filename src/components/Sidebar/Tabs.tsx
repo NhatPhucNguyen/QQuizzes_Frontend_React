@@ -1,57 +1,68 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import DashBoard from '../../pages/DashBoard';
+import DashBoard from "../../pages/DashBoard";
 
 const TabContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-`
-
-const TabItem = styled.div`
+`;
+const TabItem = styled.div<{ $onTab?: boolean }>`
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
     width: 100%;
     padding: 1rem 0rem;
-    background-color: #e7717d;
-    color: #ffffff;
+    background-color: ${(props) => (props.$onTab ? "#ffffff" : "#e7717d")};
+    color: ${(props) => (props.$onTab ? "#e7717d" : "#ffffff")};
     &:hover {
         background-color: #ffffff;
         color: #e7717d;
         cursor: pointer;
     }
 `;
+const TabName = styled.span`
+    font-weight: bold;
+`;
 const Tabs = () => {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const noSlashPathname = pathname.replace(/\/+$/, "");
+    console.log(noSlashPathname);
     return (
         <TabContainer>
-            <TabItem onClick={()=>{
-                navigate("/dashboard")
-            }}>
-                <span>DashBoard</span>
+            <TabItem
+                onClick={() => {
+                    navigate("/dashboard");
+                }}
+                $onTab={
+                    pathname.endsWith("dashboard")
+                }
+            >
+                <TabName>DashBoard</TabName>
             </TabItem>
             <TabItem
                 onClick={() => {
-                    navigate("myCollection")
+                    navigate("myCollection");
                 }}
+                $onTab={pathname.includes("myCollection")}
             >
-                <span>My Collections</span>
+                <TabName>My Collections</TabName>
             </TabItem>
             <TabItem
                 onClick={() => {
                     console.log("Hello");
                 }}
             >
-                <span>Report</span>
+                <TabName>Report</TabName>
             </TabItem>
             <TabItem
                 onClick={() => {
                     console.log("Hello");
                 }}
             >
-                <span>Profile</span>
+                <TabName>Profile</TabName>
             </TabItem>
         </TabContainer>
     );

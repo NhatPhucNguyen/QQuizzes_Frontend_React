@@ -21,6 +21,7 @@ type CustomProps = {
     title?: string;
     collectionData?: ICollection;
     closeModal: () => void;
+    backToSelection?: () => void;
 };
 
 const Title = styled.h2`
@@ -37,7 +38,7 @@ const moveLeft = keyframes`
         opacity: 1;
         transform: translateX(0);
     }
-`
+`;
 
 const Container = styled.div`
     padding: 1rem 5rem;
@@ -48,6 +49,7 @@ const Container = styled.div`
     align-items: center;
     gap: 2rem;
     position: relative;
+    border-radius: 25px;
     animation: ${moveLeft} 0.4s ease-in-out;
 `;
 
@@ -58,7 +60,14 @@ const FormContainer = styled.form`
     justify-content: center;
     gap: 1rem;
 `;
-
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+`;
 const Button = styled.button`
     background-color: #8ac222;
     font-size: inherit;
@@ -71,10 +80,15 @@ const Button = styled.button`
     font-weight: bolder;
     &:hover {
         cursor: pointer;
-        background-color: #afd270;
+        background-color: #7ba232;
     }
 `;
-
+const BackButton = styled(Button)`
+    background-color: #f2b263;
+    &:hover {
+        background-color: #c3863b;
+    }
+`;
 const CollectionForm = (props: CustomProps) => {
     const methods = useForm<ICollection>();
     const navigate = useNavigate();
@@ -91,7 +105,7 @@ const CollectionForm = (props: CustomProps) => {
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {
-                    navigate(`collection/${data.collectionName}/create`);
+                    navigate(`/admin/collection/${data.collectionName}/create`);
                 }
             }
             if (name === "update") {
@@ -143,7 +157,9 @@ const CollectionForm = (props: CustomProps) => {
                         type="select"
                         label="Topic"
                         id="topic"
-                        defaultValue={props.collectionData?.topic || topicSelections.GK}
+                        defaultValue={
+                            props.collectionData?.topic || topicSelections.GK
+                        }
                         selectOptions={Object.values(topicSelections)}
                     />
                     <CollectionFormController
@@ -151,11 +167,21 @@ const CollectionForm = (props: CustomProps) => {
                         label="Level"
                         id="level"
                         defaultValue={props.collectionData?.level}
-                        selectOptions={["Basic","Medium","Hard"]}
+                        selectOptions={["Basic", "Medium", "Hard"]}
                     />
-                    <Button type="submit">
-                        {props.collectionData ? "Update" : "Create"}
-                    </Button>
+                    <ButtonContainer>
+                        <Button type="submit">
+                            {props.collectionData ? "Update" : "Create"}
+                        </Button>
+                        {props.backToSelection && (
+                            <BackButton
+                                type="button"
+                                onClick={props.backToSelection}
+                            >
+                                Back
+                            </BackButton>
+                        )}
+                    </ButtonContainer>
                 </FormContainer>
             </FormProvider>
         </Container>

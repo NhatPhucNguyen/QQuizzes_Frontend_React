@@ -4,6 +4,8 @@ import { styled } from "styled-components";
 import { ICollection, ModalContext } from "../../interfaces/app_interfaces";
 import { customAxios } from "../../config/axiosConfig";
 import { API } from "../../config/API";
+import { faEye, faListCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type CustomProps = {
     collection: ICollection;
@@ -17,15 +19,16 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.2rem;
+    width: 15rem;
+    gap: 0.5rem;
 `;
 const CollectionName = styled.span`
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.2rem;
 `;
 
 const Topic = styled.span`
-    font-size: 0.8rem;
+    font-size: 1rem;
 `;
 const SubContainer = styled.div`
     display: flex;
@@ -42,11 +45,19 @@ const Level = styled.span`
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    justify-content: center;
+    gap: 2.5rem;
     width: 100%;
 `;
 const Button = styled.button`
     padding: 0.2rem;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    &:hover {
+        cursor: pointer;
+        color: #86a69d;
+    }
 `;
 
 const CollectionCard = ({ collection }: CustomProps) => {
@@ -73,19 +84,27 @@ const CollectionCard = ({ collection }: CustomProps) => {
             <CollectionName>{collection.collectionName || " "}</CollectionName>
             <Topic>{collection.topic || " "}</Topic>
             <SubContainer>
-                <Quantity>{collection.quantity || 0}</Quantity>
+                <Quantity>
+                    {collection.quantity
+                        ? `${collection.quantity} questions`
+                        : `0 questions`}{" "}
+                </Quantity>
                 <Level>{collection.level || " "}</Level>
             </SubContainer>
             <ButtonContainer>
-                <Button>View</Button>
+                <Button>
+                <FontAwesomeIcon icon={faEye} size="xl" />
+                </Button>
                 <Button
                     onClick={() => {
                         outletContext.openModal("CollectionForm", collection);
                     }}
                 >
-                    Update
+                    <FontAwesomeIcon icon={faPen} size="xl" />
                 </Button>
-                <Button onClick={handleDeleteClick}>Delete</Button>
+                <Button onClick={handleDeleteClick}>
+                    <FontAwesomeIcon icon={faTrash} size="xl" />
+                </Button>
             </ButtonContainer>
         </Container>
     );

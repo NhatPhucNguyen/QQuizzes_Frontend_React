@@ -35,12 +35,12 @@ const router = createBrowserRouter(
                         loader={myCollectionsLoader}
                     />
                 </Route>
-                <Route
-                    path={"collection/:collectionName/create/"}
-                    element={<MultipleChoiceCreate />}
-                    loader={collectionLoader}
-                />
             </Route>
+            <Route
+                path={"admin/collection/:collectionName/create/"}
+                element={<MultipleChoiceCreate />}
+                loader={collectionLoader}
+            />
             <Route path="*" element={<h1>Not found</h1>} />
         </>
     )
