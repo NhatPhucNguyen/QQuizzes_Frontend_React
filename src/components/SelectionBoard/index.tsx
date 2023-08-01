@@ -1,8 +1,8 @@
 import { keyframes, styled } from "styled-components";
-import Modal from "../Modal";
+import Modal from "../../Layout/ModalLayout";
 import { useState } from "react";
 import Selections from "./Selections";
-import CollectionForm from "../CollectionForm";
+import CollectionForm from "../QuizForm";
 import CloseMark from "../CloseMark";
 
 type CustomProps = {

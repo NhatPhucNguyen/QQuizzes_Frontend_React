@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import InitialContent from "../components/InitialContent";
+import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/Navbar";
+import InitialContent from "./InitialContent";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import SelectionBoard from "../components/SelectionBoard";
-import { ICollection, ShowModal } from "../interfaces/app_interfaces";
-import CollectionForm from "../components/CollectionForm";
-import Modal from "../components/Modal";
+import SelectionBoard from "../../components/SelectionBoard";
+import { IQuiz, ShowModal } from "../../interfaces/app_interfaces";
+import QuizForm from "../../components/QuizForm";
+import Modal from "../../Layout/ModalLayout";
 
 const Container = styled.div`
     display: grid;
@@ -22,12 +22,12 @@ const Content = styled.div`
 `;
 const DashBoard = () => {
     const [showModal, setShowModal] = useState<ShowModal>({ isShow: false });
-    const openModal = (formName?: string, collectionData?: ICollection) => {
+    const openModal = (formName?: string, quizData?: IQuiz) => {
         setShowModal({
             ...showModal,
             isShow: true,
             formName: formName,
-            collectionData: collectionData,
+            quizData: quizData,
         });
     };
     const closeModal = () => {
@@ -45,17 +45,17 @@ const DashBoard = () => {
                 {/* Display main content base on specific route*/}
                 <Outlet context={{ openModal, closeModal }} />
                 {showModal.isShow &&
-                    showModal.formName === "CollectionForm" && (
+                    showModal.formName === "QuizForm" && (
                         <Modal>
-                            <CollectionForm
-                                collectionData={showModal.collectionData}
+                            <QuizForm
+                                quizData={showModal.quizData}
                                 closeModal={closeModal}
-                                title="Update Collection"
+                                title="Update Quiz"
                             />
                         </Modal>
                     )}
                 {showModal.isShow &&
-                    showModal.formName === "CollectionCreate" && (
+                    showModal.formName === "QuizCreate" && (
                         <SelectionBoard closeModal={closeModal} />
                     )}
             </Content>

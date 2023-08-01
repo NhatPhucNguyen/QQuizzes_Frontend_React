@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, createContext } from "react";
-import { IQuiz } from "../interfaces/app_interfaces";
+import { IQuestion, IQuiz } from "../interfaces/app_interfaces";
 
 type defaultValue = {
-    quizArr:IQuiz[];
+    questionArr:IQuestion[];
 };
 
 export const MultiChoiceContext = createContext({} as defaultValue);

@@ -39,7 +39,7 @@ const Select = styled.select<{ $isValid?: boolean }>`
     background-color: #f2e8df;
 `;
 
-const CollectionFormController = (props: CustomProps) => {
+const QuizFormController = (props: CustomProps) => {
     const {
         register,
         formState: { errors },
@@ -76,4 +76,4 @@ const CollectionFormController = (props: CustomProps) => {
     );
 };
 
-export default CollectionFormController;
+export default QuizFormController;

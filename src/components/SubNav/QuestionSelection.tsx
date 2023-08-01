@@ -23,22 +23,22 @@ export const QuestionNumber = styled.select`
 `;
 const QuestionSelection = () => {
     const { register } = useFormContext();
-    const { quizArr } = useContext(MultiChoiceContext);
+    const { questionArr } = useContext(MultiChoiceContext);
     return (
         <QuestionNumberContainer>
             <QuestionNumber
                 {...register("questionNumber")}
-                defaultValue={quizArr.length + 1}
+                defaultValue={questionArr.length + 1}
                 autoFocus
             >
-                <option value={quizArr.length + 1 | 1}>{`Question ${quizArr.length + 1}`}</option>
-                {quizArr.length > 0 &&
-                    quizArr.map((quiz) => {
+                <option value={questionArr.length + 1 | 1}>{`Question ${questionArr.length + 1}`}</option>
+                {questionArr.length > 0 &&
+                    questionArr.map((question) => {
                         return (
                             <option
-                                key={quizArr.indexOf(quiz)}
-                                value={quizArr.indexOf(quiz).toString()}
-                            >{`Question ${quiz.questionNumber}`}</option>
+                                key={questionArr.indexOf(question)}
+                                value={questionArr.indexOf(question).toString()}
+                            >{`Question ${question.questionNumber}`}</option>
                         );
                     })}
             </QuestionNumber>

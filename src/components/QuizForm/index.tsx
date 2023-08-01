@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { keyframes, styled } from "styled-components";
-import CollectionFormController from "./CollectionFormController";
 import {
     FormProvider,
     SubmitErrorHandler,
     SubmitHandler,
     useForm,
 } from "react-hook-form";
-import { ICollection } from "../../interfaces/app_interfaces";
+import { IQuiz } from "../../interfaces/app_interfaces";
 import { FormEvent, useState } from "react";
 import Alert from "../AuthForm/Alert";
 import { customAxios } from "../../config/axiosConfig";
@@ -15,11 +14,12 @@ import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import CloseMark from "../CloseMark";
 import { topicSelections } from "../../config/topicSelections";
+import QuizFormController from "./QuizFormController";
 
 type CustomProps = {
     selection?: string;
     title?: string;
-    collectionData?: ICollection;
+    quizData?: IQuiz;
     closeModal: () => void;
     backToSelection?: () => void;
 };
@@ -90,11 +90,11 @@ const BackButton = styled(Button)`
     }
 `;
 const CollectionForm = (props: CustomProps) => {
-    const methods = useForm<ICollection>();
+    const methods = useForm<IQuiz>();
     const navigate = useNavigate();
     const [alert, setAlert] = useState({ isShow: false, message: "" });
     const { handleSubmit } = methods;
-    const onSubmit: SubmitHandler<ICollection> = async (data, e) => {
+    const onSubmit: SubmitHandler<IQuiz> = async (data, e) => {
         e?.preventDefault();
         const { name } = e?.target as HTMLFormElement;
         try {
@@ -105,20 +105,20 @@ const CollectionForm = (props: CustomProps) => {
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {
-                    navigate(`/admin/collection/${data.collectionName}/create`);
+                    navigate(`/admin/quizzes/${data.quizName}`);
                 }
             }
             if (name === "update") {
                 //update collection
                 const response = await customAxios.patch(
                     `/api/collection/update/${
-                        props.collectionData?.collectionName as string
+                        props.quizData?.quizName as string
                     }`,
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {
                     props.closeModal();
-                    navigate("myCollection");
+                    navigate("myQuizzes");
                 }
             }
         } catch (error) {
@@ -131,7 +131,7 @@ const CollectionForm = (props: CustomProps) => {
             }
         }
     };
-    const onInvalid: SubmitErrorHandler<ICollection> = (err, e) => {
+    const onInvalid: SubmitErrorHandler<IQuiz> = (err, e) => {
         e?.preventDefault();
         if (err) {
             setAlert({ isShow: true, message: "Missing required fields" });
@@ -143,35 +143,35 @@ const CollectionForm = (props: CustomProps) => {
             <FormProvider {...methods}>
                 <FormContainer
                     onSubmit={handleSubmit(onSubmit, onInvalid)}
-                    name={props.collectionData ? "update" : "create"}
+                    name={props.quizData ? "update" : "create"}
                 >
                     <Title>{props.title}</Title>
                     {alert.isShow && <Alert message={alert.message} />}
-                    <CollectionFormController
+                    <QuizFormController
                         type="text"
-                        label="Collection Name"
-                        id="collectionName"
-                        defaultValue={props.collectionData?.collectionName}
+                        label="Quiz Name"
+                        id="quizName"
+                        defaultValue={props.quizData?.quizName}
                     />
-                    <CollectionFormController
+                    <QuizFormController
                         type="select"
                         label="Topic"
                         id="topic"
                         defaultValue={
-                            props.collectionData?.topic || topicSelections.GK
+                            props.quizData?.topic || topicSelections.GK
                         }
                         selectOptions={Object.values(topicSelections)}
                     />
-                    <CollectionFormController
+                    <QuizFormController
                         type="select"
                         label="Level"
                         id="level"
-                        defaultValue={props.collectionData?.level}
+                        defaultValue={props.quizData?.level}
                         selectOptions={["Basic", "Medium", "Hard"]}
                     />
                     <ButtonContainer>
                         <Button type="submit">
-                            {props.collectionData ? "Update" : "Create"}
+                            {props.quizData ? "Update" : "Create"}
                         </Button>
                         {props.backToSelection && (
                             <BackButton

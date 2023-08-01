@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 import QuizCreateBoard from "../components/QuizCreateBoard";
 import { FormEvent, useCallback, useMemo, useState, useEffect } from "react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { IQuiz } from "../interfaces/app_interfaces";
+import { IQuestion } from "../interfaces/app_interfaces";
 import { MultiChoiceContext } from "../context/MultiChoiceContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { customAxios } from "../config/axiosConfig";
@@ -39,12 +39,12 @@ const Button = styled.button`
     }
 `;
 const MultipleChoiceCreate = () => {
-    const methods = useForm<IQuiz>();
+    const methods = useForm<IQuestion>();
     const { handleSubmit } = methods;
-    const [quizArr, setQuizArr] = useState<IQuiz[]>([]);
+    const [quizArr, setQuizArr] = useState<IQuestion[]>([]);
     const { collectionName } = useParams() as { collectionName: string };
     const navigate = useNavigate();
-    const onSubmit: SubmitHandler<IQuiz> = (data, e) => {
+    const onSubmit: SubmitHandler<IQuestion> = (data, e) => {
         e?.preventDefault();
         console.log(data);
         setQuizArr((prevArr) => {
@@ -55,7 +55,7 @@ const MultipleChoiceCreate = () => {
         <FormProvider {...methods}>
             <BigForm onSubmit={handleSubmit(onSubmit)}>
                 <Navbar isHideButtons={true} />
-                <MultiChoiceContext.Provider value={{ quizArr: quizArr }}>
+                <MultiChoiceContext.Provider value={{ questionArr: quizArr }}>
                     <SubNav collectionName={collectionName || ""} />
                 </MultiChoiceContext.Provider>
                 <MainContainer>

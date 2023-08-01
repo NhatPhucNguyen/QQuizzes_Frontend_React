@@ -70,7 +70,7 @@ const Sidebar = (props: CustomProps) => {
                 </Link>
             </LogoContainer>
             <UserSummary>Hello, {localStorage.getItem("fullName")}</UserSummary>
-            <CreateButton onClick={()=> props.openModal("CollectionCreate")}>Create</CreateButton>
+            <CreateButton onClick={()=> props.openModal("QuizCreate")}>Create</CreateButton>
             <Tabs />
             <LogoutButton
                 onClick={() => {

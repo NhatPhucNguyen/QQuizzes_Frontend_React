@@ -6,17 +6,18 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Authentication from "./pages/Authentication";
-import DashBoard from "./pages/DashBoard";
+import DashBoard from "./pages/DashBoard/DashBoard";
 import {
     authFormAccess,
-    collectionLoader,
-    myCollectionsLoader,
+    myQuizzesLoader,
     navLoader,
+    quizLoader,
     requireAuth,
 } from "./utils/loader";
 import MultipleChoiceCreate from "./pages/MultipleChoiceCreate";
-import InitialContent from "./components/InitialContent";
-import MyCollection from "./components/MyCollection";
+import InitialContent from "./pages/DashBoard/InitialContent";
+import MyQuizzes from "./pages/DashBoard/MyQuizzes";
+import QuestionManagement from "./pages/QuestionManagement";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -30,17 +31,21 @@ const router = createBrowserRouter(
                 <Route path="" element={<DashBoard />}>
                     <Route index element={<InitialContent />} />
                     <Route
-                        path="myCollection"
-                        element={<MyCollection />}
-                        loader={myCollectionsLoader}
+                        path="myQuizzes"
+                        element={<MyQuizzes />}
+                        loader={myQuizzesLoader}
                     />
                 </Route>
             </Route>
-            <Route
-                path={"admin/collection/:collectionName/create/"}
-                element={<MultipleChoiceCreate />}
-                loader={collectionLoader}
-            />
+            <Route path="admin/quizzes/:quizId">
+                <Route index element={<QuestionManagement />} />
+                <Route
+                    path="create"
+                    element={<MultipleChoiceCreate />}
+                    loader={quizLoader}
+                />
+            </Route>
+
             <Route path="*" element={<h1>Not found</h1>} />
         </>
     )

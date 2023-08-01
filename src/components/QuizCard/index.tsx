@@ -1,14 +1,19 @@
 import React from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { styled } from "styled-components";
-import { ICollection, ModalContext } from "../../interfaces/app_interfaces";
+import { IQuiz, ModalContext } from "../../interfaces/app_interfaces";
 import { customAxios } from "../../config/axiosConfig";
 import { API } from "../../config/API";
-import { faEye, faListCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+    faEye,
+    faListCheck,
+    faPen,
+    faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type CustomProps = {
-    collection: ICollection;
+    quiz: IQuiz;
 };
 
 const Container = styled.div`
@@ -22,7 +27,7 @@ const Container = styled.div`
     width: 15rem;
     gap: 0.5rem;
 `;
-const CollectionName = styled.span`
+const QuizName = styled.span`
     font-weight: bold;
     font-size: 1.2rem;
 `;
@@ -60,15 +65,15 @@ const Button = styled.button`
     }
 `;
 
-const CollectionCard = ({ collection }: CustomProps) => {
+const QuizCard = ({ quiz }: CustomProps) => {
     const outletContext = useOutletContext<ModalContext>();
     const navigate = useNavigate();
     const handleDeleteClick = () => {
-        const deleteCollection = async () => {
+        const deleteQuiz = async () => {
             try {
-                console.log(collection.collectionName);
+                console.log(quiz.quizName);
                 const response = await customAxios.delete(
-                    API + `/api/collection/delete/${collection.collectionName}`
+                    API + `/api/collection/delete/${quiz.quizName}`
                 );
                 if (response.status === 200) {
                     navigate(0);
@@ -77,32 +82,41 @@ const CollectionCard = ({ collection }: CustomProps) => {
                 console.log(error);
             }
         };
-        void deleteCollection();
+        void deleteQuiz();
     };
     return (
         <Container>
-            <CollectionName>{collection.collectionName || " "}</CollectionName>
-            <Topic>{collection.topic || " "}</Topic>
+            <QuizName>{quiz.quizName || " "}</QuizName>
+            <Topic>{quiz.topic || " "}</Topic>
             <SubContainer>
                 <Quantity>
-                    {collection.quantity
-                        ? `${collection.quantity} questions`
+                    {quiz.quantity
+                        ? `${quiz.quantity} questions`
                         : `0 questions`}{" "}
                 </Quantity>
-                <Level>{collection.level || " "}</Level>
+                <Level>{quiz.level || " "}</Level>
             </SubContainer>
             <ButtonContainer>
-                <Button>
-                <FontAwesomeIcon icon={faEye} size="xl" />
+                <Button
+                    onClick={() => {
+                        navigate(
+                            `/admin/quizzes/${quiz._id as string}`
+                        );
+                    }}
+                >
+                    {/* View */}
+                    <FontAwesomeIcon icon={faEye} size="xl" />
                 </Button>
                 <Button
                     onClick={() => {
-                        outletContext.openModal("CollectionForm", collection);
+                        outletContext.openModal("QuizForm", quiz);
                     }}
                 >
+                    {/* Update */}
                     <FontAwesomeIcon icon={faPen} size="xl" />
                 </Button>
                 <Button onClick={handleDeleteClick}>
+                    {/* Delete */}
                     <FontAwesomeIcon icon={faTrash} size="xl" />
                 </Button>
             </ButtonContainer>
@@ -110,4 +124,4 @@ const CollectionCard = ({ collection }: CustomProps) => {
     );
 };
 
-export default CollectionCard;
+export default QuizCard;

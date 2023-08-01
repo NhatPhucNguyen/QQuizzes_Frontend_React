@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import DashBoard from "../../pages/DashBoard";
+import DashBoard from "../../pages/DashBoard/DashBoard";
 
 const TabContainer = styled.div`
     display: flex;
@@ -28,7 +28,7 @@ const TabName = styled.span`
 const Tabs = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const noSlashPathname = pathname.replace(/\/+$/, "");
+    const noSlashPathname = pathname.replace(/\/+$/, "").toLowerCase();
     console.log(noSlashPathname);
     return (
         <TabContainer>
@@ -44,11 +44,11 @@ const Tabs = () => {
             </TabItem>
             <TabItem
                 onClick={() => {
-                    navigate("myCollection");
+                    navigate("myquizzes");
                 }}
-                $onTab={pathname.includes("myCollection")}
+                $onTab={pathname.includes("myquizzes")}
             >
-                <TabName>My Collections</TabName>
+                <TabName>My Quizzes</TabName>
             </TabItem>
             <TabItem
                 onClick={() => {

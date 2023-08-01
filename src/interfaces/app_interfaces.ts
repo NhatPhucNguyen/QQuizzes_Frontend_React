@@ -13,14 +13,14 @@ export interface IAlert {
     isShow: boolean;
     message: string;
 }
-export interface ICollection {
+export interface IQuiz {
     _id?: string;
-    collectionName: string;
+    quizName: string;
     topic?: string;
     level?: string;
     quantity?: number;
 }
-export interface IQuiz {
+export interface IQuestion {
     _id?: string;
     questionNumber: number;
     question: string;
@@ -37,11 +37,11 @@ export interface Selection {
     isAnswer: boolean;
 }
 export type ModalContext = {
-    openModal: (formName?:string,collectionData?:ICollection) => void;
+    openModal: (formName?:string,collectionData?:IQuiz) => void;
     closeModal: () => void;
 };
 export type ShowModal = {
     isShow: boolean;
     formName?: string;
-    collectionData?: ICollection;
+    quizData?: IQuiz;
 };

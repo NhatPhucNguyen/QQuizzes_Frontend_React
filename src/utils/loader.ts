@@ -2,7 +2,7 @@ import { ActionFunction, Params, redirect } from "react-router-dom";
 import { authenticatedCheck } from "./authenticatedCheck";
 import { customAxios } from "../config/axiosConfig";
 import { AxiosError } from "axios";
-import { ICollection } from "../interfaces/app_interfaces";
+import { IQuiz } from "../interfaces/app_interfaces";
 
 export const requireAuth = async () => {
     const isAuthenticated = await authenticatedCheck();
@@ -26,16 +26,15 @@ export const navLoader = async () => {
     return null;
 };
 
-
-export const collectionLoader: ActionFunction = async ({ params }) => {
-    const { collectionName } = params;
-    if (collectionName) {
+export const quizLoader: ActionFunction = async ({ params }) => {
+    const { quizName } = params;
+    if (quizName) {
         try {
             const response = await customAxios.get(
-                `api/collection/get/${collectionName}`
+                `api/collection/get/${quizName}`
             );
             if (response.status === 200) {
-                return response.data as ICollection;
+                return response.data as IQuiz;
             }
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -43,13 +42,16 @@ export const collectionLoader: ActionFunction = async ({ params }) => {
             }
         }
     }
+    return null;
 };
 
-export const myCollectionsLoader = async () => {
+export const myQuizzesLoader = async () => {
     try {
-        const response = await customAxios.get("/api/collection/myCollection/getAll");
+        const response = await customAxios.get(
+            "/api/collection/myCollection/getAll"
+        );
         if (response.status === 200) {
-            const data = response.data as ICollection[];
+            const data = response.data as IQuiz[];
             return data;
         }
     } catch (error) {
