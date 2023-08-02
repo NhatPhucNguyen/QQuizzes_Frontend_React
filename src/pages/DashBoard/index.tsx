@@ -22,6 +22,7 @@ const Content = styled.div`
 `;
 const DashBoard = () => {
     const [showModal, setShowModal] = useState<ShowModal>({ isShow: false });
+    //open specific form modal
     const openModal = (formName?: string, quizData?: IQuiz) => {
         setShowModal({
             ...showModal,
@@ -42,7 +43,7 @@ const DashBoard = () => {
                     isHideButtons={true}
                     height="3.5rem"
                 />
-                {/* Display main content base on specific route*/}
+                {/* Display from base on specific route*/}
                 <Outlet context={{ openModal, closeModal }} />
                 {showModal.isShow &&
                     showModal.formName === "QuizForm" && (

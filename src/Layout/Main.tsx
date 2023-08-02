@@ -1,17 +1,23 @@
 import { styled } from "styled-components";
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    height: 100%;
-`;
-const Layout = ({ children }: { children?: React.ReactNode }) => {
-    return (
-        <Container>
-            {children}
-        </Container>
-    );
+type CustomProps = {
+    noGap?: boolean;
 };
 
-export default Layout;
+const Container = styled.div<{ $noGap?: boolean }>`
+    display: flex;
+    flex-direction: column;
+    gap: ${(props) => (props.$noGap ? 0 : "2rem")};
+    height: 100%;
+`;
+const Main = ({
+    props,
+    children,
+}: {
+    children?: React.ReactNode;
+    props?: CustomProps;
+}) => {
+    return <Container $noGap={props?.noGap}>{children}</Container>;
+};
+
+export default Main;

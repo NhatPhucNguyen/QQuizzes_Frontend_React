@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import DashBoard from "../../pages/DashBoard/DashBoard";
+import DashBoard from "../../pages/DashBoard";
 
 const TabContainer = styled.div`
     display: flex;

@@ -1,24 +1,25 @@
 import { styled } from "styled-components";
-import QuestionSelection, {
-    QuestionNumber,
-    QuestionNumberContainer,
-} from "./QuestionSelection";
-import { useFormContext } from "react-hook-form";
+import {
+    faClipboardList,
+    faIndent,
+    faListCheck,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type CustomProps = {
-    collectionName: string;
-};
+    isShowQuestNum?:boolean
+}
 
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
-    background-color: #a8404b;
+    background-color: #a8525b;
 `;
-const CollectionName = styled.input`
+const ContentWrapper = styled.div`
     font-size: 1rem;
-    padding: 1rem 0.5rem;
-    background-color: #844349;
+    padding: 1rem 0;
+    background-color: #693339;
     border: none;
     outline: none;
     width: 50%;
@@ -27,42 +28,50 @@ const CollectionName = styled.input`
     &::placeholder {
         color: #c9c9c9;
     }
-`;
-const LimitContainer = styled(QuestionNumberContainer)`
+    text-align: center;
+    color: #aae87d;
+    display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 1rem;
-    justify-content: flex-end;
-    padding-right: 0.2rem;
 `;
-const Point = styled(QuestionNumber)`
-    width: 30%;
+const Start = styled.div`
+    width: 100%;
 `;
-const TimeLimit = styled(QuestionNumber)`
-    width: 30%;
+const Mid = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
-const SubNav = (props: CustomProps) => {
-    const { register } = useFormContext();
+const End = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+`;
+const Text = styled.span``;
+const SubNav = (props:CustomProps) => {
     return (
         <Container>
-            <CollectionName
-                name="collection"
-                type="text"
-                value={props.collectionName}
-                readOnly
-            />
-            <QuestionSelection />
-            <LimitContainer>
-                <Point defaultValue={1} {...register("point")}>
-                    <option value={1}>1 pts</option>
-                    <option value={2}>2 pts</option>
-                    <option value={3}>3 pts</option>
-                </Point>
-                <TimeLimit defaultValue={30} {...register("timeLimit")}>
-                    <option value={30}>30s</option>
-                    <option value={45}>45s</option>
-                    <option value={60}>60s</option>
-                </TimeLimit>
-            </LimitContainer>
+            <Start>
+                <ContentWrapper>
+                    <FontAwesomeIcon icon={faClipboardList} size="xl" />
+                    <Text>Quiz Name</Text>
+                </ContentWrapper>
+            </Start>
+            <Mid>
+                {props.isShowQuestNum && <ContentWrapper>
+                    <FontAwesomeIcon icon={faIndent} size="xl" />
+                    <Text>Question Number</Text>
+                </ContentWrapper>}
+            </Mid>
+            <End>
+                <ContentWrapper>
+                    <FontAwesomeIcon icon={faListCheck} size="xl" />
+                    <Text>Quiz Type</Text>
+                </ContentWrapper>
+            </End>
         </Container>
     );
 };

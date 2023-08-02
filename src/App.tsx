@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Authentication from "./pages/Authentication";
-import DashBoard from "./pages/DashBoard/DashBoard";
+import DashBoard from "./pages/DashBoard";
 import {
     authFormAccess,
     myQuizzesLoader,
@@ -14,10 +14,10 @@ import {
     quizLoader,
     requireAuth,
 } from "./utils/loader";
-import MultipleChoiceCreate from "./pages/MultipleChoiceCreate";
 import InitialContent from "./pages/DashBoard/InitialContent";
 import MyQuizzes from "./pages/DashBoard/MyQuizzes";
 import QuestionManagement from "./pages/QuestionManagement";
+import QuestionList from "./pages/QuestionManagement/QuestionList";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -37,13 +37,11 @@ const router = createBrowserRouter(
                     />
                 </Route>
             </Route>
-            <Route path="admin/quizzes/:quizId">
-                <Route index element={<QuestionManagement />} />
-                <Route
-                    path="create"
-                    element={<MultipleChoiceCreate />}
-                    loader={quizLoader}
-                />
+            <Route
+                path="admin/quizzes/:quizId"
+                element={<QuestionManagement />}
+            >
+                <Route path="questions" element={<QuestionList />} />
             </Route>
 
             <Route path="*" element={<h1>Not found</h1>} />

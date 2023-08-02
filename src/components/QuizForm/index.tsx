@@ -101,7 +101,7 @@ const CollectionForm = (props: CustomProps) => {
             if (name === "create") {
                 //create collection
                 const response = await customAxios.post(
-                    "/api/collection/create",
+                    "/api/quiz/create",
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {
@@ -111,7 +111,7 @@ const CollectionForm = (props: CustomProps) => {
             if (name === "update") {
                 //update collection
                 const response = await customAxios.patch(
-                    `/api/collection/update/${
+                    `/api/quiz/update/${
                         props.quizData?.quizName as string
                     }`,
                     JSON.stringify(data)

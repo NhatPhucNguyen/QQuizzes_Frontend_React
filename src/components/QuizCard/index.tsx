@@ -73,7 +73,7 @@ const QuizCard = ({ quiz }: CustomProps) => {
             try {
                 console.log(quiz.quizName);
                 const response = await customAxios.delete(
-                    API + `/api/collection/delete/${quiz.quizName}`
+                    API + `/api/quiz/delete/${quiz.quizName}`
                 );
                 if (response.status === 200) {
                     navigate(0);

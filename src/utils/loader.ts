@@ -31,7 +31,7 @@ export const quizLoader: ActionFunction = async ({ params }) => {
     if (quizName) {
         try {
             const response = await customAxios.get(
-                `api/collection/get/${quizName}`
+                `api/quiz/get/${quizName}`
             );
             if (response.status === 200) {
                 return response.data as IQuiz;
@@ -48,7 +48,7 @@ export const quizLoader: ActionFunction = async ({ params }) => {
 export const myQuizzesLoader = async () => {
     try {
         const response = await customAxios.get(
-            "/api/collection/myCollection/getAll"
+            "/api/quiz/myquizzes/getAll"
         );
         if (response.status === 200) {
             const data = response.data as IQuiz[];
