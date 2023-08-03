@@ -5,7 +5,7 @@ import { customAxios } from "../../config/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
 type CustomProps = {
-    openModal: (formName:string) => void;
+    openModal: (formName: string) => void;
 };
 
 const SideContainer = styled.nav`
@@ -70,13 +70,15 @@ const Sidebar = (props: CustomProps) => {
                 </Link>
             </LogoContainer>
             <UserSummary>Hello, {localStorage.getItem("fullName")}</UserSummary>
-            <CreateButton onClick={()=> props.openModal("QuizCreate")}>Create</CreateButton>
+            <CreateButton onClick={() => props.openModal("QuizCreate")}>
+                Create
+            </CreateButton>
             <Tabs />
             <LogoutButton
                 onClick={() => {
                     const logout = async () => {
-                        await customAxios.get("/auth/logout");
                         localStorage.clear();
+                        await customAxios.get("/auth/logout");
                         navigate("/");
                     };
                     void logout();

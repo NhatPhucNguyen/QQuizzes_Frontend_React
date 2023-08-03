@@ -11,6 +11,7 @@ import {
     authFormAccess,
     myQuizzesLoader,
     navLoader,
+    questionsLoader,
     quizLoader,
     requireAuth,
 } from "./utils/loader";
@@ -37,11 +38,18 @@ const router = createBrowserRouter(
                     />
                 </Route>
             </Route>
-            <Route
-                path="admin/quizzes/:quizId"
-                element={<QuestionManagement />}
-            >
-                <Route path="questions" element={<QuestionList />} />
+            <Route path="/admin/quizzes" loader={requireAuth}>
+                <Route
+                    path=":quizId"
+                    element={<QuestionManagement />}
+                    loader={quizLoader}
+                >
+                    <Route
+                        path="questions"
+                        element={<QuestionList />}
+                        loader={questionsLoader}
+                    />
+                </Route>
             </Route>
 
             <Route path="*" element={<h1>Not found</h1>} />

@@ -5,10 +5,12 @@ import {
     faListCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLoaderData } from "react-router-dom";
+import { IQuiz } from "../../interfaces/app_interfaces";
 
 type CustomProps = {
-    isShowQuestNum?:boolean
-}
+    isShowQuestNum?: boolean;
+};
 
 const Container = styled.div`
     display: grid;
@@ -51,25 +53,28 @@ const End = styled.div`
     align-items: end;
 `;
 const Text = styled.span``;
-const SubNav = (props:CustomProps) => {
+const SubNav = (props: CustomProps) => {
+    const quizData = useLoaderData() as IQuiz;
     return (
         <Container>
             <Start>
                 <ContentWrapper>
                     <FontAwesomeIcon icon={faClipboardList} size="xl" />
-                    <Text>Quiz Name</Text>
+                    <Text>{quizData.quizName}</Text>
                 </ContentWrapper>
             </Start>
             <Mid>
-                {props.isShowQuestNum && <ContentWrapper>
-                    <FontAwesomeIcon icon={faIndent} size="xl" />
-                    <Text>Question Number</Text>
-                </ContentWrapper>}
+                {props.isShowQuestNum && (
+                    <ContentWrapper>
+                        <FontAwesomeIcon icon={faIndent} size="xl" />
+                        <Text>Question Number</Text>
+                    </ContentWrapper>
+                )}
             </Mid>
             <End>
                 <ContentWrapper>
                     <FontAwesomeIcon icon={faListCheck} size="xl" />
-                    <Text>Quiz Type</Text>
+                    <Text>Multiple Choice</Text>
                 </ContentWrapper>
             </End>
         </Container>

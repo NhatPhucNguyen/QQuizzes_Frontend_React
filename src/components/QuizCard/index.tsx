@@ -99,8 +99,9 @@ const QuizCard = ({ quiz }: CustomProps) => {
             <ButtonContainer>
                 <Button
                     onClick={() => {
+                        //navigate to list of questions
                         navigate(
-                            `/admin/quizzes/${quiz._id as string}`
+                            `/admin/quizzes/${quiz._id as string}/questions`
                         );
                     }}
                 >

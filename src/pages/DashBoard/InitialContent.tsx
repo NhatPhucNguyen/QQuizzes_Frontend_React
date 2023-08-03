@@ -20,6 +20,7 @@ const Title = styled.h1`
     font-size: 3.5rem;
     font-family: "Lumanosimo", cursive;
     color: #86a69d;
+    text-align: center;
 `;
 const SubTitle = styled(Title)`
     color: #f2b263;

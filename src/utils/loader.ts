@@ -2,7 +2,7 @@ import { ActionFunction, Params, redirect } from "react-router-dom";
 import { authenticatedCheck } from "./authenticatedCheck";
 import { customAxios } from "../config/axiosConfig";
 import { AxiosError } from "axios";
-import { IQuiz } from "../interfaces/app_interfaces";
+import { IQuestion, IQuiz } from "../interfaces/app_interfaces";
 
 export const requireAuth = async () => {
     const isAuthenticated = await authenticatedCheck();
@@ -27,12 +27,10 @@ export const navLoader = async () => {
 };
 
 export const quizLoader: ActionFunction = async ({ params }) => {
-    const { quizName } = params;
-    if (quizName) {
+    const { quizId} = params;
+    if (quizId) {
         try {
-            const response = await customAxios.get(
-                `api/quiz/get/${quizName}`
-            );
+            const response = await customAxios.get(`api/quiz/get/${quizId}`);
             if (response.status === 200) {
                 return response.data as IQuiz;
             }
@@ -48,7 +46,7 @@ export const quizLoader: ActionFunction = async ({ params }) => {
 export const myQuizzesLoader = async () => {
     try {
         const response = await customAxios.get(
-            "/api/quiz/myquizzes/getAll"
+            `/api/quiz/myquizzes/getAll`
         );
         if (response.status === 200) {
             const data = response.data as IQuiz[];
@@ -58,4 +56,24 @@ export const myQuizzesLoader = async () => {
         console.log(error);
         return null;
     }
+};
+
+export const questionsLoader: ActionFunction = async ({ params }) => {
+    const { quizId } = params;
+    if (quizId) {
+        try {
+            const response = await customAxios.get(
+                `/api/quiz/${quizId}/get/questions/getAll`
+            );
+            if (response.status === 200) {
+                const data = response.data as IQuestion[];
+                return data;
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                return redirect("/dashboard/myquizzes");
+            }
+        }
+    }
+    return null;
 };

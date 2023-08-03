@@ -4,11 +4,11 @@ import { keyframes, styled } from "styled-components";
 const moveDown = keyframes`
     from{
         opacity: 0;
-        scale: 0.5;
+        height: 10%;
     }
     to{
         opacity: 1;
-        scale: 1;
+        height: 100%;
     }
 `
 

@@ -105,15 +105,14 @@ const CollectionForm = (props: CustomProps) => {
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {
-                    navigate(`/admin/quizzes/${data.quizName}`);
+                    const { quizId } = response.data as { quizId: string };
+                    navigate(`/admin/quizzes/${quizId}/questions`);
                 }
             }
             if (name === "update") {
                 //update collection
                 const response = await customAxios.patch(
-                    `/api/quiz/update/${
-                        props.quizData?.quizName as string
-                    }`,
+                    `/api/quiz/update/${props.quizData?.quizName as string}`,
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {

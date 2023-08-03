@@ -44,14 +44,12 @@ const LoginForm = () => {
                                 message: string;
                             };
                             setAlert({ isShow: true, message: message });
-                        }
-                        if(err.request){
+                        } else if (err.request) {
                             const { message } = err as {
                                 message: string;
                             };
                             setAlert({ isShow: true, message: message });
-                        }
-                        else {
+                        } else {
                             console.log(err);
                         }
                     }

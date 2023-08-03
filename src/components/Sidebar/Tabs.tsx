@@ -29,7 +29,6 @@ const Tabs = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const noSlashPathname = pathname.replace(/\/+$/, "").toLowerCase();
-    console.log(noSlashPathname);
     return (
         <TabContainer>
             <TabItem
@@ -37,7 +36,7 @@ const Tabs = () => {
                     navigate("/dashboard");
                 }}
                 $onTab={
-                    pathname.endsWith("dashboard")
+                    noSlashPathname.endsWith("dashboard")
                 }
             >
                 <TabName>DashBoard</TabName>
@@ -46,7 +45,7 @@ const Tabs = () => {
                 onClick={() => {
                     navigate("myquizzes");
                 }}
-                $onTab={pathname.includes("myquizzes")}
+                $onTab={noSlashPathname.includes("myquizzes")}
             >
                 <TabName>My Quizzes</TabName>
             </TabItem>

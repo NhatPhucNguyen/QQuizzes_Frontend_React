@@ -14,6 +14,11 @@ export const customAxios = axios.create({
     },
     timeout: 5000,
 });
+customAxios.interceptors.request.use((config) => {
+    const token = localStorage.getItem("accessToken") as string;
+    config.headers.Authorization = `Bearer ` + token;
+    return config;
+});
 customAxios.interceptors.response.use(
     (res) => res,
     async (err: AxiosError) => {
