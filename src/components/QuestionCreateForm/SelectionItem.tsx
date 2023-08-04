@@ -1,31 +1,35 @@
-import React, {
+import {
     ChangeEvent,
     Dispatch,
+    RefObject,
     SetStateAction,
     useEffect,
     useRef,
     useState,
 } from "react";
+import { useFormContext } from "react-hook-form";
 import { styled } from "styled-components";
 
-const Container = styled.div<{ $isTrueAns?: boolean,$isOnFocus?:boolean }>`
+const Container = styled.div<{ $isTrueAns?: boolean; $isOnFocus?: boolean }>`
     display: grid;
     grid-template-columns: 10% 90%;
     border: 1px solid black;
     padding: 1rem;
     background-color: #393e46;
-    border: 1px solid ${(props) => {
-        if(props.$isOnFocus){
-            return "#00adb5"
-        }
-        if(props.$isTrueAns){
-            return "#88BD26"
-        }
-        return "#EEEEEE"
-    }};
+    border: 1px solid
+        ${(props) => {
+            if (props.$isOnFocus) {
+                return "#00adb5";
+            }
+            if (props.$isTrueAns) {
+                return "#88BD26";
+            }
+            return "#EEEEEE";
+        }};
     gap: 1rem;
     justify-content: center;
     align-items: center;
+    transition: 0.2s all ease-in-out;
 `;
 const RadioButton = styled.input`
     appearance: none;
@@ -71,28 +75,32 @@ const AnswerInput = styled.input`
 const SelectionItem = (props: {
     isRefresh: boolean;
     setIsRefresh: Dispatch<SetStateAction<boolean>>;
+    radioIndex: number;
 }) => {
     const [isTrueAns, setIsTrueAns] = useState(false);
     const [isFocus, setIsFocus] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
+    const { register } = useFormContext();
     useEffect(() => {
-        if (inputRef.current?.checked === false) {
+        const radioButtonElement = document.getElementById(`${props.radioIndex}`) as HTMLInputElement
+        if (radioButtonElement.checked === false) {
             setIsTrueAns(false);
         }
-    }, [props.isRefresh]);
+    }, [props.isRefresh, props.radioIndex]);
     return (
         <Container $isTrueAns={isTrueAns} $isOnFocus={isFocus}>
             <RadioButton
+                id={props.radioIndex.toString()}
                 type="radio"
-                name="answer"
+                defaultValue={props.radioIndex}
+                {...register("trueIndexAns")}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     setIsTrueAns(e.currentTarget.checked);
                     props.setIsRefresh(!props.isRefresh);
                 }}
-                ref={inputRef}
             />
             <AnswerInput
                 placeholder="Enter answer here..."
+                {...register(`answers[${props.radioIndex}]`)}
                 onFocus={() => {
                     setIsFocus(true);
                 }}

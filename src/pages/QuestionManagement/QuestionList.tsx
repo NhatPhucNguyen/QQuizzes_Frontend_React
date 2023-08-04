@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import QuestionListFunctions from "../../components/QuestionListFunctions";
 import QuestionCard from "../../components/QuestionCard";
@@ -7,11 +7,12 @@ import { IQuestion, ModalContext } from "../../interfaces/app_interfaces";
 
 const Container = styled.div`
     width: 70%;
-    height: inherit;
+    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
     gap: 2rem;
+    padding: 1rem;
 `;
 const SubContainer = styled.div`
     width: 100%;
@@ -27,6 +28,9 @@ const QuestionCardsContainer = styled.div`
 `;
 const QuestionList = () => {
     const questions = useLoaderData() as IQuestion[];
+    useEffect(() => {
+        localStorage.setItem("nextQuestionNumber", (questions.length + 1).toString());
+    }, [questions]);
     return (
         <Container>
             <QuestionListFunctions />

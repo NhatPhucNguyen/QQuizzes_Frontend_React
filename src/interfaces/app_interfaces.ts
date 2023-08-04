@@ -22,19 +22,18 @@ export interface IQuiz {
 }
 export interface IQuestion {
     _id?: string;
-    questionNumber: number;
+    questionNumber?: number;
     question: string;
     desc?: string;
     selections: ISelection[];
-    answerNumber: number;
     point: number;
     timeLimit: number;
 }
 export interface ISelection {
     _id?: string;
-    number: number;
+    selectionNumber: number;
     desc: string;
-    isAnswer: boolean;
+    isTrue: boolean;
 }
 export type ModalContext = {
     openModal: (formName?:string,quizData?:IQuiz) => void;

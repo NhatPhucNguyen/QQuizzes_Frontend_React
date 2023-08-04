@@ -13,10 +13,10 @@ const AnswersGroup = () => {
     const [isRefresh, setIsRefresh] = useState(false);
     return (
         <AnswersContainer>
-            <SelectionItem setIsRefresh={setIsRefresh} isRefresh={isRefresh}/>
-            <SelectionItem setIsRefresh={setIsRefresh} isRefresh={isRefresh}/>
-            <SelectionItem setIsRefresh={setIsRefresh} isRefresh={isRefresh}/>
-            <SelectionItem setIsRefresh={setIsRefresh} isRefresh={isRefresh}/>
+            <SelectionItem setIsRefresh={setIsRefresh} isRefresh={isRefresh} radioIndex={0}/>
+            <SelectionItem setIsRefresh={setIsRefresh} isRefresh={isRefresh} radioIndex={1}/>
+            <SelectionItem setIsRefresh={setIsRefresh} isRefresh={isRefresh} radioIndex={2}/>
+            <SelectionItem setIsRefresh={setIsRefresh} isRefresh={isRefresh} radioIndex={3}/>
         </AnswersContainer>
     );
 };

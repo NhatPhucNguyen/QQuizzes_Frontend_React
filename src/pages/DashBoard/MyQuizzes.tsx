@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import QuizCard from "../../components/QuizCard";
 import { useLoaderData, useOutletContext } from "react-router-dom";
 import { IQuiz } from "../../interfaces/app_interfaces";
+import { useEffect } from "react";
 
 const Container = styled.div`
     display: flex;
