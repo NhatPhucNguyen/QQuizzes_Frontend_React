@@ -7,7 +7,7 @@ const AnswersContainer = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 1rem;
-    width: 70%;
+    width: 100%;
 `;
 const AnswersGroup = () => {
     const [isRefresh, setIsRefresh] = useState(false);

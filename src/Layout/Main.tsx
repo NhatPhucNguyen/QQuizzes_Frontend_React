@@ -8,7 +8,8 @@ const Container = styled.div<{ $noGap?: boolean }>`
     display: flex;
     flex-direction: column;
     gap: ${(props) => (props.$noGap ? 0 : "2rem")};
-    height: 100%;
+    min-height: 100%;
+    height: auto;
 `;
 const Main = ({
     props,

@@ -81,7 +81,9 @@ const SelectionItem = (props: {
     const [isFocus, setIsFocus] = useState(false);
     const { register } = useFormContext();
     useEffect(() => {
-        const radioButtonElement = document.getElementById(`${props.radioIndex}`) as HTMLInputElement
+        const radioButtonElement = document.getElementById(
+            `${props.radioIndex}`
+        ) as HTMLInputElement;
         if (radioButtonElement.checked === false) {
             setIsTrueAns(false);
         }

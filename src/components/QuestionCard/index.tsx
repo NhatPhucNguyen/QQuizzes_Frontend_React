@@ -4,6 +4,7 @@ import BodyQuestionCard from "./BodyQuestionCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faStar } from "@fortawesome/free-solid-svg-icons";
 import { IQuestion, ISelection } from "../../interfaces/app_interfaces";
+import FooterQuestionCard from "./FooterQuestionCard";
 
 type CustomProps = {
     question: IQuestion;
@@ -47,11 +48,14 @@ const TimeLimit = styled.span`
     text-align: center;
     padding: 0.5rem 0;
 `;
-const QuestionCard = (props:CustomProps) => {
+const QuestionCard = (props: CustomProps) => {
     return (
         <Container>
             <Head>
-                <QuestionNumber>Question Number</QuestionNumber>
+                <QuestionNumber>
+                    {props.question.questionNumber &&
+                        `Question ${props.question.questionNumber.toString()}`}
+                </QuestionNumber>
                 <RuleContainer>
                     <Point>
                         <FontAwesomeIcon
@@ -59,7 +63,7 @@ const QuestionCard = (props:CustomProps) => {
                             size="xs"
                             color="#ffffff"
                         />{" "}
-                        1 pts
+                        {`${props.question.point} pts`}
                     </Point>
                     <TimeLimit>
                         <FontAwesomeIcon
@@ -67,11 +71,15 @@ const QuestionCard = (props:CustomProps) => {
                             size="xs"
                             color="#ffffff"
                         />{" "}
-                        30s
+                        {props.question.timeLimit.toString() + "s"}
                     </TimeLimit>
                 </RuleContainer>
             </Head>
-            <BodyQuestionCard />
+            <BodyQuestionCard
+                question={props.question.question}
+                selections={props.question.selections}
+            />
+            <FooterQuestionCard questionId={props.question._id as string}/>
         </Container>
     );
 };

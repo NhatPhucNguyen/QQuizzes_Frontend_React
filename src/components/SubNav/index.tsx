@@ -25,6 +25,7 @@ const ContentWrapper = styled.div`
     border: none;
     outline: none;
     width: 50%;
+    height: 100%;
     font-family: inherit;
     color: #ffffff;
     &::placeholder {
@@ -35,10 +36,15 @@ const ContentWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 `;
 const Start = styled.div`
     width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 `;
 const Mid = styled.div`
     width: 100%;
@@ -50,7 +56,7 @@ const End = styled.div`
     width: 100%;
     display: flex;
     justify-content: end;
-    align-items: end;
+    align-items: center;
 `;
 const Text = styled.span``;
 const SubNav = (props: CustomProps) => {

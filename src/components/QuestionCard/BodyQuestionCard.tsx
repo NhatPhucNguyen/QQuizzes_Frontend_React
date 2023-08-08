@@ -1,10 +1,15 @@
 import React from "react";
 import { styled } from "styled-components";
 import { ISelection } from "../../interfaces/app_interfaces";
+import {
+    faCircleCheck,
+    faSquareXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type CustomProps = {
-    question?: string;
-    selections?: ISelection[];
+    question: string;
+    selections: ISelection[];
 };
 
 const Container = styled.div`
@@ -26,36 +31,44 @@ const SelectionsContainer = styled.div`
 `;
 const SelectionItem = styled.div`
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 10% 90%;
+    gap: 0.5rem;
 `;
 const IconWrapper = styled.div``;
-const Answer = styled.span``;
-const Question = styled.p``;
-const BodyQuestionCard = (props:CustomProps) => {
+const Answer = styled.span`
+    word-wrap: break-word;
+    overflow-y: auto;
+`;
+const Question = styled.p`
+    word-wrap: break-word;
+`;
+const BodyQuestionCard = (props: CustomProps) => {
     return (
         <Container>
             <QuestionContainer>
-                <Question>
-                    loremasda asda da sdas d sad a sd sdas das ds
-                </Question>
+                <Question>{props.question.slice(0, 50)}</Question>
             </QuestionContainer>
             <SelectionsContainer>
-                <SelectionItem>
-                    <IconWrapper>X</IconWrapper>
-                    <Answer>Aasdasdsad</Answer>
-                </SelectionItem>
-                <SelectionItem>
-                    <IconWrapper>X</IconWrapper>
-                    <Answer>Aasdasdsad</Answer>
-                </SelectionItem>
-                <SelectionItem>
-                    <IconWrapper>X</IconWrapper>
-                    <Answer>Aasdasdsad</Answer>
-                </SelectionItem>
-                <SelectionItem>
-                    <IconWrapper>X</IconWrapper>
-                    <Answer>Aasdasdsad</Answer>
-                </SelectionItem>
+                {props.selections.map((selection, index) => {
+                    return (
+                        <SelectionItem key={index}>
+                            <IconWrapper>
+                                {selection.isTrue ? (
+                                    <FontAwesomeIcon
+                                        icon={faCircleCheck}
+                                        style={{ color: "#3ee401" }}
+                                    />
+                                ) : (
+                                    <FontAwesomeIcon
+                                        icon={faSquareXmark}
+                                        style={{ color: "#fb4141" }}
+                                    />
+                                )}
+                            </IconWrapper>
+                            <Answer>{selection.desc.slice(0, 20)}</Answer>
+                        </SelectionItem>
+                    );
+                })}
             </SelectionsContainer>
         </Container>
     );

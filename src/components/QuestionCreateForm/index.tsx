@@ -14,21 +14,29 @@ import { faBan, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { customAxios } from "../../config/axiosConfig";
-import { API } from "../../config/API";
+import QuestionFormHeader from "./QuestionFormHeader";
 
 type CustomProps = {
     closeModal: () => void;
     quizId: string;
 };
 
-const Container = styled.form`
+const BigWrapper = styled.div`
     width: 80%;
     height: 90%;
+    background-color: #222831;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const Container = styled.form`
+    width: 80%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #222831;
     gap: 2rem;
     padding: 0.5rem;
     color: #eeeeee;
@@ -37,7 +45,7 @@ const QuestionNumber = styled.h2`
     font-weight: bold;
 `;
 const QuestionInput = styled.textarea`
-    width: 70%;
+    width: 100%;
     padding: 2rem 4rem 1rem 4rem;
     resize: none;
     border: 1px solid black;
@@ -54,7 +62,6 @@ const QuestionInput = styled.textarea`
     }
     &:focus {
         border: 1px solid #00adb5;
-        transition: 0.4s all ease-in-out;
     }
 `;
 const ButtonContainer = styled.div`
@@ -64,7 +71,7 @@ const ButtonContainer = styled.div`
     justify-content: space-around;
     gap: 1rem;
     padding: 1rem;
-    width: 50%;
+    width: 80%;
 `;
 const Button = styled.button`
     width: 8rem;
@@ -88,6 +95,8 @@ type defaultValues = {
     question: string;
     trueIndexAns: number;
     answers: string[];
+    point:number,
+    timeLimit:number
 };
 const QuestionCreateForm = (props: CustomProps) => {
     const questionNumber = localStorage.getItem("nextQuestionNumber") as string;
@@ -117,8 +126,8 @@ const QuestionCreateForm = (props: CustomProps) => {
         const newQuestion: IQuestion = {
             question: data.question,
             selections: selections,
-            point: 1,
-            timeLimit: 30,
+            point: Number(data.point),
+            timeLimit: Number(data.timeLimit),
         };
         console.log(newQuestion, props.quizId);
         try {
@@ -135,29 +144,32 @@ const QuestionCreateForm = (props: CustomProps) => {
     };
     return (
         <FormProvider {...methods}>
-            <Container onSubmit={handleSubmit(onSubmit)}>
-                <QuestionNumber>{"Question " + questionNumber}</QuestionNumber>
-                <QuestionInput
-                    rows={5}
-                    placeholder="Please enter a question..."
-                    autoFocus={true}
-                    {...methods.register("question")}
-                />
-                <AnswersGroup />
-                <ButtonContainer>
-                    <SaveButton type="submit">
-                        <FontAwesomeIcon icon={faFloppyDisk} /> Save
-                    </SaveButton>
-                    <ResetButton
-                        type="button"
-                        onClick={() => {
-                            props.closeModal();
-                        }}
-                    >
-                        <FontAwesomeIcon icon={faBan} /> Cancel
-                    </ResetButton>
-                </ButtonContainer>
-            </Container>
+            <BigWrapper>
+                <Container onSubmit={handleSubmit(onSubmit)}>
+                    <QuestionFormHeader />
+                    <QuestionInput
+                        rows={5}
+                        placeholder="Please enter a question..."
+                        autoFocus={true}
+                        maxLength={500}
+                        {...methods.register("question")}
+                    />
+                    <AnswersGroup />
+                    <ButtonContainer>
+                        <SaveButton type="submit">
+                            <FontAwesomeIcon icon={faFloppyDisk} /> Save
+                        </SaveButton>
+                        <ResetButton
+                            type="button"
+                            onClick={() => {
+                                props.closeModal();
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faBan} /> Cancel
+                        </ResetButton>
+                    </ButtonContainer>
+                </Container>
+            </BigWrapper>
         </FormProvider>
     );
 };

@@ -7,7 +7,7 @@ import { IQuestion, ModalContext } from "../../interfaces/app_interfaces";
 
 const Container = styled.div`
     width: 70%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
@@ -19,6 +19,7 @@ const SubContainer = styled.div`
     display: grid;
     grid-template-columns: 60% 40%;
     gap: 1rem;
+    height: 100%;
 `;
 const QuestionCardsContainer = styled.div`
     display: flex;
@@ -29,7 +30,10 @@ const QuestionCardsContainer = styled.div`
 const QuestionList = () => {
     const questions = useLoaderData() as IQuestion[];
     useEffect(() => {
-        localStorage.setItem("nextQuestionNumber", (questions.length + 1).toString());
+        localStorage.setItem(
+            "nextQuestionNumber",
+            (questions.length + 1).toString()
+        );
     }, [questions]);
     return (
         <Container>
@@ -37,7 +41,12 @@ const QuestionList = () => {
             <SubContainer>
                 <QuestionCardsContainer>
                     {questions.map((question) => {
-                        return <QuestionCard question={question} />;
+                        return (
+                            <QuestionCard
+                                key={question._id}
+                                question={question}
+                            />
+                        );
                     })}
                 </QuestionCardsContainer>
             </SubContainer>

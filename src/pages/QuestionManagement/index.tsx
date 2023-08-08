@@ -12,6 +12,8 @@ const Container = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+    min-height: 100vh;
+    height: auto;
 `;
 
 const QuestionManagement = () => {
