@@ -8,11 +8,12 @@ import Main from "../Layout/Main";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     text-align: center;
     gap: 4em;
-    height: inherit;
+    min-height: 100dvh;
     @media only screen and (${devices.phones}) {
         gap: 2rem;
     }
@@ -54,11 +55,10 @@ const JoinGameButton = styled(CreateButton)`
     background-color: #f2bac6;
 `;
 
-
 const Home = () => {
     return (
         <Main>
-            <Navbar />
+            <Navbar isHideBars={true} />
             <Container>
                 <Introduction />
                 <ButtonContainer>

@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import DashBoard from "../../pages/DashBoard";
+import { useContext } from "react";
+import { SidebarContext } from "../../context/SidebarContext";
 
 const TabContainer = styled.div`
     display: flex;
@@ -28,22 +30,23 @@ const TabName = styled.span`
 const Tabs = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const sidebarContext = useContext(SidebarContext);
     const noSlashPathname = pathname.replace(/\/+$/, "").toLowerCase();
     return (
         <TabContainer>
             <TabItem
                 onClick={() => {
                     navigate("/dashboard");
+                    sidebarContext.closeSidebar();
                 }}
-                $onTab={
-                    noSlashPathname.endsWith("dashboard")
-                }
+                $onTab={noSlashPathname.endsWith("dashboard")}
             >
                 <TabName>DashBoard</TabName>
             </TabItem>
             <TabItem
                 onClick={() => {
                     navigate("myquizzes");
+                    sidebarContext.closeSidebar();
                 }}
                 $onTab={noSlashPathname.includes("myquizzes")}
             >

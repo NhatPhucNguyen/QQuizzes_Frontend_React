@@ -36,11 +36,12 @@ export interface ISelection {
     isTrue: boolean;
 }
 export type ModalContext = {
-    openModal: (formName?:string,quizData?:IQuiz) => void;
+    openModal: (formName?:string,quizData?:IQuiz,questionData?:IQuestion) => void;
     closeModal: () => void;
 };
 export type ShowModal = {
     isShow: boolean;
     formName?: string;
     quizData?: IQuiz;
+    questionData?:IQuestion;
 };

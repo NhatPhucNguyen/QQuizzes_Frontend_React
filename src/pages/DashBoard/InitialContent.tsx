@@ -4,6 +4,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styled } from "styled-components";
+import { devices } from "../../utils/devices";
 
 const Container = styled.div`
     display: flex;
@@ -11,9 +12,13 @@ const Container = styled.div`
     gap: 3rem;
     align-items: center;
     justify-content: center;
-    height: inherit;
     font-weight: bold;
     position: relative;
+    padding: 1rem;
+    width: 100%;
+    @media screen and (${devices.phones}){
+        font-size: 1rem;
+    }
 `;
 
 const Title = styled.h1`
@@ -21,18 +26,24 @@ const Title = styled.h1`
     font-family: "Lumanosimo", cursive;
     color: #86a69d;
     text-align: center;
+    @media screen and (${devices.phones}){
+        font-size: 1.5rem;
+    }
 `;
 const SubTitle = styled(Title)`
     color: #f2b263;
 `;
 const SearchBoxContainer = styled.form`
-    width: 45rem;
+    width: 80%;
     border-radius: 50px;
     background-color: #ffffff;
     display: grid;
     grid-template-columns: 80% 20%;
     justify-content: flex-end;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    @media screen and (${devices.phones}){
+        width: 100%;
+    }
 `;
 
 const SearchBox = styled.input`
@@ -43,6 +54,9 @@ const SearchBox = styled.input`
     padding: 1rem 2rem;
     border: none;
     outline: none;
+    @media screen and (${devices.phones}){
+        font-size: 1rem;
+    }
 `;
 const SearchButton = styled.button`
     border: none;
@@ -57,7 +71,10 @@ const SearchButton = styled.button`
     }
 `;
 const JoinContainer = styled(SearchBoxContainer)`
-    width: 30rem;
+    width: 70%;
+    @media screen and (${devices.phones}){
+        width: 90%;
+    }
 `;
 
 const InitialContent = () => {

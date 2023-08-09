@@ -1,9 +1,8 @@
-import React from "react";
-import { styled } from "styled-components";
-import BodyQuestionCard from "./BodyQuestionCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faStar } from "@fortawesome/free-solid-svg-icons";
-import { IQuestion, ISelection } from "../../interfaces/app_interfaces";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { styled } from "styled-components";
+import { IQuestion } from "../../interfaces/app_interfaces";
+import BodyQuestionCard from "./BodyQuestionCard";
 import FooterQuestionCard from "./FooterQuestionCard";
 
 type CustomProps = {
@@ -79,7 +78,7 @@ const QuestionCard = (props: CustomProps) => {
                 question={props.question.question}
                 selections={props.question.selections}
             />
-            <FooterQuestionCard questionId={props.question._id as string}/>
+            <FooterQuestionCard questionData={props.question}/>
         </Container>
     );
 };

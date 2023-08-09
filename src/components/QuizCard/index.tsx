@@ -25,6 +25,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 15rem;
+    height: 10rem;
     gap: 0.5rem;
 `;
 const QuizName = styled.span`

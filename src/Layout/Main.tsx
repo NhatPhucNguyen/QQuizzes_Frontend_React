@@ -5,11 +5,9 @@ type CustomProps = {
 };
 
 const Container = styled.div<{ $noGap?: boolean }>`
-    display: flex;
-    flex-direction: column;
     gap: ${(props) => (props.$noGap ? 0 : "2rem")};
     min-height: 100%;
-    height: auto;
+    height: 100%;
 `;
 const Main = ({
     props,

@@ -1,7 +1,7 @@
-import React from "react";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import { customAxios } from "../../config/axiosConfig";
-import { useNavigate, useParams } from "react-router-dom";
+import { IQuestion } from "../../interfaces/app_interfaces";
 
 const Container = styled.div`
     width: 100%;
@@ -16,16 +16,27 @@ const ButtonContainer = styled.div`
     gap: 1rem;
 `;
 const Button = styled.button`
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1.5rem;
+    border: 2px solid #a1acb3;
+    background-color: #ffffff;
+    &:hover {
+        cursor: pointer;
+        background-color: #e6e6e6;
+    }
 `;
-const FooterQuestionCard = ({ questionId }: { questionId: string }) => {
+const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
     const { quizId } = useParams();
     const navigate = useNavigate();
+    const outletContext = useOutletContext<{
+        openModal: (questionData: IQuestion) => void;
+    }>();
     const deleteQuestion = async () => {
         try {
             if (quizId) {
                 const response = await customAxios.get(
-                    `/api/quiz/${quizId}/delete/question/${questionId}`
+                    `/api/quiz/${quizId}/delete/question/${
+                        questionData._id as string
+                    }`
                 );
                 if (response.status === 200) {
                     navigate(0);
@@ -38,7 +49,13 @@ const FooterQuestionCard = ({ questionId }: { questionId: string }) => {
     return (
         <Container>
             <ButtonContainer>
-                <Button>Edit</Button>
+                <Button
+                    onClick={() => {
+                        outletContext.openModal(questionData);
+                    }}
+                >
+                    Edit
+                </Button>
                 <Button
                     onClick={() => {
                         void deleteQuestion();

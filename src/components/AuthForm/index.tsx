@@ -21,14 +21,14 @@ const MainContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 100%;
     padding: 1rem;
 `;
 export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
     display: grid;
     grid-template-columns: auto auto;
     width: 60%;
-    height: ${(props) => (props.$isAutoHeight ? "auto" : "100%")};
+    height: ${(props) => (props.$isAutoHeight ? "auto" : "70%")};
     background-color: #F2E8DF;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
@@ -36,11 +36,13 @@ export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
     animation: ${moveDown} 0.4s ease-in-out;
     @media only screen and (${devices.tablets}) {
         width: 80%;
+        height: auto;
     }
     @media only screen and (${devices.phones}) {
         width: 100%;
-        grid-template-columns: 55% 45%;
+        grid-template-columns: none;
         font-size: 1rem;
+        height: auto;
     }
 `;
 export const FormLayout = styled.form`

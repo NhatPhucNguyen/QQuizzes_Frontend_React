@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import ButtonContainer from "./ButtonContainer";
 import { devices } from "../../utils/devices";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type navProps = {
     isHideButtons?: boolean;
     isHideLogo?: boolean;
     height?: string;
+    openSidebar?: () => void;
+    isHideBars?: boolean;
 };
 
 const NavContainer = styled.nav<{ $height?: string }>`
     width: 100%;
-    height: ${(props) => props.$height || "auto"};
+    min-height: ${(props) => props.$height || "auto"};
     background-color: #e7717d;
     display: flex;
     flex-direction: row;
@@ -28,6 +32,19 @@ const Link = styled.a`
         cursor: pointer;
     }
 `;
+const BarsWrapper = styled.div`
+    display: none;
+    @media screen and (${devices.phones}) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+`;
+const IconWrapper = styled.div`
+    padding: 0.5rem 0 0.5rem 0;
+    color: #ffffff;
+`;
 const Navbar = (props: navProps) => {
     return (
         <NavContainer $height={props.height}>
@@ -36,6 +53,21 @@ const Navbar = (props: navProps) => {
                     <Logo src="/logo3.png" />
                 </Link>
             )}
+            {!props.isHideBars && <BarsWrapper>
+                <Link href="/">
+                    <Logo src="/logo3.png" />
+                </Link>
+                <IconWrapper
+                    onClick={() => {
+                        console.log("click");
+                        if (props.openSidebar) {
+                            props.openSidebar();
+                        }
+                    }}
+                >
+                    <FontAwesomeIcon icon={faBars} size="xl" />
+                </IconWrapper>
+            </BarsWrapper>}
             {!props.isHideButtons && <ButtonContainer />}
         </NavContainer>
     );

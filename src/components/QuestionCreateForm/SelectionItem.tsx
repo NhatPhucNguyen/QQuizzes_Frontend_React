@@ -1,10 +1,8 @@
 import {
     ChangeEvent,
     Dispatch,
-    RefObject,
     SetStateAction,
     useEffect,
-    useRef,
     useState,
 } from "react";
 import { useFormContext } from "react-hook-form";
@@ -76,6 +74,8 @@ const SelectionItem = (props: {
     isRefresh: boolean;
     setIsRefresh: Dispatch<SetStateAction<boolean>>;
     radioIndex: number;
+    desc?: string;
+    isTrue?: boolean;
 }) => {
     const [isTrueAns, setIsTrueAns] = useState(false);
     const [isFocus, setIsFocus] = useState(false);
@@ -87,7 +87,7 @@ const SelectionItem = (props: {
         if (radioButtonElement.checked === false) {
             setIsTrueAns(false);
         }
-    }, [props.isRefresh, props.radioIndex]);
+    }, [props.isRefresh, props.isTrue, props.radioIndex]);
     return (
         <Container $isTrueAns={isTrueAns} $isOnFocus={isFocus}>
             <RadioButton
@@ -99,9 +99,11 @@ const SelectionItem = (props: {
                     setIsTrueAns(e.currentTarget.checked);
                     props.setIsRefresh(!props.isRefresh);
                 }}
+                defaultChecked={props.isTrue}
             />
             <AnswerInput
                 placeholder="Enter answer here..."
+                defaultValue={props.desc}
                 {...register(`answers[${props.radioIndex}]`)}
                 onFocus={() => {
                     setIsFocus(true);

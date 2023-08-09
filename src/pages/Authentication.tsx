@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 const Authentication = () => {
     return (
         <Main>
-            <Navbar isHideButtons={true} />
+            <Navbar isHideButtons={true} isHideBars={true} />
             <AuthForm />
         </Main>
     );

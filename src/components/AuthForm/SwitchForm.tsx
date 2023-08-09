@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { FormTitle, LoginButton, SignUpButton } from ".";
 import { useContext } from "react";
 import { AuthFormContext } from "../../context/AuthFormContext";
+import { devices } from "../../utils/devices";
 const SwitchFormContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -10,6 +11,10 @@ const SwitchFormContainer = styled.div`
     gap: 2rem;
     text-align: center;
     border-left: 1px solid #acacac;
+    @media screen and (${devices.phones}){
+        gap: 0.5rem;
+        padding: 1rem;
+    }
 `;
 const SwitchForm = () => {
     const authFormContext = useContext(AuthFormContext);

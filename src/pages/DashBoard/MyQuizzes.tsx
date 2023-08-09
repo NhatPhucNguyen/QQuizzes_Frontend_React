@@ -1,13 +1,14 @@
+import { useLoaderData } from "react-router-dom";
 import { styled } from "styled-components";
 import QuizCard from "../../components/QuizCard";
-import { useLoaderData, useOutletContext } from "react-router-dom";
 import { IQuiz } from "../../interfaces/app_interfaces";
-import { useEffect } from "react";
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    height: 100%;
+    width: 100%;
 `;
 
 const Title = styled.h1`

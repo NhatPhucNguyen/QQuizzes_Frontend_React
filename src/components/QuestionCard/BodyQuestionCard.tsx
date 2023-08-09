@@ -27,7 +27,8 @@ const SelectionsContainer = styled.div`
     grid-template-rows: 1fr 1fr;
     width: 100%;
     border-top: 1px solid #bfbfbf;
-    padding-top: 0.5rem;
+    border-bottom: 1px solid #bfbfbf;
+    padding: 0.5rem 0 0.5rem 0;
 `;
 const SelectionItem = styled.div`
     display: grid;

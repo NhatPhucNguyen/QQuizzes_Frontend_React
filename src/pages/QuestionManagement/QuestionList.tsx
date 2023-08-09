@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 import { styled } from "styled-components";
-import QuestionListFunctions from "../../components/QuestionListFunctions";
 import QuestionCard from "../../components/QuestionCard";
-import { useLoaderData, useOutletContext } from "react-router-dom";
-import { IQuestion, ModalContext } from "../../interfaces/app_interfaces";
+import QuestionListFunctions from "../../components/QuestionListFunctions";
+import { IQuestion } from "../../interfaces/app_interfaces";
 
 const Container = styled.div`
     width: 70%;
-    height: auto;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;

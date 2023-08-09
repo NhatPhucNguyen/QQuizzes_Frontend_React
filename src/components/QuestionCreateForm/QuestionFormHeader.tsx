@@ -30,19 +30,26 @@ const RuleInput = styled.select`
     border: none;
     outline: none;
 `;
-const QuestionFormHeader = () => {
+
+type CustomProps = {
+    point?:number,
+    timeLimit?:number
+    questionNumber?:number
+}
+
+const QuestionFormHeader = (props:CustomProps) => {
     const { register } = useFormContext();
-    const questionNumber = localStorage.getItem("nextQuestionNumber") as string;
+    const questionNumber = props.questionNumber || localStorage.getItem("nextQuestionNumber") as string;
     return (
         <Container>
             <QuestionNumber>{`Question ${questionNumber}`}</QuestionNumber>
             <LimitRules>
-                <RuleInput defaultValue={1} {...register("point")}>
+                <RuleInput defaultValue={props.point || 1} {...register("point")}>
                     <option value={1}>1 point</option>
                     <option value={2}>2 points</option>
                     <option value={3}>3 points</option>
                 </RuleInput>
-                <RuleInput defaultValue={30} {...register("timeLimit")}>
+                <RuleInput defaultValue={props.timeLimit || 30} {...register("timeLimit")}>
                     <option value={30}>30s</option>
                     <option value={45}>45s</option>
                     <option value={60}>60s</option>

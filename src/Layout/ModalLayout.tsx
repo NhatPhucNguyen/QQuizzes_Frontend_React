@@ -21,7 +21,7 @@ const Container = styled.div`
     width: 100%;
     background-color: rgb(55, 54, 54, 0.4);
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     left: 0;
     top: 0;
     animation: ${moveDown} 0.4s ease-in-out;

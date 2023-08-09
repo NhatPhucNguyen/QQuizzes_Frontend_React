@@ -1,24 +1,19 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React from "react";
 import { styled } from "styled-components";
-import SelectionItem from "./SelectionItem";
 import AnswersGroup from "./AnswersGroup";
-import CloseMark from "../CloseMark";
-import { useNavigate, useOutletContext } from "react-router-dom";
-import {
-    IQuestion,
-    ISelection,
-    ModalContext,
-} from "../../interfaces/app_interfaces";
+import { useNavigate } from "react-router-dom";
+import { IQuestion, ISelection } from "../../interfaces/app_interfaces";
 import { faBan, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { customAxios } from "../../config/axiosConfig";
 import QuestionFormHeader from "./QuestionFormHeader";
+import { AxiosResponse } from "axios";
 
 type CustomProps = {
     closeModal: () => void;
     quizId: string;
+    questionData?: IQuestion;
 };
 
 const BigWrapper = styled.div`
@@ -30,7 +25,7 @@ const BigWrapper = styled.div`
     align-items: center;
 `;
 
-const Container = styled.form`
+const FormContainer = styled.form`
     width: 80%;
     height: 100%;
     display: flex;
@@ -40,9 +35,6 @@ const Container = styled.form`
     gap: 2rem;
     padding: 0.5rem;
     color: #eeeeee;
-`;
-const QuestionNumber = styled.h2`
-    font-weight: bold;
 `;
 const QuestionInput = styled.textarea`
     width: 100%;
@@ -95,16 +87,17 @@ type defaultValues = {
     question: string;
     trueIndexAns: number;
     answers: string[];
-    point:number,
-    timeLimit:number
+    point: number;
+    timeLimit: number;
 };
 const QuestionCreateForm = (props: CustomProps) => {
-    const questionNumber = localStorage.getItem("nextQuestionNumber") as string;
     const methods = useForm<defaultValues>();
     const { handleSubmit } = methods;
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<defaultValues> = async (data, e) => {
         e?.preventDefault();
+        //get form name for request
+        const { name } = e?.target as HTMLFormElement;
         //create an array of selection base on values of answer's input and radio button
         const selections = data.answers.map((answer, index) => {
             //use === because type of trueIndexAns is string due to react hook form default
@@ -129,14 +122,24 @@ const QuestionCreateForm = (props: CustomProps) => {
             point: Number(data.point),
             timeLimit: Number(data.timeLimit),
         };
-        console.log(newQuestion, props.quizId);
         try {
-            const response = await customAxios.post(
-                `/api/quiz/${props.quizId}/question/create`,
-                JSON.stringify(newQuestion)
-            );
-            if (response.status === 200) {
-                navigate(0);
+            if (name === "create") {
+                const response = await customAxios.post(
+                    `/api/quiz/${props.quizId}/question/create`,
+                    JSON.stringify(newQuestion)
+                );
+                if (response.status === 200) {
+                    navigate(0);
+                }
+            }
+            if (name === "update" && props.questionData?._id) {
+                const response = await customAxios.post(
+                    `/api/quiz/${props.quizId}/question/${props.questionData?._id}/update`,
+                    JSON.stringify(newQuestion)
+                );
+                if (response.status === 200) {
+                    navigate(0);
+                }
             }
         } catch (error) {
             console.log(error);
@@ -145,16 +148,24 @@ const QuestionCreateForm = (props: CustomProps) => {
     return (
         <FormProvider {...methods}>
             <BigWrapper>
-                <Container onSubmit={handleSubmit(onSubmit)}>
-                    <QuestionFormHeader />
+                <FormContainer
+                    onSubmit={handleSubmit(onSubmit)}
+                    name={props.questionData ? "update" : "create"}
+                >
+                    <QuestionFormHeader
+                        questionNumber={props.questionData?.questionNumber}
+                        point={props.questionData?.point}
+                        timeLimit={props.questionData?.timeLimit}
+                    />
                     <QuestionInput
                         rows={5}
                         placeholder="Please enter a question..."
                         autoFocus={true}
                         maxLength={500}
+                        defaultValue={props.questionData?.question}
                         {...methods.register("question")}
                     />
-                    <AnswersGroup />
+                    <AnswersGroup selections={props.questionData?.selections} />
                     <ButtonContainer>
                         <SaveButton type="submit">
                             <FontAwesomeIcon icon={faFloppyDisk} /> Save
@@ -168,7 +179,7 @@ const QuestionCreateForm = (props: CustomProps) => {
                             <FontAwesomeIcon icon={faBan} /> Cancel
                         </ResetButton>
                     </ButtonContainer>
-                </Container>
+                </FormContainer>
             </BigWrapper>
         </FormProvider>
     );
