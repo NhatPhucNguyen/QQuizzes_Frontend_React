@@ -1,14 +1,18 @@
 import { styled } from "styled-components";
 import { Dispatch, SetStateAction } from "react";
 import { ShowForm } from ".";
+import { devices } from "../../utils/devices";
 
 const SelectionsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
     gap: 2rem;
     padding: 1rem;
     justify-content: center;
+    @media screen and (${devices.phones}){
+        display: flex;
+        flex-direction: column;
+    }
 `;
 const SelectionItem = styled.button`
     width: 15rem;

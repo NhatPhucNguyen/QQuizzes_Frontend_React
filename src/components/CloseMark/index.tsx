@@ -2,6 +2,7 @@ import {faCircleXmark} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { styled } from "styled-components";
+import { devices } from "../../utils/devices";
 const CloseMarkWrapper = styled.button`
     position: absolute;
     right: 10px;
@@ -14,6 +15,10 @@ const CloseMarkWrapper = styled.button`
     &:hover{
         cursor: pointer;
         color: #cd4c4c;
+    }
+    @media screen and (${devices.phones}){
+        flex-direction: column;
+        font-size: 90%;
     }
 `;
 const CloseMark = ({ closeModal }: { closeModal: () => void }) => {

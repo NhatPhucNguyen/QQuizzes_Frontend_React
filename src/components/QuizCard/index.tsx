@@ -11,6 +11,7 @@ import {
     faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { devices } from "../../utils/devices";
 
 type CustomProps = {
     quiz: IQuiz;
@@ -24,17 +25,19 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 15rem;
+    width: 100%;
     height: 10rem;
     gap: 0.5rem;
 `;
 const QuizName = styled.span`
     font-weight: bold;
     font-size: 1.2rem;
+    text-align: center;
 `;
 
 const Topic = styled.span`
     font-size: 1rem;
+    text-align: center;
 `;
 const SubContainer = styled.div`
     display: flex;

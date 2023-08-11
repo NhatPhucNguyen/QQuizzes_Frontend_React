@@ -27,12 +27,13 @@ export const navLoader = async () => {
 };
 
 export const quizLoader: ActionFunction = async ({ params }) => {
-    const { quizId} = params;
+    const { quizId } = params;
     if (quizId) {
         try {
             const response = await customAxios.get(`api/quiz/get/${quizId}`);
             if (response.status === 200) {
-                return response.data as IQuiz;
+                const data = response.data as IQuiz;
+                return data;
             }
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -45,9 +46,7 @@ export const quizLoader: ActionFunction = async ({ params }) => {
 
 export const myQuizzesLoader = async () => {
     try {
-        const response = await customAxios.get(
-            `/api/quiz/myquizzes/getAll`
-        );
+        const response = await customAxios.get(`/api/quiz/myquizzes/getAll`);
         if (response.status === 200) {
             const data = response.data as IQuiz[];
             return data;

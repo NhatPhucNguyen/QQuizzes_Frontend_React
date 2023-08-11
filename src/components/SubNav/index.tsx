@@ -7,14 +7,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLoaderData } from "react-router-dom";
 import { IQuiz } from "../../interfaces/app_interfaces";
-
-type CustomProps = {
-    isShowQuestNum?: boolean;
-};
+import { devices } from "../../utils/devices";
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     width: 100%;
     background-color: #a8525b;
 `;
@@ -39,17 +36,14 @@ const ContentWrapper = styled.div`
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
+    @media screen and (${devices.phones}){
+        width: 70%;
+    }
 `;
 const Start = styled.div`
     width: 100%;
     display: flex;
     justify-content: start;
-    align-items: center;
-`;
-const Mid = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
     align-items: center;
 `;
 const End = styled.div`
@@ -59,7 +53,7 @@ const End = styled.div`
     align-items: center;
 `;
 const Text = styled.span``;
-const SubNav = (props: CustomProps) => {
+const SubNav = () => {
     const quizData = useLoaderData() as IQuiz;
     return (
         <Container>
@@ -69,14 +63,6 @@ const SubNav = (props: CustomProps) => {
                     <Text>{quizData.quizName}</Text>
                 </ContentWrapper>
             </Start>
-            <Mid>
-                {props.isShowQuestNum && (
-                    <ContentWrapper>
-                        <FontAwesomeIcon icon={faIndent} size="xl" />
-                        <Text>Question Number</Text>
-                    </ContentWrapper>
-                )}
-            </Mid>
             <End>
                 <ContentWrapper>
                     <FontAwesomeIcon icon={faListCheck} size="xl" />

@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 import { devices } from "../../utils/devices";
 import Tabs from "./Tabs";
 import { customAxios } from "../../config/axiosConfig";
@@ -11,6 +11,17 @@ type CustomProps = {
     isShowSidebar?: boolean;
     closeSidebar?: () => void;
 };
+
+const moveRightToLeft = keyframes`
+    from{
+        opacity: 0;
+        width: 10%;
+    }
+    to{
+        opacity: 1;
+        width: 100%;
+    }
+`;
 
 const SideContainer = styled.nav<{ $isShow?: boolean }>`
     height: 100%;
@@ -27,11 +38,12 @@ const SideContainer = styled.nav<{ $isShow?: boolean }>`
     @media screen and (${devices.phones}) {
         display: ${(props) => (props.$isShow ? "flex" : "none")};
         position: absolute;
-        left: 0;
+        right: 0;
         top: 0;
         z-index: 1;
         height: 100%;
         gap: 1rem;
+        animation: ${moveRightToLeft} 0.4s ease-in-out;
     }
 `;
 const LogoContainer = styled.div`

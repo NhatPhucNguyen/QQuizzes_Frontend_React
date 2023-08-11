@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import CloseMark from "../CloseMark";
 import { topicSelections } from "../../config/topicSelections";
 import QuizFormController from "./QuizFormController";
+import { devices } from "../../utils/devices";
 
 type CustomProps = {
     selection?: string;
@@ -51,6 +52,10 @@ const Container = styled.div`
     position: relative;
     border-radius: 25px;
     animation: ${moveLeft} 0.4s ease-in-out;
+    @media screen and (${devices.phones}){
+        width: 90%;
+        padding: 2rem 0;
+    }
 `;
 
 const FormContainer = styled.form`

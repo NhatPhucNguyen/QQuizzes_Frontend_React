@@ -31,7 +31,7 @@ const QuestionManagement = () => {
     return (
         <Main props={{ noGap: true }}>
             <Navbar isHideButtons={true} isHideBars={true}/>
-            <SubNav isShowQuestNum={false} />
+            <SubNav />
             <Container>
                 <Outlet context={{ openModal }} />
             </Container>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { styled } from "styled-components";
+import { devices } from "../../utils/devices";
 
 const Container = styled.div`
     display: flex;
@@ -12,6 +13,9 @@ const Container = styled.div`
 `;
 const QuestionNumber = styled.h1`
     font-weight: bold;
+    @media screen and (${devices.phones}){
+        font-size: 1.5rem;
+    }
 `;
 const LimitRules = styled.div`
     display: flex;
@@ -29,6 +33,11 @@ const RuleInput = styled.select`
     padding: 0.2rem 1rem;
     border: none;
     outline: none;
+    @media screen and (${devices.phones}){
+        width: 5rem;
+        padding: 0.2rem;
+        height: 2rem;
+    }
 `;
 
 type CustomProps = {

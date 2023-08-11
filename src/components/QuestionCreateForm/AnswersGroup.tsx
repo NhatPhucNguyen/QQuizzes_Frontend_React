@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react';
 import { styled } from "styled-components";
 import { ISelection } from "../../interfaces/app_interfaces";
 import SelectionItem from "./SelectionItem";
+import { devices } from '../../utils/devices';
 
 const AnswersContainer = styled.div`
     display: grid;
@@ -9,6 +10,10 @@ const AnswersContainer = styled.div`
     grid-template-rows: 1fr 1fr;
     gap: 1rem;
     width: 100%;
+    @media screen and (${devices.phones}){
+        display: flex;
+        flex-direction: column;
+    }
 `;
 const AnswersGroup = ({ selections }: { selections?: ISelection[] }) => {
     const [isRefresh, setIsRefresh] = useState(false);

@@ -9,6 +9,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { customAxios } from "../../config/axiosConfig";
 import QuestionFormHeader from "./QuestionFormHeader";
 import { AxiosResponse } from "axios";
+import { devices } from "../../utils/devices";
 
 type CustomProps = {
     closeModal: () => void;
@@ -18,11 +19,13 @@ type CustomProps = {
 
 const BigWrapper = styled.div`
     width: 80%;
-    height: 90%;
     background-color: #222831;
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (${devices.phones}){
+        width: 100%;
+    }
 `;
 
 const FormContainer = styled.form`
@@ -35,6 +38,9 @@ const FormContainer = styled.form`
     gap: 2rem;
     padding: 0.5rem;
     color: #eeeeee;
+    @media screen and (${devices.phones}){
+        width: 90%;
+    }
 `;
 const QuestionInput = styled.textarea`
     width: 100%;
@@ -64,6 +70,9 @@ const ButtonContainer = styled.div`
     gap: 1rem;
     padding: 1rem;
     width: 80%;
+    @media screen and (${devices.phones}){
+        width: 100%;
+    }
 `;
 const Button = styled.button`
     width: 8rem;

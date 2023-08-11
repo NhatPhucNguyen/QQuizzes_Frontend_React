@@ -43,6 +43,7 @@ const router = createBrowserRouter(
                     path=":quizId"
                     element={<QuestionManagement />}
                     loader={quizLoader}
+                    id="quiz"
                 >
                     <Route
                         path="questions"

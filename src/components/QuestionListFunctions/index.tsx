@@ -4,6 +4,7 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useOutletContext } from "react-router-dom";
 import { ModalContext } from "../../interfaces/app_interfaces";
+import { devices } from "../../utils/devices";
 
 const Container = styled.div`
     display: flex;
@@ -13,7 +14,11 @@ const Container = styled.div`
     width: 100%;
     padding: 1rem;
     gap: 1rem;
-    position: sticky;
+    @media screen and (${devices.phones}){
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 `;
 
 const SearchContainer = styled.form`
@@ -22,6 +27,9 @@ const SearchContainer = styled.form`
     grid-template-columns: 80% 20%;
     padding: 0.2rem;
     border: 1px solid #ccbeb8;
+    @media screen and (${devices.phones}){
+        width:100%;
+    }
 `;
 const SearchBox = styled.input`
     width: 100%;
@@ -61,6 +69,9 @@ const CreateButton = styled.button`
     &:hover {
         cursor: pointer;
         background-color: rgb(153, 110, 92);
+    }
+    @media screen and (${devices.phones}){
+        width: 50%;
     }
 `;
 const QuestionListFunctions = () => {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Selections from "./Selections";
 import CollectionForm from "../QuizForm";
 import CloseMark from "../CloseMark";
+import { devices } from "../../utils/devices";
 
 type CustomProps = {
     closeModal: () => void;
@@ -27,7 +28,6 @@ const moveLeft = keyframes`
 `;
 
 const SelectionsContainer = styled.div`
-    width: 50%;
     padding: 1rem;
     background-color: #ffffff;
     display: flex;
@@ -38,11 +38,18 @@ const SelectionsContainer = styled.div`
     position: relative;
     border-radius: 25px;
     animation: ${moveLeft} 0.4s ease-in-out;
+    @media screen and (${devices.phones}){
+        width: 90%;
+    }
 `;
 
 const Title = styled.h2`
     font-weight: bold;
     text-align: center;
+    @media screen and (${devices.phones}){
+        font-size: 1.2rem;
+        width: 80%;
+    }
 `;
 
 const SelectionBoard = (props: CustomProps) => {

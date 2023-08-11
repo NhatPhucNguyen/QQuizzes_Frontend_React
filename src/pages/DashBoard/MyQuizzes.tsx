@@ -2,6 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import { styled } from "styled-components";
 import QuizCard from "../../components/QuizCard";
 import { IQuiz } from "../../interfaces/app_interfaces";
+import { devices } from "../../utils/devices";
 
 const Container = styled.div`
     display: flex;
@@ -15,13 +16,13 @@ const Title = styled.h1`
     text-align: center;
 `;
 const CardsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,15rem);
     gap: 1rem;
     padding: 1rem;
-    justify-content: flex-start;
-    flex: 1;
+    @media screen and (${devices.phones}){
+        justify-content: center;
+    }
 `;
 const MyQuizzes = () => {
     const quizzesData = useLoaderData() as IQuiz[];

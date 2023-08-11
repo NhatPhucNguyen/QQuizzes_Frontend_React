@@ -56,6 +56,9 @@ const SearchBox = styled.input`
     outline: none;
     @media screen and (${devices.phones}){
         font-size: 1rem;
+        &::placeholder{
+            font-size: 0.8rem;
+        }
     }
 `;
 const SearchButton = styled.button`
