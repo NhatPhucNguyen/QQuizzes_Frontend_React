@@ -52,9 +52,9 @@ export const myQuizzesLoader = async () => {
             return data;
         }
     } catch (error) {
-        console.log(error);
-        return null;
+        return redirect("/dashboard");
     }
+    return null;
 };
 
 export const questionsLoader: ActionFunction = async ({ params }) => {

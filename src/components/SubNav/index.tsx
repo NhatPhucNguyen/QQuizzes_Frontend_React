@@ -56,7 +56,7 @@ const Text = styled.span``;
 const SubNav = () => {
     const quizData = useLoaderData() as IQuiz;
     return (
-        <Container>
+        <Container id="subNav">
             <Start>
                 <ContentWrapper>
                     <FontAwesomeIcon icon={faClipboardList} size="xl" />

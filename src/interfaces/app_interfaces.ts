@@ -16,8 +16,8 @@ export interface IAlert {
 export interface IQuiz {
     _id?: string;
     quizName: string;
-    topic?: string;
-    level?: string;
+    topic: string;
+    level: string;
     quantity?: number;
 }
 export interface IQuestion {

@@ -49,6 +49,7 @@ const router = createBrowserRouter(
                         path="questions"
                         element={<QuestionList />}
                         loader={questionsLoader}
+                        id="questions"
                     />
                 </Route>
             </Route>

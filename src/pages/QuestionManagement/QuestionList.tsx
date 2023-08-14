@@ -5,7 +5,7 @@ import QuestionCard from "../../components/QuestionCard";
 import QuestionListFunctions from "../../components/QuestionListFunctions";
 import { IQuestion, IQuiz } from "../../interfaces/app_interfaces";
 import { devices } from "../../utils/devices";
-import QuizInfoCard from "./QuizInfoCard";
+import QuizInfoCard from "../../components/QuizInfoCard";
 
 const Container = styled.div`
     width: 70%;
