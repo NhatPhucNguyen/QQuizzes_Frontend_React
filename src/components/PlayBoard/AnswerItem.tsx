@@ -1,15 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import { styled } from "styled-components";
+import { useEffect, useContext } from "react";
+import { PlayBoardContext } from "../../context/PlayBoardContext";
 
-const Container = styled.div<{$backgroundColor:string}>`
+const Container = styled.button<{ $backgroundColor: string }>`
     width: 100%;
     height: 80%;
-    background-color: ${props=>props.$backgroundColor};
+    background-color: ${(props) => props.$backgroundColor};
     padding: 1rem;
     display: flex;
     align-items: center;
     color: #ffffff;
-    &:hover{
+    border: none;
+    font-size: inherit;
+    &:hover {
         opacity: 0.9;
         cursor: pointer;
         outline: 2px solid #f9f240;
@@ -24,15 +28,39 @@ const Answer = styled.p`
 `;
 
 type CustomProps = {
-    backgroundColor:string
-}
+    backgroundColor: string;
+    desc: string;
+    isTrue?: boolean;
+};
 
-const AnswerItem = (props:CustomProps) => {
+const AnswerItem = (props: CustomProps) => {
+    const { nextQuestion, isShowAns } = useContext(PlayBoardContext);
+    const [backgroundColor, setBackgroundColor] = useState(
+        props.backgroundColor
+    );
+    useEffect(() => {
+        if (isShowAns) {
+            if (props.isTrue) {
+                setBackgroundColor("green");
+            } else {
+                setBackgroundColor("#848484");
+            }
+        }
+    }, [isShowAns, props.isTrue]);
     return (
-        <Container $backgroundColor={props.backgroundColor}>
-            <Answer>
-            The maid—she said she was dusting the cornersTh
-            </Answer>
+        <Container
+            type="button"
+            $backgroundColor={backgroundColor}
+            disabled={isShowAns}
+            onClick={() => {
+                if (props.isTrue) {
+                    nextQuestion(true);
+                } else {
+                    nextQuestion();
+                }
+            }}
+        >
+            <Answer>{props.desc}</Answer>
         </Container>
     );
 };

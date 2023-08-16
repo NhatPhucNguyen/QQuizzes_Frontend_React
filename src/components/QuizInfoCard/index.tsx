@@ -1,5 +1,10 @@
 import React from "react";
-import { useLoaderData, useRouteLoaderData } from "react-router-dom";
+import {
+    useLoaderData,
+    useNavigate,
+    useParams,
+    useRouteLoaderData,
+} from "react-router-dom";
 import { styled } from "styled-components";
 import { IQuestion, IQuiz } from "../../interfaces/app_interfaces";
 import { devices } from "../../utils/devices";
@@ -49,6 +54,8 @@ const QuizInfoCard = () => {
         (x, question) => x + question.timeLimit,
         0
     );
+    const navigate = useNavigate();
+    const { quizId } = useParams() as {quizId:string};
     return (
         <Container>
             <QuizDetailItem
@@ -67,7 +74,13 @@ const QuizInfoCard = () => {
                 }
             />
             <ButtonContainer>
-                <Button>Preview</Button>
+                <Button
+                    onClick={() => {
+                        navigate(`/play/${quizId}`);
+                    }}
+                >
+                    Preview
+                </Button>
                 <Button
                     onClick={() => {
                         window.scrollTo({ top: 0, behavior: "smooth" });

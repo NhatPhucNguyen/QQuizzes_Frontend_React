@@ -55,7 +55,7 @@ const router = createBrowserRouter(
                 </Route>
             </Route>
             <Route path="/play" loader={requireAuth}>
-                <Route path=":quizId" element={<QuizPlay />} />
+                <Route path=":quizId" element={<QuizPlay />} loader={questionsLoader}/>
             </Route>
             <Route path="*" element={<h1>Not found</h1>} />
         </>

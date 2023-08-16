@@ -1,7 +1,10 @@
 import { styled } from "styled-components";
 import PlayBoardHeader from "./PlayBoardHeader";
-import DashBoard from "../../pages/DashBoard/index";
-import AnswerItem from "./AnswerItem";
+import { useLoaderData } from "react-router-dom";
+import { IQuestion } from "../../interfaces/app_interfaces";
+import { useState } from "react";
+import PlayBoardAnswers from "./PlayBoardAnswers";
+import { PlayBoardContext } from "../../context/PlayBoardContext";
 
 const Container = styled.div`
     display: flex;
@@ -27,35 +30,49 @@ const Question = styled.p`
     word-wrap: break-word;
     overflow-y: auto;
 `;
-const AnswerContainer = styled.div`
-    display: grid;
-    width: 80%;
-    height: inherit;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    margin: 0 auto;
-    gap: 0 1rem;
-`;
+
 const PlayBoard = () => {
+    const questions = useLoaderData() as IQuestion[];
+    const [index, setIndex] = useState(0);
+    const [point, setPoint] = useState(0);
+    const [isShow, setIsShow] = useState(false);
+    const nextQuestion = (increasePoint?: boolean) => {
+        setIsShow(true);
+        if (increasePoint) {
+            setPoint((prevPoint) => prevPoint + questions[index].point);
+        }
+        if (index < questions.length - 1) {
+            setTimeout(() => {
+                setIndex((prevIndex) => prevIndex + 1);
+                setIsShow(false);
+            }, 1000);
+        }
+    };
     return (
-        <Container>
-            <PlayBoardHeader duration={5} />
-            <QuestionContainer>
-                <Question>
-                    A wealthy family lived in a big circular house. They had a
-                    maid, a butler, and a gardener. The parents were going to a
-                    party, so they tucked the younger kids into bed and kissed
-                    them goodnight and said goodbye, and kissed the older kids
-                    goodnight. When the parents came home, all the ki
-                </Question>
-            </QuestionContainer>
-            <AnswerContainer>
-                <AnswerItem backgroundColor="#ae5465"/>
-                <AnswerItem backgroundColor="#2493A7"/>
-                <AnswerItem backgroundColor="#469347"/>
-                <AnswerItem backgroundColor="#7D60A6"/>
-            </AnswerContainer>
-        </Container>
+        <PlayBoardContext.Provider
+            value={{
+                question: questions[index],
+                nextQuestion: nextQuestion,
+                isShowAns: isShow,
+            }}
+        >
+            <Container>
+                <PlayBoardHeader
+                    duration={questions[index].timeLimit}
+                    point={questions[index].point}
+                    questionNumber={questions[index].questionNumber as number}
+                    questionsLength={questions.length}
+                    currentPoint={point}
+                />
+                <QuestionContainer>
+                    <Question>{questions[index].question}</Question>
+                </QuestionContainer>
+                <PlayBoardAnswers
+                    key={questions[index].questionNumber}
+                    selections={questions[index].selections}
+                />
+            </Container>
+        </PlayBoardContext.Provider>
     );
 };
 
