@@ -19,6 +19,7 @@ import InitialContent from "./pages/DashBoard/InitialContent";
 import MyQuizzes from "./pages/DashBoard/MyQuizzes";
 import QuestionManagement from "./pages/QuestionManagement";
 import QuestionList from "./pages/QuestionManagement/QuestionList";
+import QuizPlay from "./pages/QuizPlay";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -53,7 +54,9 @@ const router = createBrowserRouter(
                     />
                 </Route>
             </Route>
-
+            <Route path="/play" loader={requireAuth}>
+                <Route path=":quizId" element={<QuizPlay />} />
+            </Route>
             <Route path="*" element={<h1>Not found</h1>} />
         </>
     )
