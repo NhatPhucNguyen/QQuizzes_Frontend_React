@@ -5,7 +5,7 @@ import { PlayBoardContext } from "../../context/PlayBoardContext";
 
 const Container = styled.button<{ $backgroundColor: string }>`
     width: 100%;
-    height: 80%;
+    height: 100%;
     background-color: ${(props) => props.$backgroundColor};
     padding: 1rem;
     display: flex;

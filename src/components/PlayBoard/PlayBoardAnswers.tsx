@@ -9,7 +9,7 @@ const AnswerContainer = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     margin: 0 auto;
-    gap: 0 1rem;
+    gap: 1rem;
 `;
 
 const backgroundColors = ["#c88c02", "#2493A7", "#c63535", "#7D60A6"];

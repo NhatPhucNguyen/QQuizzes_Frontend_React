@@ -1,6 +1,10 @@
-import { TimeProps, CountdownCircleTimer } from "react-countdown-circle-timer";
+import {
+    TimeProps,
+    CountdownCircleTimer,
+    useCountdown,
+} from "react-countdown-circle-timer";
 import { styled } from "styled-components";
-import { useContext } from 'react';
+import { useContext, useState, useEffect, useRef } from "react";
 import { PlayBoardContext } from "../../context/PlayBoardContext";
 
 const Container = styled.div`
@@ -29,19 +33,26 @@ type CustomProps = {
     point: number;
     questionNumber: number;
     questionsLength: number;
-    currentPoint:number;
+    getCurrentTime: (elapsedTime: number) => void;
 };
 
 const PlayBoardHeader = (props: CustomProps) => {
-    const {nextQuestion} = useContext(PlayBoardContext)
-    const renderTime = ({ remainingTime }: TimeProps) => {
+    const { nextQuestion, isShowAns } = useContext(PlayBoardContext);
+    let currentTime: number;
+    const renderTime = ({ remainingTime, elapsedTime }: TimeProps) => {
+        currentTime = elapsedTime;
         return <Timer>{remainingTime}</Timer>;
     };
+    useEffect(() => {
+        if (isShowAns) {
+            props.getCurrentTime(currentTime);
+        }
+    }, [isShowAns]);
     return (
         <Container>
             <CountdownCircleTimer
                 key={props.questionNumber}
-                isPlaying
+                isPlaying={!isShowAns}
                 duration={props.duration}
                 colors={["#277C13", "#93AB2C", "#FFB306", "#E87B00", "#992E06"]}
                 colorsTime={[
@@ -62,7 +73,6 @@ const PlayBoardHeader = (props: CustomProps) => {
             <RightHeader>
                 <Detail>{props.point} pts</Detail>
                 <Detail>{props.questionNumber}/30</Detail>
-                <Detail>Total point : {props.currentPoint}</Detail>
             </RightHeader>
         </Container>
     );
