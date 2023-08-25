@@ -35,13 +35,24 @@ export interface ISelection {
     desc: string;
     isTrue: boolean;
 }
+export interface IAttempt {
+    point: number;
+    timeCompleted: number;
+    correctAnswers: number;
+    questionsCompleted?: number;
+}
 export type ModalContext = {
-    openModal: (formName?:string,quizData?:IQuiz,questionData?:IQuestion) => void;
+    openModal: (options?: {
+        question?: IQuestion;
+        quiz?: IQuiz;
+        formName?: string;
+    }) => void;
     closeModal: () => void;
 };
 export type ShowModal = {
     isShow: boolean;
     formName?: string;
     quizData?: IQuiz;
-    questionData?:IQuestion;
+    questionData?: IQuestion;
+    modalName?: string;
 };

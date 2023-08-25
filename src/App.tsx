@@ -3,6 +3,8 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
     RouterProvider,
+    Outlet,
+    Navigate,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Authentication from "./pages/Authentication";
@@ -13,6 +15,7 @@ import {
     navLoader,
     questionsLoader,
     quizLoader,
+    quizPlayLoader,
     requireAuth,
 } from "./utils/loader";
 import InitialContent from "./pages/DashBoard/InitialContent";
@@ -33,7 +36,7 @@ const router = createBrowserRouter(
                 <Route path="" element={<DashBoard />}>
                     <Route index element={<InitialContent />} />
                     <Route
-                        path="myQuizzes"
+                        path=":role/quizzes"
                         element={<MyQuizzes />}
                         loader={myQuizzesLoader}
                     />
@@ -55,7 +58,12 @@ const router = createBrowserRouter(
                 </Route>
             </Route>
             <Route path="/play" loader={requireAuth}>
-                <Route path=":quizId" element={<QuizPlay />} loader={questionsLoader}/>
+                <Route index element={<Navigate to={"/dashboard"} />} />
+                <Route
+                    path=":quizId"
+                    element={<QuizPlay />}
+                    loader={quizPlayLoader}
+                />
             </Route>
             <Route path="*" element={<h1>Not found</h1>} />
         </>

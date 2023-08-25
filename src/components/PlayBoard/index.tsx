@@ -1,11 +1,11 @@
+import { useEffect, useRef, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import PlayBoardHeader from "./PlayBoardHeader";
-import { useLoaderData } from "react-router-dom";
-import { IQuestion, ShowModal } from "../../interfaces/app_interfaces";
-import { useRef, useState } from "react";
-import PlayBoardAnswers from "./PlayBoardAnswers";
+import { customAxios } from "../../config/axiosConfig";
 import { PlayBoardContext } from "../../context/PlayBoardContext";
-import Modal from "../../Layout/ModalLayout";
+import { IQuestion, ShowModal } from "../../interfaces/app_interfaces";
+import PlayBoardAnswers from "./PlayBoardAnswers";
+import PlayBoardHeader from "./PlayBoardHeader";
 import ResultModal from "./ResultModal";
 
 const Container = styled.div`
@@ -36,10 +36,12 @@ const Question = styled.p`
 `;
 export type Result = {
     point: number;
+    timeCompleted: number;
     correctAnswers: number;
-    totalTime: number;
+    questionsCompleted?: number;
 };
 const PlayBoard = () => {
+    const { quizId} = useParams() as { quizId: string};
     const questions = useLoaderData() as IQuestion[];
     const totalTime = useRef(0);
     const [index, setIndex] = useState(0);
@@ -51,7 +53,6 @@ const PlayBoard = () => {
     const [showModal, setShowModal] = useState<ShowModal>();
     const getCurrentTime = (elapsedTime: number) => {
         totalTime.current += elapsedTime;
-        console.log(totalTime.current);
     };
     const nextQuestion = (increasePoint?: boolean) => {
         setIsShow(true);
@@ -70,7 +71,19 @@ const PlayBoard = () => {
                 setIsShow(false);
             }, 1000);
         } else {
+            const submitResult = async (timeCompleted: number) => {
+                try {
+                    await customAxios.patch(`/api/quiz/${quizId}/play/result`, {
+                        point: result.point,
+                        timeCompleted: timeCompleted,
+                        correctAnswers: result.correctAnswers,
+                    } as Result);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
             setTimeout(() => {
+                void submitResult(totalTime.current);
                 setShowModal({ ...showModal, isShow: true });
             }, 1000);
         }

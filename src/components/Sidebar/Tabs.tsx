@@ -45,12 +45,21 @@ const Tabs = () => {
             </TabItem>
             <TabItem
                 onClick={() => {
-                    navigate("myquizzes");
+                    navigate("admin/quizzes");
                     sidebarContext.closeSidebar();
                 }}
-                $onTab={noSlashPathname.includes("myquizzes")}
+                $onTab={noSlashPathname.includes("admin")}
             >
                 <TabName>My Quizzes</TabName>
+            </TabItem>
+            <TabItem
+                onClick={() => {
+                    navigate("user/quizzes");
+                    sidebarContext.closeSidebar();
+                }}
+                $onTab={noSlashPathname.includes("user")}
+            >
+                <TabName>Explore</TabName>
             </TabItem>
             <TabItem
                 onClick={() => {

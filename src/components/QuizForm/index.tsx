@@ -52,7 +52,7 @@ const Container = styled.div`
     position: relative;
     border-radius: 25px;
     animation: ${moveLeft} 0.4s ease-in-out;
-    @media screen and (${devices.phones}){
+    @media screen and (${devices.phones}) {
         width: 90%;
         padding: 2rem 0;
     }
@@ -94,7 +94,7 @@ const BackButton = styled(Button)`
         background-color: #c3863b;
     }
 `;
-const CollectionForm = (props: CustomProps) => {
+const QuizForm = (props: CustomProps) => {
     const methods = useForm<IQuiz>();
     const navigate = useNavigate();
     const [alert, setAlert] = useState({ isShow: false, message: "" });
@@ -122,7 +122,7 @@ const CollectionForm = (props: CustomProps) => {
                 );
                 if (response.status === 200) {
                     props.closeModal();
-                    navigate("myQuizzes");
+                    navigate(0);
                 }
             }
         } catch (error) {
@@ -192,4 +192,4 @@ const CollectionForm = (props: CustomProps) => {
     );
 };
 
-export default CollectionForm;
+export default QuizForm;

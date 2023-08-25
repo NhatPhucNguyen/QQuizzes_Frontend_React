@@ -6,9 +6,12 @@ const Container = styled.div`
     grid-template-columns: 1fr 1fr;
     width: 100%;
     border-bottom: 1px dashed gray;
+    gap: 1rem;
+    align-items: center;
 `;
 const Field = styled.span`
     font-weight: bold;
+    text-align: right;
 `;
 const Desc = styled.span<{ $level?: string }>`
     color: ${(props) => {
@@ -22,6 +25,7 @@ const Desc = styled.span<{ $level?: string }>`
             return "#d03126";
         }
     }};
+    text-align: left;
 `;
 
 type CustomProps = {

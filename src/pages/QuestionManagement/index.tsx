@@ -6,7 +6,8 @@ import Modal from "../../Layout/ModalLayout";
 import Navbar from "../../components/Navbar";
 import QuestionCreateForm from "../../components/QuestionCreateForm";
 import SubNav from "../../components/SubNav";
-import { IQuestion, ShowModal } from "../../interfaces/app_interfaces";
+import { IQuestion, IQuiz, ShowModal } from "../../interfaces/app_interfaces";
+import QuizForm from "../../components/QuizForm";
 
 const Container = styled.div`
     width: 100%;
@@ -17,11 +18,19 @@ const Container = styled.div`
 
 const QuestionManagement = () => {
     const [showModal, setShowModal] = useState<ShowModal>();
-    const openModal = (questionData?: IQuestion) => {
+    const openModal = (
+        options: {
+            question?: IQuestion;
+            quiz?: IQuiz;
+            formName?: string;
+        } = {}
+    ) => {
         setShowModal({
             ...showModal,
             isShow: true,
-            questionData: questionData,
+            questionData: options.question,
+            formName: options.formName,
+            quizData: options.quiz,
         });
     };
     const closeModal = () => {
@@ -30,18 +39,25 @@ const QuestionManagement = () => {
     const { quizId } = useParams();
     return (
         <Main props={{ noGap: true }}>
-            <Navbar isHideButtons={true} isHideBars={true}/>
+            <Navbar isHideButtons={true} isHideBars={true} />
             <SubNav />
             <Container>
                 <Outlet context={{ openModal }} />
             </Container>
             {showModal?.isShow && (
                 <Modal>
-                    <QuestionCreateForm
-                        closeModal={closeModal}
-                        quizId={quizId as string}
-                        questionData={showModal.questionData}
-                    />
+                    {showModal.formName === "QuizForm" ? (
+                        <QuizForm
+                            closeModal={closeModal}
+                            quizData={showModal.quizData}
+                        />
+                    ) : (
+                        <QuestionCreateForm
+                            closeModal={closeModal}
+                            quizId={quizId as string}
+                            questionData={showModal.questionData}
+                        />
+                    )}
                 </Modal>
             )}
         </Main>

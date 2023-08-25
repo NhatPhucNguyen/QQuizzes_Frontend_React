@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import React, { Fragment } from "react";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import { IQuiz, ModalContext } from "../../interfaces/app_interfaces";
 import { customAxios } from "../../config/axiosConfig";
@@ -8,6 +8,7 @@ import {
     faEye,
     faListCheck,
     faPen,
+    faPlay,
     faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +16,7 @@ import { devices } from "../../utils/devices";
 
 type CustomProps = {
     quiz: IQuiz;
+    role?: string;
 };
 
 const Container = styled.div`
@@ -69,7 +71,7 @@ const Button = styled.button`
     }
 `;
 
-const QuizCard = ({ quiz }: CustomProps) => {
+const QuizCard = ({ quiz, role }: CustomProps) => {
     const outletContext = useOutletContext<ModalContext>();
     const navigate = useNavigate();
     const handleDeleteClick = () => {
@@ -100,31 +102,36 @@ const QuizCard = ({ quiz }: CustomProps) => {
                 </Quantity>
                 <Level>{quiz.level || " "}</Level>
             </SubContainer>
-            <ButtonContainer>
-                <Button
-                    onClick={() => {
-                        //navigate to list of questions
-                        navigate(
-                            `/admin/quizzes/${quiz._id as string}/questions`
-                        );
-                    }}
-                >
-                    {/* View */}
-                    <FontAwesomeIcon icon={faEye} size="xl" />
-                </Button>
-                <Button
-                    onClick={() => {
-                        outletContext.openModal("QuizForm", quiz);
-                    }}
-                >
-                    {/* Update */}
-                    <FontAwesomeIcon icon={faPen} size="xl" />
-                </Button>
-                <Button onClick={handleDeleteClick}>
-                    {/* Delete */}
-                    <FontAwesomeIcon icon={faTrash} size="xl" />
-                </Button>
-            </ButtonContainer>
+            {role === "admin" ? (
+                <ButtonContainer>
+                    <Button
+                        onClick={() => {
+                            //navigate to list of questions
+                            navigate(
+                                `/admin/quizzes/${quiz._id as string}/questions`
+                            );
+                        }}
+                    >
+                        {/* View */}
+                        <FontAwesomeIcon icon={faEye} size="xl" />
+                    </Button>
+                    <Button onClick={handleDeleteClick}>
+                        {/* Delete */}
+                        <FontAwesomeIcon icon={faTrash} size="xl" />
+                    </Button>
+                </ButtonContainer>
+            ) : (
+                <ButtonContainer>
+                    <Button
+                        onClick={() => {
+                            navigate(`/play/${quiz._id as string}`);
+                        }}
+                    >
+                        {/* Play */}
+                        <FontAwesomeIcon icon={faPlay} size="xl" />
+                    </Button>
+                </ButtonContainer>
+            )}
         </Container>
     );
 };

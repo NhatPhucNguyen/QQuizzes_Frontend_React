@@ -1,7 +1,7 @@
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import { customAxios } from "../../config/axiosConfig";
-import { IQuestion } from "../../interfaces/app_interfaces";
+import { IQuestion, ModalContext } from "../../interfaces/app_interfaces";
 
 const Container = styled.div`
     width: 100%;
@@ -27,9 +27,7 @@ const Button = styled.button`
 const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
     const { quizId } = useParams();
     const navigate = useNavigate();
-    const outletContext = useOutletContext<{
-        openModal: (questionData: IQuestion) => void;
-    }>();
+    const outletContext = useOutletContext<ModalContext>();
     const deleteQuestion = async () => {
         try {
             if (quizId) {
@@ -51,7 +49,7 @@ const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
             <ButtonContainer>
                 <Button
                     onClick={() => {
-                        outletContext.openModal(questionData);
+                        outletContext.openModal({ question: questionData });
                     }}
                 >
                     Edit

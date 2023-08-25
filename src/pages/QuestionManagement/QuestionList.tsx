@@ -24,7 +24,7 @@ const SubContainer = styled.div`
     grid-template-columns: 60% 40%;
     gap: 1rem 0.2rem;
     height: 100%;
-    @media screen and (${devices.phones}) {
+    @media screen and (${devices.phones}),(${devices.tablets}){
         display: flex;
         flex-direction: column-reverse;
     }

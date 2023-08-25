@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import QuizCard from "../../components/QuizCard";
 import { IQuiz } from "../../interfaces/app_interfaces";
@@ -17,21 +17,26 @@ const Title = styled.h1`
 `;
 const CardsContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill,15rem);
+    grid-template-columns: repeat(auto-fill, 15rem);
     gap: 1rem;
     padding: 1rem;
-    @media screen and (${devices.phones}){
+    @media screen and (${devices.phones}) {
         justify-content: center;
     }
 `;
 const MyQuizzes = () => {
     const quizzesData = useLoaderData() as IQuiz[];
+    const { role } = useParams();
     return (
         <Container>
-            <Title>Quizzes Management</Title>
+            <Title>
+                {role === "admin"
+                    ? "Manage Your Quizzes"
+                    : "Explore All Quizzes"}
+            </Title>
             <CardsContainer>
                 {quizzesData.map((quiz) => {
-                    return <QuizCard key={quiz._id} quiz={quiz} />;
+                    return <QuizCard key={quiz._id} quiz={quiz} role={role} />;
                 })}
             </CardsContainer>
         </Container>

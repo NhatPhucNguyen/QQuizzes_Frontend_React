@@ -14,7 +14,7 @@ const Container = styled.div`
     width: 100%;
     padding: 1rem;
     gap: 1rem;
-    @media screen and (${devices.phones}){
+    @media screen and (${devices.phones}) {
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -27,8 +27,8 @@ const SearchContainer = styled.form`
     grid-template-columns: 80% 20%;
     padding: 0.2rem;
     border: 1px solid #ccbeb8;
-    @media screen and (${devices.phones}){
-        width:100%;
+    @media screen and (${devices.phones}) {
+        width: 100%;
     }
 `;
 const SearchBox = styled.input`
@@ -70,7 +70,7 @@ const CreateButton = styled.button`
         cursor: pointer;
         background-color: rgb(153, 110, 92);
     }
-    @media screen and (${devices.phones}){
+    @media screen and (${devices.phones}) {
         width: 50%;
     }
 `;

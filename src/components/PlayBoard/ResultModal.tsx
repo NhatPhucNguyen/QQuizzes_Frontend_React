@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import Modal from "../../Layout/ModalLayout";
 import { IQuestion } from "../../interfaces/app_interfaces";
 import { Result } from ".";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 const Container = styled.div`
     width: 40%;
@@ -38,18 +38,27 @@ const ButtonContainer = styled.div`
     justify-content: space-around;
 `;
 const Button = styled.button`
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
     border: none;
-    background-color: #996e5c;
     font-size: inherit;
     font-weight: bold;
     color: #ffffff;
-    &:hover{
+    &:hover {
         cursor: pointer;
-        background-color: #825e4f;
     }
 `;
-
+const RetryButton = styled(Button)`
+    background-color: #73a64e;
+    &:hover {
+        background-color: #558534;
+    }
+`
+const BackButton = styled(Button)`
+    background-color: #e1a22d;
+    &:hover {
+        background-color: #c58b1f;
+    }
+`;
 type CustomProps = {
     questions: IQuestion[];
     result: Result;
@@ -62,7 +71,8 @@ const ResultModal = (props: CustomProps) => {
         0
     );
     const navigate = useNavigate();
-    const {quizId} = useParams() as {quizId:string};
+    const { quizId } = useParams() as { quizId: string };
+    const [searchParams, setSearchParams] = useSearchParams();
     return (
         <Modal>
             <Container>
@@ -85,19 +95,25 @@ const ResultModal = (props: CustomProps) => {
                             : `${Math.ceil(props.totalTime)}s`}
                     </ResultStat>
                 </ResultDetails>
-                <ResultDetails>
-                    <ResultField>Attempts: </ResultField>
-                    <ResultStat>1</ResultStat>
-                </ResultDetails>
                 <ButtonContainer>
-                    <Button>Retry</Button>
-                    <Button
+                    <RetryButton
                         onClick={() => {
-                            navigate(`/admin/quizzes/${quizId}/questions`);
+                            navigate(0);
+                        }}
+                    >
+                        Retry
+                    </RetryButton>
+                    <BackButton
+                        onClick={() => {
+                            if (searchParams.get("type") === "preview") {
+                                navigate(`/admin/quizzes/${quizId}/questions`);
+                            } else {
+                                navigate(`/dashboard/user/quizzes`);
+                            }
                         }}
                     >
                         Cancel
-                    </Button>
+                    </BackButton>
                 </ButtonContainer>
             </Container>
         </Modal>

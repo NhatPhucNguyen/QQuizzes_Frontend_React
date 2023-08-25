@@ -44,9 +44,13 @@ export const quizLoader: ActionFunction = async ({ params }) => {
     return null;
 };
 
-export const myQuizzesLoader = async () => {
+export const myQuizzesLoader: ActionFunction = async ({ params }) => {
+    const { role } = params as { role: string };
+    if(role !== "user" && role !== "admin"){
+        return redirect("/dashboard");
+    }
     try {
-        const response = await customAxios.get(`/api/quiz/myquizzes/getAll`);
+        const response = await customAxios.get(`/api/quiz/${role}/getAll`);
         if (response.status === 200) {
             const data = response.data as IQuiz[];
             return data;
@@ -56,13 +60,13 @@ export const myQuizzesLoader = async () => {
     }
     return null;
 };
-
+//load all the question belong to the quiz if user created this quiz
 export const questionsLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
     if (quizId) {
         try {
             const response = await customAxios.get(
-                `/api/quiz/${quizId}/get/questions/getAll`
+                `/api/quiz/${quizId}/get/admin/questions/getAll`
             );
             if (response.status === 200) {
                 const data = response.data as IQuestion[];
@@ -70,7 +74,30 @@ export const questionsLoader: ActionFunction = async ({ params }) => {
             }
         } catch (error) {
             if (error instanceof AxiosError) {
-                return redirect("/dashboard/myquizzes");
+                return redirect("/dashboard");
+            }
+        }
+    }
+    return null;
+};
+
+export const quizPlayLoader: ActionFunction = async ({ params }) => {
+    const { quizId } = params;
+    if (quizId) {
+        try {
+            const response = await customAxios.get(`/api/quiz/${quizId}/play`);
+            if (response.status === 200) {
+                const data = response.data as IQuestion[];
+                if(data.length > 0){
+                    return data;
+                }
+                else{
+                    return redirect("/dashboard")
+                }
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                return redirect("/dashboard");
             }
         }
     }

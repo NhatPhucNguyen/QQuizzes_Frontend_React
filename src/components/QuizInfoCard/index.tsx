@@ -2,13 +2,19 @@ import React from "react";
 import {
     useLoaderData,
     useNavigate,
+    useOutletContext,
     useParams,
     useRouteLoaderData,
 } from "react-router-dom";
 import { styled } from "styled-components";
-import { IQuestion, IQuiz } from "../../interfaces/app_interfaces";
+import {
+    IQuestion,
+    IQuiz,
+    ModalContext,
+} from "../../interfaces/app_interfaces";
 import { devices } from "../../utils/devices";
 import QuizDetailItem from "./QuizDetailItem";
+import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
 
 const Container = styled.div`
     display: flex;
@@ -16,23 +22,24 @@ const Container = styled.div`
     justify-content: center;
     padding: 0.5rem;
     background-color: #f2b807;
-    max-height: 10rem;
-    position: sticky;
+    height: fit-content;
     top: 0;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     @media screen and (${devices.phones}) {
-        position: sticky;
+        margin: auto;
     }
 `;
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: space-around;
     padding: 0.5rem;
+    justify-content: center;
+    gap: 1rem;
 `;
 const Button = styled.button`
     padding: 0.5rem 1rem;
+    min-width: 5rem;
     background-color: #736002;
     border: none;
     color: #ffffff;
@@ -41,21 +48,17 @@ const Button = styled.button`
         background-color: #8e7600;
         cursor: pointer;
     }
+    &:disabled {
+        background-color: #9b9b9b;
+        cursor: default;
+    }
 `;
 const QuizInfoCard = () => {
     const quiz = useRouteLoaderData("quiz") as IQuiz;
     const questions = useLoaderData() as IQuestion[];
-
-    const totalPoints = questions.reduce(
-        (x, question) => x + question.point,
-        0
-    );
-    const totalTime = questions.reduce(
-        (x, question) => x + question.timeLimit,
-        0
-    );
+    const { totalPoints, timeConverted } = questionsTotalCalculate(questions);
     const navigate = useNavigate();
-    const { quizId } = useParams() as {quizId:string};
+    const outLetContext = useOutletContext<ModalContext>();
     return (
         <Container>
             <QuizDetailItem
@@ -65,28 +68,27 @@ const QuizInfoCard = () => {
             />
             <QuizDetailItem field="Quantity" desc={`${questions.length}/30`} />
             <QuizDetailItem field="Total Point" desc={`${totalPoints} pts`} />
-            <QuizDetailItem
-                field="Total Time"
-                desc={
-                    totalTime > 60
-                        ? `${Math.floor(totalTime / 60)}m${totalTime % 60}s`
-                        : `${totalTime}s`
-                }
-            />
+            <QuizDetailItem field="Total Time" desc={timeConverted} />
             <ButtonContainer>
                 <Button
                     onClick={() => {
-                        navigate(`/play/${quizId}`);
+                        navigate(`/play/${quiz._id as string}?type=preview`);
                     }}
+                    // at least 10 questions to play
+                    disabled={questions.length >= 10 ? false : true}
                 >
                     Preview
                 </Button>
                 <Button
                     onClick={() => {
                         window.scrollTo({ top: 0, behavior: "smooth" });
+                        outLetContext.openModal({
+                            formName: "QuizForm",
+                            quiz: quiz,
+                        });
                     }}
                 >
-                    Back to top
+                    Edit
                 </Button>
             </ButtonContainer>
         </Container>
