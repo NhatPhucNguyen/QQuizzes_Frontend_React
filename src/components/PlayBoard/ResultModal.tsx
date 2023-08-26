@@ -4,12 +4,12 @@ import Modal from "../../Layout/ModalLayout";
 import { IQuestion } from "../../interfaces/app_interfaces";
 import { Result } from ".";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
 
 const Container = styled.div`
-    width: 40%;
     padding: 1rem;
     background-color: #ffffff;
-    outline: solid 5px #e7717d;
+    border: solid 5px #e7717d;
     border-radius: 15px;
 `;
 const Title = styled.h2`
@@ -66,10 +66,7 @@ type CustomProps = {
 };
 
 const ResultModal = (props: CustomProps) => {
-    const totalPoint = props.questions.reduce(
-        (x, question) => x + question.point,
-        0
-    );
+    const {totalPoints} = questionsTotalCalculate(props.questions)
     const navigate = useNavigate();
     const { quizId } = useParams() as { quizId: string };
     const [searchParams, setSearchParams] = useSearchParams();
@@ -79,11 +76,11 @@ const ResultModal = (props: CustomProps) => {
                 <Title>Result</Title>
                 <ResultDetails>
                     <ResultField>Point: </ResultField>
-                    <ResultStat>{`${props.result.point}/${totalPoint}`}</ResultStat>
+                    <ResultStat>{`${props.result.point}/${totalPoints}`}</ResultStat>
                 </ResultDetails>
                 <ResultDetails>
                     <ResultField>Correct Answers: </ResultField>
-                    <ResultStat>{`${props.result.point}/${props.questions.length}`}</ResultStat>
+                    <ResultStat>{`${props.result.correctAnswers}/${props.questions.length}`}</ResultStat>
                 </ResultDetails>
                 <ResultDetails>
                     <ResultField>Total Time: </ResultField>

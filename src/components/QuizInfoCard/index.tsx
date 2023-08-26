@@ -61,14 +61,15 @@ const QuizInfoCard = () => {
     const outLetContext = useOutletContext<ModalContext>();
     return (
         <Container>
+            <QuizDetailItem field="Topic" desc={quiz.topic} />
             <QuizDetailItem
                 field="Level"
                 desc={quiz.level}
                 level={quiz.level}
             />
             <QuizDetailItem field="Quantity" desc={`${questions.length}/30`} />
-            <QuizDetailItem field="Total Point" desc={`${totalPoints} pts`} />
-            <QuizDetailItem field="Total Time" desc={timeConverted} />
+            <QuizDetailItem field="Total point" desc={`${totalPoints} pts`} />
+            <QuizDetailItem field="Time limit" desc={timeConverted} />
             <ButtonContainer>
                 <Button
                     onClick={() => {

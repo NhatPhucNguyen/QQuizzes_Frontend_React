@@ -16,7 +16,7 @@ import RuleInfo from "./RuleInfo";
 const Container = styled.div`
     background-color: #ffffff;
     padding: 1rem 2rem;
-    outline: solid 5px #e7717d;
+    border: solid 5px #e7717d;
     display: flex;
     flex-direction: column;
     gap: 2rem;

@@ -17,11 +17,18 @@ const Title = styled.h1`
 `;
 const CardsContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, 15rem);
+    grid-template-columns: repeat(auto-fill, 17rem);
     gap: 1rem;
     padding: 1rem;
+    
+    @media screen and (${devices.laptops}) {
+        grid-template-columns: repeat(auto-fill, 15rem);
+    }
     @media screen and (${devices.phones}) {
-        justify-content: center;
+        grid-template-columns: repeat(auto-fill, 1fr);
+    }
+    @media screen and (${devices.tablets}) {
+        grid-template-columns: repeat(2, 1fr);
     }
 `;
 const MyQuizzes = () => {

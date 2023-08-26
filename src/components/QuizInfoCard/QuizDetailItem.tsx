@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
+import { levelColorText } from "../../utils/stylingMethod";
 
 const Container = styled.div`
     display: grid;
@@ -14,17 +15,7 @@ const Field = styled.span`
     text-align: right;
 `;
 const Desc = styled.span<{ $level?: string }>`
-    color: ${(props) => {
-        if (props.$level === "Basic") {
-            return "#0f821e";
-        }
-        if (props.$level === "Medium") {
-            return "#5E19FF";
-        }
-        if (props.$level === "Hard") {
-            return "#d03126";
-        }
-    }};
+    color: ${(props) => levelColorText(props.$level)};
     text-align: left;
 `;
 

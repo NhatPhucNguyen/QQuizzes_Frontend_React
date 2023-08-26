@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { devices } from "../../utils/devices";
+import { btnColorGenerate, levelColorText } from "../../utils/stylingMethod";
 
 type CustomProps = {
     quiz: IQuiz;
@@ -35,11 +36,18 @@ const QuizName = styled.span`
     font-weight: bold;
     font-size: 1.2rem;
     text-align: center;
+
+    @media screen and (${devices.phones}) {
+        font-size: 1rem;
+    }
 `;
 
 const Topic = styled.span`
     font-size: 1rem;
     text-align: center;
+    @media screen and (${devices.phones}) {
+        font-size: 0.8rem;
+    }
 `;
 const SubContainer = styled.div`
     display: flex;
@@ -49,25 +57,43 @@ const SubContainer = styled.div`
 `;
 const Quantity = styled.span`
     font-size: 0.8rem;
+    @media screen and (${devices.phones}) {
+        font-size: 0.6rem;
+    }
 `;
-const Level = styled.span`
+const Level = styled.span<{ $level?: string }>`
     font-size: 0.8rem;
+    font-weight: bold;
+    color: ${(props) => levelColorText(props.$level)};
+    @media screen and (${devices.phones}) {
+        font-size: 0.6rem;
+    }
 `;
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     gap: 2.5rem;
     width: 100%;
+    margin-top: 1rem;
 `;
-const Button = styled.button`
-    padding: 0.2rem;
-    background-color: inherit;
+
+const Button = styled.button<{ $method?: string }>`
+    padding: 0.2rem 1rem;
+    font-size: inherit;
+    font-family: inherit;
     border: none;
-    outline: none;
+    background-color: inherit;
+    color: ${(props) => btnColorGenerate(props.$method)};
+    outline: 2px solid ${(props) => btnColorGenerate(props.$method)};
     &:hover {
         cursor: pointer;
-        color: #86a69d;
+        background-color: ${(props) => btnColorGenerate(props.$method)};
+        color: #ffffff;
+    }
+    @media screen and (${devices.phones}) {
+        font-size: 0.8rem;
+        padding: 0.2rem;
     }
 `;
 
@@ -100,7 +126,7 @@ const QuizCard = ({ quiz, role }: CustomProps) => {
                         ? `${quiz.quantity} questions`
                         : `0 questions`}{" "}
                 </Quantity>
-                <Level>{quiz.level || " "}</Level>
+                <Level $level={quiz.level}>{quiz.level || " "}</Level>
             </SubContainer>
             {role === "admin" ? (
                 <ButtonContainer>
@@ -111,13 +137,12 @@ const QuizCard = ({ quiz, role }: CustomProps) => {
                                 `/admin/quizzes/${quiz._id as string}/questions`
                             );
                         }}
+                        $method="edit"
                     >
-                        {/* View */}
-                        <FontAwesomeIcon icon={faEye} size="xl" />
+                        <FontAwesomeIcon icon={faPen} /> Edit
                     </Button>
-                    <Button onClick={handleDeleteClick}>
-                        {/* Delete */}
-                        <FontAwesomeIcon icon={faTrash} size="xl" />
+                    <Button onClick={handleDeleteClick} $method="delete">
+                        <FontAwesomeIcon icon={faTrash} /> Delete
                     </Button>
                 </ButtonContainer>
             ) : (
@@ -126,9 +151,9 @@ const QuizCard = ({ quiz, role }: CustomProps) => {
                         onClick={() => {
                             navigate(`/play/${quiz._id as string}`);
                         }}
+                        $method="play"
                     >
-                        {/* Play */}
-                        <FontAwesomeIcon icon={faPlay} size="xl" />
+                        <FontAwesomeIcon icon={faPlay} /> Play
                     </Button>
                 </ButtonContainer>
             )}

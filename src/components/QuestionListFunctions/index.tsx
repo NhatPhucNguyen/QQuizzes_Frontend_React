@@ -1,6 +1,9 @@
 import { styled } from "styled-components";
 import { FormEvent } from "react";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import {
+    faCirclePlus,
+    faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useOutletContext } from "react-router-dom";
 import { ModalContext } from "../../interfaces/app_interfaces";
@@ -85,7 +88,9 @@ const QuestionListFunctions = () => {
                     type="text"
                     placeholder="Search from your questions"
                 />
-                <SearchButton>Find</SearchButton>
+                <SearchButton>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
+                </SearchButton>
             </SearchContainer>
             <CreateButton
                 onClick={() => {

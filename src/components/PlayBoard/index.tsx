@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import { customAxios } from "../../config/axiosConfig";
 import { PlayBoardContext } from "../../context/PlayBoardContext";
@@ -41,7 +41,8 @@ export type Result = {
     questionsCompleted?: number;
 };
 const PlayBoard = () => {
-    const { quizId} = useParams() as { quizId: string};
+    const navigate = useNavigate();
+    const { quizId } = useParams() as { quizId: string };
     const questions = useLoaderData() as IQuestion[];
     const totalTime = useRef(0);
     const [index, setIndex] = useState(0);
@@ -60,7 +61,7 @@ const PlayBoard = () => {
             setResult((prevResult) => {
                 return {
                     ...prevResult,
-                    point: prevResult.point + 1,
+                    point: prevResult.point + questions[index].point,
                     correctAnswers: prevResult.correctAnswers + 1,
                 };
             });
@@ -80,6 +81,7 @@ const PlayBoard = () => {
                     } as Result);
                 } catch (error) {
                     console.log(error);
+                    navigate("/dashboard");
                 }
             };
             setTimeout(() => {
