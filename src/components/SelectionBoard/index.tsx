@@ -2,9 +2,9 @@ import { keyframes, styled } from "styled-components";
 import Modal from "../../Layout/ModalLayout";
 import { useState } from "react";
 import Selections from "./Selections";
-import CollectionForm from "../QuizForm";
 import CloseMark from "../CloseMark";
 import { devices } from "../../utils/devices";
+import QuizForm from "../QuizForm";
 
 type CustomProps = {
     closeModal: () => void;
@@ -66,7 +66,7 @@ const SelectionBoard = (props: CustomProps) => {
                     <Selections setShowForm={setShowForm} />
                 </SelectionsContainer>
             ) : (
-                <CollectionForm
+                <QuizForm
                     selection={showForm.selection}
                     title={showForm.selectionTitle}
                     closeModal={props.closeModal}

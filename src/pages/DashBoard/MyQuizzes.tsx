@@ -20,15 +20,16 @@ const CardsContainer = styled.div`
     grid-template-columns: repeat(auto-fill, 17rem);
     gap: 1rem;
     padding: 1rem;
-    
+
     @media screen and (${devices.laptops}) {
         grid-template-columns: repeat(auto-fill, 15rem);
     }
-    @media screen and (${devices.phones}) {
-        grid-template-columns: repeat(auto-fill, 1fr);
-    }
     @media screen and (${devices.tablets}) {
         grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (${devices.phones}) {
+        grid-template-columns: repeat(auto-fill, 90%);
+        justify-content: center;
     }
 `;
 const MyQuizzes = () => {
@@ -43,7 +44,13 @@ const MyQuizzes = () => {
             </Title>
             <CardsContainer>
                 {quizzesData.map((quiz) => {
-                    return <QuizCard key={quiz._id} quiz={quiz} role={role} />;
+                    return (
+                        <QuizCard
+                            key={quiz._id}
+                            quiz={quiz}
+                            role={role}
+                        />
+                    );
                 })}
             </CardsContainer>
         </Container>

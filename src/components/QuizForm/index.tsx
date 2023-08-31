@@ -1,27 +1,28 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { keyframes, styled } from "styled-components";
+import { AxiosError } from "axios";
+import { useState } from "react";
 import {
     FormProvider,
     SubmitErrorHandler,
     SubmitHandler,
     useForm,
 } from "react-hook-form";
-import { IQuiz } from "../../interfaces/app_interfaces";
-import { FormEvent, useState } from "react";
-import Alert from "../AuthForm/Alert";
-import { customAxios } from "../../config/axiosConfig";
-import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import CloseMark from "../CloseMark";
+import { keyframes, styled } from "styled-components";
+import { customAxios } from "../../config/axiosConfig";
 import { topicSelections } from "../../config/topicSelections";
-import QuizFormController from "./QuizFormController";
+import { IQuiz, ModalCloseOptions } from "../../interfaces/app_interfaces";
 import { devices } from "../../utils/devices";
+import Alert from "../AuthForm/Alert";
+import CloseMark from "../CloseMark";
+import QuizFormController from "./QuizFormController";
+import Modal from "../../Layout/ModalLayout";
 
 type CustomProps = {
     selection?: string;
     title?: string;
     quizData?: IQuiz;
-    closeModal: () => void;
+    closeModal: (options?: ModalCloseOptions) => void;
     backToSelection?: () => void;
 };
 
@@ -117,12 +118,15 @@ const QuizForm = (props: CustomProps) => {
             if (name === "update") {
                 //update collection
                 const response = await customAxios.patch(
-                    `/api/quiz/update/${props.quizData?.quizName as string}`,
+                    `/api/quiz/update/${props.quizData?._id as string}`,
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {
-                    props.closeModal();
-                    navigate(0);
+                    navigate("questions");
+                    props.closeModal({
+                        isDisplayNotification: true,
+                        message: "Quiz was successfully updated",
+                    });
                 }
             }
         } catch (error) {
@@ -138,57 +142,66 @@ const QuizForm = (props: CustomProps) => {
     const onInvalid: SubmitErrorHandler<IQuiz> = (err, e) => {
         e?.preventDefault();
         if (err) {
-            setAlert({ isShow: true, message: "Missing required fields" });
+            if (err.quizName?.type === "maxLength") {
+                setAlert({
+                    isShow: true,
+                    message: "Quiz name must be less than 64 words",
+                });
+            } else {
+                setAlert({ isShow: true, message: "Missing required fields" });
+            }
         }
     };
     return (
-        <Container>
-            <CloseMark closeModal={props.closeModal} />
-            <FormProvider {...methods}>
-                <FormContainer
-                    onSubmit={handleSubmit(onSubmit, onInvalid)}
-                    name={props.quizData ? "update" : "create"}
-                >
-                    <Title>{props.title}</Title>
-                    {alert.isShow && <Alert message={alert.message} />}
-                    <QuizFormController
-                        type="text"
-                        label="Quiz Name"
-                        id="quizName"
-                        defaultValue={props.quizData?.quizName}
-                    />
-                    <QuizFormController
-                        type="select"
-                        label="Topic"
-                        id="topic"
-                        defaultValue={
-                            props.quizData?.topic || topicSelections.GK
-                        }
-                        selectOptions={Object.values(topicSelections)}
-                    />
-                    <QuizFormController
-                        type="select"
-                        label="Level"
-                        id="level"
-                        defaultValue={props.quizData?.level}
-                        selectOptions={["Basic", "Medium", "Hard"]}
-                    />
-                    <ButtonContainer>
-                        <Button type="submit">
-                            {props.quizData ? "Update" : "Create"}
-                        </Button>
-                        {props.backToSelection && (
-                            <BackButton
-                                type="button"
-                                onClick={props.backToSelection}
-                            >
-                                Back
-                            </BackButton>
-                        )}
-                    </ButtonContainer>
-                </FormContainer>
-            </FormProvider>
-        </Container>
+        <Modal>
+            <Container>
+                <CloseMark closeModal={props.closeModal} />
+                <FormProvider {...methods}>
+                    <FormContainer
+                        onSubmit={handleSubmit(onSubmit, onInvalid)}
+                        name={props.quizData ? "update" : "create"}
+                    >
+                        <Title>{props.title}</Title>
+                        {alert.isShow && <Alert message={alert.message} />}
+                        <QuizFormController
+                            type="text"
+                            label="Quiz Name"
+                            id="quizName"
+                            defaultValue={props.quizData?.quizName}
+                        />
+                        <QuizFormController
+                            type="select"
+                            label="Topic"
+                            id="topic"
+                            defaultValue={
+                                props.quizData?.topic || topicSelections.GK
+                            }
+                            selectOptions={Object.values(topicSelections)}
+                        />
+                        <QuizFormController
+                            type="select"
+                            label="Level"
+                            id="level"
+                            defaultValue={props.quizData?.level}
+                            selectOptions={["Basic", "Medium", "Hard"]}
+                        />
+                        <ButtonContainer>
+                            <Button type="submit">
+                                {props.quizData ? "Update" : "Create"}
+                            </Button>
+                            {props.backToSelection && (
+                                <BackButton
+                                    type="button"
+                                    onClick={props.backToSelection}
+                                >
+                                    Back
+                                </BackButton>
+                            )}
+                        </ButtonContainer>
+                    </FormContainer>
+                </FormProvider>
+            </Container>
+        </Modal>
     );
 };
 

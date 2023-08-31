@@ -62,6 +62,7 @@ const QuizInfoCard = () => {
     return (
         <Container>
             <QuizDetailItem field="Topic" desc={quiz.topic} />
+            <QuizDetailItem field="Type" desc="Multiple Choice"/>
             <QuizDetailItem
                 field="Level"
                 desc={quiz.level}
@@ -82,10 +83,9 @@ const QuizInfoCard = () => {
                 </Button>
                 <Button
                     onClick={() => {
-                        window.scrollTo({ top: 0, behavior: "smooth" });
                         outLetContext.openModal({
                             formName: "QuizForm",
-                            quiz: quiz,
+                            quizData: quiz,
                         });
                     }}
                 >

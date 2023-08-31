@@ -5,9 +5,10 @@ import { customAxios } from "../../config/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ModalOptions } from "../../interfaces/app_interfaces";
 
 type CustomProps = {
-    openModal?: (formName: string) => void;
+    openModal: (options: ModalOptions) => void;
     isShowSidebar?: boolean;
     closeSidebar?: () => void;
 };
@@ -124,7 +125,7 @@ const Sidebar = (props: CustomProps) => {
 
             <UserSummary>Hello, {localStorage.getItem("fullName")}</UserSummary>
             <CreateButton
-                onClick={() => props.openModal && props.openModal("QuizCreate")}
+                onClick={() => props.openModal({ formName: "QuizCreate" })}
             >
                 Create
             </CreateButton>

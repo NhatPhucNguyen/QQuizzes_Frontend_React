@@ -1,17 +1,8 @@
-import React, { Fragment } from "react";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { faPen, faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { styled } from "styled-components";
 import { IQuiz, ModalContext } from "../../interfaces/app_interfaces";
-import { customAxios } from "../../config/axiosConfig";
-import { API } from "../../config/API";
-import {
-    faEye,
-    faListCheck,
-    faPen,
-    faPlay,
-    faTrash,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { devices } from "../../utils/devices";
 import { btnColorGenerate, levelColorText } from "../../utils/stylingMethod";
 
@@ -36,7 +27,6 @@ const QuizName = styled.span`
     font-weight: bold;
     font-size: 1.2rem;
     text-align: center;
-
     @media screen and (${devices.phones}) {
         font-size: 1rem;
     }
@@ -45,9 +35,6 @@ const QuizName = styled.span`
 const Topic = styled.span`
     font-size: 1rem;
     text-align: center;
-    @media screen and (${devices.phones}) {
-        font-size: 0.8rem;
-    }
 `;
 const SubContainer = styled.div`
     display: flex;
@@ -57,17 +44,11 @@ const SubContainer = styled.div`
 `;
 const Quantity = styled.span`
     font-size: 0.8rem;
-    @media screen and (${devices.phones}) {
-        font-size: 0.6rem;
-    }
 `;
 const Level = styled.span<{ $level?: string }>`
     font-size: 0.8rem;
     font-weight: bold;
     color: ${(props) => levelColorText(props.$level)};
-    @media screen and (${devices.phones}) {
-        font-size: 0.6rem;
-    }
 `;
 const ButtonContainer = styled.div`
     display: flex;
@@ -92,33 +73,23 @@ const Button = styled.button<{ $method?: string }>`
         color: #ffffff;
     }
     @media screen and (${devices.phones}) {
-        font-size: 0.8rem;
         padding: 0.2rem;
     }
 `;
 
 const QuizCard = ({ quiz, role }: CustomProps) => {
-    const outletContext = useOutletContext<ModalContext>();
     const navigate = useNavigate();
+    const outletContext = useOutletContext<ModalContext>();
     const handleDeleteClick = () => {
-        const deleteQuiz = async () => {
-            try {
-                console.log(quiz.quizName);
-                const response = await customAxios.delete(
-                    API + `/api/quiz/delete/${quiz.quizName}`
-                );
-                if (response.status === 200) {
-                    navigate(0);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        void deleteQuiz();
+        outletContext.openModal({ formName: "Confirmation", quizData: quiz });
     };
     return (
         <Container>
-            <QuizName>{quiz.quizName || " "}</QuizName>
+            <QuizName>
+                {quiz.quizName.length > 20
+                    ? quiz.quizName.slice(0, 20) + "..."
+                    : quiz.quizName}
+            </QuizName>
             <Topic>{quiz.topic || " "}</Topic>
             <SubContainer>
                 <Quantity>

@@ -24,9 +24,9 @@ const SubContainer = styled.div`
     grid-template-columns: 60% 40%;
     gap: 1rem 0.2rem;
     height: 100%;
-    @media screen and (${devices.phones}),(${devices.tablets}){
+    @media screen and (${devices.phones}), (${devices.tablets}) {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 `;
 const QuestionCardsContainer = styled.div`
@@ -34,6 +34,9 @@ const QuestionCardsContainer = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    @media screen and (${devices.phones}), (${devices.tablets}) {
+        order: 1;
+    }
 `;
 const QuestionList = () => {
     const questions = useLoaderData() as IQuestion[];
@@ -57,7 +60,7 @@ const QuestionList = () => {
                         );
                     })}
                 </QuestionCardsContainer>
-                <QuizInfoCard/>
+                <QuizInfoCard />
             </SubContainer>
         </Container>
     );

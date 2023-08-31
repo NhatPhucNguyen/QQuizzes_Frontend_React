@@ -51,7 +51,7 @@ const QuizFormController = (props: CustomProps) => {
                 <FormInput
                     type={props.type}
                     id={props.id}
-                    {...register(props.id, { required: true })}
+                    {...register(props.id, { required: true, maxLength: 64 })}
                     aria-invalid={errors[props.id] ? "true" : "false"}
                     $isValid={errors[props.id] === undefined ? true : false}
                     defaultValue={props.defaultValue}

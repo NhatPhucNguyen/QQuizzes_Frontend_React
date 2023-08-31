@@ -94,7 +94,9 @@ const SelectionItem = (props: {
                 id={props.radioIndex.toString()}
                 type="radio"
                 defaultValue={props.radioIndex}
-                {...register("trueIndexAns")}
+                {...register("trueIndexAns", {
+                    required: true,
+                })}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     setIsTrueAns(e.currentTarget.checked);
                     props.setIsRefresh(!props.isRefresh);
@@ -104,7 +106,9 @@ const SelectionItem = (props: {
             <AnswerInput
                 placeholder="Enter answer here..."
                 defaultValue={props.desc}
-                {...register(`answers[${props.radioIndex}]`)}
+                {...register(`answers[${props.radioIndex}]`, {
+                    required: true,
+                })}
                 onFocus={() => {
                     setIsFocus(true);
                 }}

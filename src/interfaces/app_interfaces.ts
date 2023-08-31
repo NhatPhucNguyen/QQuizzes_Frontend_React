@@ -42,12 +42,17 @@ export interface IAttempt {
     questionsCompleted?: number;
 }
 export type ModalContext = {
-    openModal: (options?: {
-        question?: IQuestion;
-        quiz?: IQuiz;
-        formName?: string;
-    }) => void;
-    closeModal: () => void;
+    openModal: (options?: ModalOptions) => void;
+    closeModal: (options?: ModalCloseOptions) => void;
+};
+export type ModalOptions = {
+    questionData?: IQuestion;
+    quizData?: IQuiz;
+    formName?: string;
+};
+export type ModalCloseOptions = {
+    isDisplayNotification: boolean;
+    message: string;
 };
 export type ShowModal = {
     isShow: boolean;

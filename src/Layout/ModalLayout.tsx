@@ -20,11 +20,10 @@ const Container = styled.div`
     height: 100%;
     width: 100%;
     background-color: rgb(55, 54, 54, 0.4);
-    position: absolute;
-    z-index: 2;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    animation: ${moveDown} 0.4s ease-in-out;
 `;
 const Modal = ({ children }: { children: ReactNode }) => {
     const body = document.querySelector("body") as HTMLElement;

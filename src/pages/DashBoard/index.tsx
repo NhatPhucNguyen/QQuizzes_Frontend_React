@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { styled } from "styled-components";
-import Modal from "../../Layout/ModalLayout";
+import Confirmation from "../../components/Confirmation";
 import Navbar from "../../components/Navbar";
-import QuizForm from "../../components/QuizForm";
 import SelectionBoard from "../../components/SelectionBoard";
 import Sidebar from "../../components/Sidebar";
-import { IQuiz, ShowModal } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
 import { SidebarContext } from "../../context/SidebarContext";
+import {
+    IAlert,
+    IQuiz,
+    ModalCloseOptions,
+    ModalOptions,
+    ShowModal,
+} from "../../interfaces/app_interfaces";
+import { devices } from "../../utils/devices";
+import NotificationBar from "../../components/NotificationBar";
 
 const Container = styled.div`
     display: grid;
@@ -36,18 +42,26 @@ const OutletContainer = styled.div`
 const DashBoard = () => {
     const [showModal, setShowModal] = useState<ShowModal>({ isShow: false });
     const [isShowSidebar, setIsShowSidebar] = useState(false);
+    const [notification, setNotification] = useState<IAlert>({
+        isShow: false,
+        message: "",
+    });
     //open specific form modal
-    const openModal = (formName?: string, quizData?: IQuiz) => {
+    const openModal = ({ formName, quizData }: ModalOptions) => {
         setShowModal({
             ...showModal,
             isShow: true,
             formName: formName,
-            quizData: quizData,
+            quizData: quizData as IQuiz,
         });
+        setNotification({ ...notification, isShow: false });
     };
     //close modal
-    const closeModal = () => {
+    const closeModal = (options?: ModalCloseOptions) => {
         setShowModal({ ...showModal, isShow: false });
+        if (options?.isDisplayNotification) {
+            setNotification({ isShow: true, message: options.message });
+        }
     };
     //open sidebar when click burger bars
     const openSideBar = () => {
@@ -73,21 +87,27 @@ const DashBoard = () => {
                     isHideButtons={true}
                     height="3.5rem"
                 />
+                {/* Display notification */}
+                {notification.isShow && (
+                    <NotificationBar
+                        message={notification.message}
+                        closeNotification={() => {
+                            setNotification({ ...notification, isShow: false });
+                        }}
+                    />
+                )}
                 {/* Display from base on specific route*/}
                 <OutletContainer>
                     <Outlet context={{ openModal, closeModal }} />
                 </OutletContainer>
-                {showModal.isShow && showModal.formName === "QuizForm" && (
-                    <Modal>
-                        <QuizForm
-                            quizData={showModal.quizData}
-                            closeModal={closeModal}
-                            title="Update Quiz"
-                        />
-                    </Modal>
-                )}
                 {showModal.isShow && showModal.formName === "QuizCreate" && (
                     <SelectionBoard closeModal={closeModal} />
+                )}
+                {showModal.isShow && showModal.formName === "Confirmation" && (
+                    <Confirmation
+                        quiz={showModal.quizData as IQuiz}
+                        closeModal={closeModal}
+                    />
                 )}
             </Content>
         </Container>

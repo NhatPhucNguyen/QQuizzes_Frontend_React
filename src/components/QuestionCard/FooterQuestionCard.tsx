@@ -30,31 +30,16 @@ const Button = styled.button<{ $method?: string }>`
     }
 `;
 const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
-    const { quizId } = useParams();
-    const navigate = useNavigate();
     const outletContext = useOutletContext<ModalContext>();
-    const deleteQuestion = async () => {
-        try {
-            if (quizId) {
-                const response = await customAxios.get(
-                    `/api/quiz/${quizId}/delete/question/${
-                        questionData._id as string
-                    }`
-                );
-                if (response.status === 200) {
-                    navigate(0);
-                }
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
     return (
         <Container>
             <ButtonContainer>
                 <Button
                     onClick={() => {
-                        outletContext.openModal({ question: questionData });
+                        outletContext.openModal({
+                            formName: "QuestionCreate",
+                            questionData: questionData,
+                        });
                     }}
                     $method="edit"
                 >
@@ -62,7 +47,10 @@ const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
                 </Button>
                 <Button
                     onClick={() => {
-                        void deleteQuestion();
+                        outletContext.openModal({
+                            formName: "Confirmation",
+                            questionData: questionData,
+                        });
                     }}
                     $method="delete"
                 >

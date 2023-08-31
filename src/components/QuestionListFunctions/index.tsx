@@ -1,11 +1,11 @@
-import { styled } from "styled-components";
-import { FormEvent } from "react";
 import {
     faCirclePlus,
     faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FormEvent } from "react";
 import { useOutletContext } from "react-router-dom";
+import { styled } from "styled-components";
 import { ModalContext } from "../../interfaces/app_interfaces";
 import { devices } from "../../utils/devices";
 
@@ -94,7 +94,7 @@ const QuestionListFunctions = () => {
             </SearchContainer>
             <CreateButton
                 onClick={() => {
-                    modalContext.openModal();
+                    modalContext.openModal({ formName: "QuestionCreate" });
                 }}
             >
                 <FontAwesomeIcon icon={faCirclePlus} /> New question
