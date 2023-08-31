@@ -10,6 +10,7 @@ const Container = styled.div`
     gap: 2rem;
     height: 100%;
     width: 100%;
+    overflow: visible;
 `;
 
 const Title = styled.h1`

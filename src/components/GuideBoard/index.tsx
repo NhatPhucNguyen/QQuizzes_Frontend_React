@@ -12,6 +12,18 @@ import Modal from "../../Layout/ModalLayout";
 import DetailItem from "./DetailItem";
 import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
 import RuleInfo from "./RuleInfo";
+import { keyframes } from "styled-components";
+
+const moveDown = keyframes`
+    from{
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
 
 const Container = styled.div`
     background-color: #ffffff;
@@ -21,6 +33,7 @@ const Container = styled.div`
     flex-direction: column;
     gap: 2rem;
     border-radius: 15px;
+    animation: ${moveDown} 0.4s ease-in-out;
 `;
 const Header = styled.div``;
 const Main = styled.div`

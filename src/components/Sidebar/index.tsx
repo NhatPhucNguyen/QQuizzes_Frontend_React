@@ -6,11 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ModalOptions } from "../../interfaces/app_interfaces";
+import { useSidebarContext } from "../../context/SidebarContext";
 
 type CustomProps = {
     openModal: (options: ModalOptions) => void;
-    isShowSidebar?: boolean;
-    closeSidebar?: () => void;
 };
 
 const moveRightToLeft = keyframes`
@@ -92,9 +91,7 @@ const LogoutButton = styled(CreateButton)`
     color: #ffffff;
 `;
 const Start = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    text-align: end;
     width: 100%;
 `;
 const IconWrapper = styled.div`
@@ -106,17 +103,13 @@ const IconWrapper = styled.div`
 `;
 const Sidebar = (props: CustomProps) => {
     const navigate = useNavigate();
+    const sideBarContext = useSidebarContext();
     return (
-        <SideContainer $isShow={props.isShowSidebar}>
+        <SideContainer $isShow={sideBarContext.isShowSidebar}>
             <Start>
-                <LogoContainer>
-                    <Link href="/dashboard">
-                        <Logo src="/logo3.png" />
-                    </Link>
-                </LogoContainer>
                 <IconWrapper
                     onClick={() => {
-                        props.closeSidebar && props.closeSidebar();
+                        sideBarContext.closeSidebar();
                     }}
                 >
                     <FontAwesomeIcon icon={faXmark} size="2xl" />

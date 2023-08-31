@@ -3,13 +3,13 @@ import ButtonContainer from "./ButtonContainer";
 import { devices } from "../../utils/devices";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import HamburgerMenu from "./HamburgerMenu";
 
 type navProps = {
     isHideButtons?: boolean;
     isHideLogo?: boolean;
     height?: string;
-    openSidebar?: () => void;
-    isHideBars?: boolean;
+    isShowBurgerBar?: boolean;
 };
 
 const NavContainer = styled.nav<{ $height?: string }>`
@@ -35,10 +35,7 @@ const Link = styled.a`
 const BarsWrapper = styled.div`
     display: none;
     @media screen and (${devices.phones}) {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
+        display: block;
     }
 `;
 const IconWrapper = styled.div`
@@ -48,27 +45,14 @@ const IconWrapper = styled.div`
 const Navbar = (props: navProps) => {
     return (
         <NavContainer $height={props.height}>
-            {!props.isHideLogo && (
-                <Link href="/">
-                    <Logo src="/logo3.png" />
-                </Link>
+            <Link href="/">
+                <Logo src="/logo3.png" />
+            </Link>
+            {props.isShowBurgerBar ? (
+                <HamburgerMenu />
+            ) : (
+                !props.isHideButtons && <ButtonContainer />
             )}
-            {!props.isHideBars && <BarsWrapper>
-                <Link href="/">
-                    <Logo src="/logo3.png" />
-                </Link>
-                <IconWrapper
-                    onClick={() => {
-                        console.log("click");
-                        if (props.openSidebar) {
-                            props.openSidebar();
-                        }
-                    }}
-                >
-                    <FontAwesomeIcon icon={faBars} size="xl" />
-                </IconWrapper>
-            </BarsWrapper>}
-            {!props.isHideButtons && <ButtonContainer />}
         </NavContainer>
     );
 };

@@ -1,10 +1,9 @@
+import { useContext, useEffect } from "react";
 import {
-    TimeProps,
     CountdownCircleTimer,
-    useCountdown,
+    TimeProps
 } from "react-countdown-circle-timer";
 import { styled } from "styled-components";
-import { useContext, useState, useEffect, useRef } from "react";
 import { PlayBoardContext } from "../../context/PlayBoardContext";
 
 const Container = styled.div`

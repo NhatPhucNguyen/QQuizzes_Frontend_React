@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import DashBoard from "../../pages/DashBoard";
 import { useContext } from "react";
-import { SidebarContext } from "../../context/SidebarContext";
+import { useSidebarContext } from "../../context/SidebarContext";
 
 const TabContainer = styled.div`
     display: flex;
@@ -30,7 +30,7 @@ const TabName = styled.span`
 const Tabs = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const sidebarContext = useContext(SidebarContext);
+    const sidebarContext = useSidebarContext();
     const noSlashPathname = pathname.replace(/\/+$/, "").toLowerCase();
     return (
         <TabContainer>

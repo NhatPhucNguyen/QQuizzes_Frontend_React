@@ -55,7 +55,7 @@ const QuestionManagement = () => {
     }, []);
     return (
         <Main props={{ noGap: true }}>
-            <Navbar isHideButtons={true} isHideBars={true} />
+            <Navbar isHideButtons={true} />
             <SubNav />
             {notification.isShow && (
                 <NotificationBar

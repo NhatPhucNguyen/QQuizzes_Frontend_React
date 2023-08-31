@@ -1,10 +1,8 @@
 import { keyframes, styled } from "styled-components";
 import LoginLayout from "./LoginLayout";
 import SignUpLayout from "./SignUpLayout";
-import { useEffect, useState } from "react";
-import { AuthFormContext } from "../../context/AuthFormContext";
-import { useLocation } from "react-router-dom";
 import { devices } from "../../utils/devices";
+import { useAuthFormContext } from "../../context/AuthFormContext";
 
 const moveDown = keyframes`
     from{
@@ -29,7 +27,7 @@ export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
     grid-template-columns: auto auto;
     width: 60%;
     height: ${(props) => (props.$isAutoHeight ? "auto" : "70%")};
-    background-color: #F2E8DF;
+    background-color: #f2e8df;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     border-radius: 15px;
@@ -75,7 +73,7 @@ export const LoginButton = styled.button`
 export const SignUpButton = styled(LoginButton)`
     background-color: #d2284d;
     &:hover {
-        background-color: #aa1434
+        background-color: #aa1434;
     }
 `;
 export const FormTitle = styled.span`
@@ -87,19 +85,11 @@ export const FormTitle = styled.span`
     }
 `;
 const AuthForm = () => {
-    const location: { state?: { isSwitch?: boolean } } = useLocation();
-    const [isSwitch, setIsSwitch] = useState(false);
-    useEffect(() => {
-        if (location.state?.isSwitch) {
-            setIsSwitch(true);
-        }
-    }, [location.state?.isSwitch]);
+    const { isSwitch } = useAuthFormContext();
     return (
-        <AuthFormContext.Provider value={{ isSwitch, setIsSwitch }}>
-            <MainContainer>
-                {isSwitch ? <SignUpLayout /> : <LoginLayout />}
-            </MainContainer>
-        </AuthFormContext.Provider>
+        <MainContainer>
+            {isSwitch ? <SignUpLayout /> : <LoginLayout />}
+        </MainContainer>
     );
 };
 

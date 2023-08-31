@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { faPlus, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Main from "../Layout/Main";
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -56,16 +57,25 @@ const JoinGameButton = styled(CreateButton)`
 `;
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <Main>
-            <Navbar isHideBars={true} />
+            <Navbar />
             <Container>
                 <Introduction />
                 <ButtonContainer>
-                    <CreateButton>
+                    <CreateButton
+                        onClick={() => {
+                            navigate("/dashboard");
+                        }}
+                    >
                         Create quizzes <FontAwesomeIcon icon={faPlus} />
                     </CreateButton>
-                    <JoinGameButton>
+                    <JoinGameButton
+                        onClick={() => {
+                            navigate("/dashboard");
+                        }}
+                    >
                         Join a game <FontAwesomeIcon icon={faRightToBracket} />
                     </JoinGameButton>
                 </ButtonContainer>

@@ -13,9 +13,9 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    position: relative;
     padding: 1rem;
     width: 100%;
+    height: 100%;
     @media screen and (${devices.phones}){
         font-size: 1rem;
     }
@@ -28,6 +28,9 @@ const Title = styled.h1`
     text-align: center;
     @media screen and (${devices.phones}){
         font-size: 1.5rem;
+    }
+    @media screen and (${devices.tablets}){
+        font-size: 2.5rem;
     }
 `;
 const SubTitle = styled(Title)`

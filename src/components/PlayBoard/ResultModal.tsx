@@ -1,16 +1,28 @@
 import React from "react";
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 import Modal from "../../Layout/ModalLayout";
 import { IQuestion } from "../../interfaces/app_interfaces";
 import { Result } from ".";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
 
+const moveDown = keyframes`
+    from{
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
+
 const Container = styled.div`
     padding: 1rem;
     background-color: #ffffff;
     border: solid 5px #e7717d;
     border-radius: 15px;
+    animation: ${moveDown} 0.4s ease-in-out;
 `;
 const Title = styled.h2`
     text-align: center;
@@ -52,7 +64,7 @@ const RetryButton = styled(Button)`
     &:hover {
         background-color: #558534;
     }
-`
+`;
 const BackButton = styled(Button)`
     background-color: #e1a22d;
     &:hover {
@@ -66,7 +78,7 @@ type CustomProps = {
 };
 
 const ResultModal = (props: CustomProps) => {
-    const {totalPoints} = questionsTotalCalculate(props.questions)
+    const { totalPoints } = questionsTotalCalculate(props.questions);
     const navigate = useNavigate();
     const { quizId } = useParams() as { quizId: string };
     const [searchParams, setSearchParams] = useSearchParams();
