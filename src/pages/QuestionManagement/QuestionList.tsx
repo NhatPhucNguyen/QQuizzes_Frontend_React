@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useLoaderData, useRouteLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { styled } from "styled-components";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionListFunctions from "../../components/QuestionListFunctions";
-import { IQuestion, IQuiz } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
 import QuizInfoCard from "../../components/QuizInfoCard";
+import { IQuestion } from "../../interfaces/app_interfaces";
+import { devices } from "../../utils/devices";
 
 const Container = styled.div`
     width: 70%;

@@ -1,9 +1,13 @@
-import React from "react";
+import {
+    useLoaderData,
+    useNavigate,
+    useParams,
+    useSearchParams,
+} from "react-router-dom";
 import { keyframes, styled } from "styled-components";
 import Modal from "../../Layout/ModalLayout";
+import { usePlayBoardContext } from "../../context/PlayBoardContext";
 import { IQuestion } from "../../interfaces/app_interfaces";
-import { Result } from ".";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
 
 const moveDown = keyframes`
@@ -71,37 +75,34 @@ const BackButton = styled(Button)`
         background-color: #c58b1f;
     }
 `;
-type CustomProps = {
-    questions: IQuestion[];
-    result: Result;
-    totalTime: number;
-};
 
-const ResultModal = (props: CustomProps) => {
-    const { totalPoints } = questionsTotalCalculate(props.questions);
+const ResultModal = () => {
     const navigate = useNavigate();
+    const questions = useLoaderData() as IQuestion[];
+    const {result,totalTime} = usePlayBoardContext();
+    const { totalPoints } = questionsTotalCalculate(questions);
     const { quizId } = useParams() as { quizId: string };
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     return (
         <Modal>
             <Container>
                 <Title>Result</Title>
                 <ResultDetails>
                     <ResultField>Point: </ResultField>
-                    <ResultStat>{`${props.result.point}/${totalPoints}`}</ResultStat>
+                    <ResultStat>{`${result.point}/${totalPoints}`}</ResultStat>
                 </ResultDetails>
                 <ResultDetails>
                     <ResultField>Correct Answers: </ResultField>
-                    <ResultStat>{`${props.result.correctAnswers}/${props.questions.length}`}</ResultStat>
+                    <ResultStat>{`${result.correctAnswers}/${questions.length}`}</ResultStat>
                 </ResultDetails>
                 <ResultDetails>
                     <ResultField>Total Time: </ResultField>
                     <ResultStat>
-                        {props.totalTime > 60
-                            ? `${Math.floor(props.totalTime / 60)}m${Math.floor(
-                                  props.totalTime % 60
+                        {totalTime > 60
+                            ? `${Math.floor(totalTime / 60)}m${Math.floor(
+                                  totalTime % 60
                               )}s`
-                            : `${Math.ceil(props.totalTime)}s`}
+                            : `${Math.ceil(totalTime)}s`}
                     </ResultStat>
                 </ResultDetails>
                 <ButtonContainer>

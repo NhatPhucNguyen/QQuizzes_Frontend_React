@@ -1,16 +1,6 @@
 import { ReactNode, useEffect } from "react";
-import { keyframes, styled } from "styled-components";
+import { styled } from "styled-components";
 
-const moveDown = keyframes`
-    from{
-        opacity: 0;
-        height: 10%;
-    }
-    to{
-        opacity: 1;
-        height: 100%;
-    }
-`;
 
 const Container = styled.div`
     display: flex;

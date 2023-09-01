@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import {
     CountdownCircleTimer,
     TimeProps
 } from "react-countdown-circle-timer";
 import { styled } from "styled-components";
-import { PlayBoardContext } from "../../context/PlayBoardContext";
+import { usePlayBoardContext } from "../../context/PlayBoardContext";
 
 const Container = styled.div`
     display: grid;
@@ -27,16 +27,8 @@ const QuestionNumber = styled.h2`
     text-align: center;
 `;
 
-type CustomProps = {
-    duration: number;
-    point: number;
-    questionNumber: number;
-    questionsLength: number;
-    getCurrentTime: (elapsedTime: number) => void;
-};
-
-const PlayBoardHeader = (props: CustomProps) => {
-    const { nextQuestion, isShowAns } = useContext(PlayBoardContext);
+const PlayBoardHeader = () => {
+    const { nextQuestion, isShowAns,getCurrentTime,question } = usePlayBoardContext();
     let currentTime: number;
     const renderTime = ({ remainingTime, elapsedTime }: TimeProps) => {
         currentTime = elapsedTime;
@@ -44,21 +36,21 @@ const PlayBoardHeader = (props: CustomProps) => {
     };
     useEffect(() => {
         if (isShowAns) {
-            props.getCurrentTime(currentTime);
+            getCurrentTime(currentTime);
         }
     }, [isShowAns]);
     return (
         <Container>
             <CountdownCircleTimer
-                key={props.questionNumber}
+                key={question.questionNumber}
                 isPlaying={!isShowAns}
-                duration={props.duration}
+                duration={question.timeLimit}
                 colors={["#277C13", "#93AB2C", "#FFB306", "#E87B00", "#992E06"]}
                 colorsTime={[
-                    props.duration,
-                    props.duration / 1.5,
-                    props.duration / 2,
-                    props.duration / 3,
+                    question.timeLimit,
+                    question.timeLimit / 1.5,
+                    question.timeLimit / 2,
+                    question.timeLimit / 3,
                     0,
                 ]}
                 size={80}
@@ -68,10 +60,10 @@ const PlayBoardHeader = (props: CustomProps) => {
             >
                 {renderTime}
             </CountdownCircleTimer>
-            <QuestionNumber>Question {props.questionNumber}</QuestionNumber>
+            <QuestionNumber>Question {question.questionNumber}</QuestionNumber>
             <RightHeader>
-                <Detail>{props.point} pts</Detail>
-                <Detail>{props.questionNumber}/30</Detail>
+                <Detail>{question.point} pts</Detail>
+                <Detail>{question.questionNumber}/30</Detail>
             </RightHeader>
         </Container>
     );

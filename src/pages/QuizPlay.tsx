@@ -2,6 +2,7 @@ import { useState } from "react";
 import { styled } from "styled-components";
 import PlayBoard from "../components/PlayBoard";
 import GuideBoard from "../components/GuideBoard";
+import PlayBoardProvider from "../context/PlayBoardContext";
 
 const Container = styled.div`
     height: 100%;
@@ -13,7 +14,15 @@ const QuizPlay = () => {
         setIsShowGuide(true);
     };
     return (
-        <Container>{isShowGuide ? <PlayBoard /> : <GuideBoard allowedToPlay={allowToPlay}/>}</Container>
+        <PlayBoardProvider>
+            <Container>
+                {isShowGuide ? (
+                    <PlayBoard />
+                ) : (
+                    <GuideBoard allowedToPlay={allowToPlay} />
+                )}
+            </Container>
+        </PlayBoardProvider>
     );
 };
 

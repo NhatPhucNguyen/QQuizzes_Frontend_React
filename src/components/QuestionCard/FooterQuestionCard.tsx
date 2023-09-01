@@ -1,6 +1,5 @@
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { styled } from "styled-components";
-import { customAxios } from "../../config/axiosConfig";
 import { IQuestion, ModalContext } from "../../interfaces/app_interfaces";
 import { btnColorGenerate } from "../../utils/stylingMethod";
 

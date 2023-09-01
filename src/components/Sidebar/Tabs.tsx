@@ -1,7 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import DashBoard from "../../pages/DashBoard";
-import { useContext } from "react";
 import { useSidebarContext } from "../../context/SidebarContext";
 
 const TabContainer = styled.div`

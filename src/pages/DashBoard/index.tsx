@@ -14,7 +14,7 @@ import {
 } from "../../interfaces/app_interfaces";
 import { devices } from "../../utils/devices";
 import NotificationBar from "../../components/NotificationBar";
-import SidebarContext from "../../context/SidebarContext";
+import SidebarProvider from "../../context/SidebarContext";
 
 const Container = styled.div`
     height: 100%;
@@ -62,7 +62,7 @@ const DashBoard = () => {
     };
     return (
         <Container>
-            <SidebarContext>
+            <SidebarProvider>
                 <Navbar isShowBurgerBar={true} height="3.5rem" />
                 <Content>
                     <Sidebar openModal={openModal} />
@@ -94,7 +94,7 @@ const DashBoard = () => {
                             />
                         )}
                 </Content>
-            </SidebarContext>
+            </SidebarProvider>
         </Container>
     );
 };

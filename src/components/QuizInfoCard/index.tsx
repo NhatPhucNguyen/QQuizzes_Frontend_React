@@ -1,10 +1,8 @@
-import React from "react";
 import {
     useLoaderData,
     useNavigate,
     useOutletContext,
-    useParams,
-    useRouteLoaderData,
+    useRouteLoaderData
 } from "react-router-dom";
 import { styled } from "styled-components";
 import {
@@ -13,8 +11,8 @@ import {
     ModalContext,
 } from "../../interfaces/app_interfaces";
 import { devices } from "../../utils/devices";
-import QuizDetailItem from "./QuizDetailItem";
 import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
+import QuizDetailItem from "./QuizDetailItem";
 
 const Container = styled.div`
     display: flex;

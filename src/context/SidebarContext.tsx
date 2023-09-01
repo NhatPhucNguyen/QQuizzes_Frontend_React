@@ -1,13 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
-type DefaultValue = {
+type SidebarValue = {
     isShowSidebar: boolean;
     openSidebar: () => void;
     closeSidebar: () => void;
 };
-const CustomContext = createContext<DefaultValue | null>(null);
+const SidebarContext = createContext<SidebarValue | null>(null);
 
-const SidebarContext = ({ children }: { children: React.ReactNode }) => {
+const SidebarProvider = ({ children }: { children: React.ReactNode }) => {
     const [isShowSidebar, setIsShowSidebar] = useState(false);
 
     //open sidebar when click burger bars
@@ -19,22 +19,22 @@ const SidebarContext = ({ children }: { children: React.ReactNode }) => {
         setIsShowSidebar(false);
     };
     return (
-        <CustomContext.Provider
+        <SidebarContext.Provider
             value={{ openSidebar, closeSidebar, isShowSidebar }}
         >
             {children}
-        </CustomContext.Provider>
+        </SidebarContext.Provider>
     );
 };
 
 export const useSidebarContext = () => {
-    const context = useContext(CustomContext);
+    const context = useContext(SidebarContext);
     if (!context) {
         throw new Error(
-            "useSidebarContext must be used within SidebarContextProvider"
+            "useSidebarContext must be used within SidebarProvider"
         );
     }
     return context;
 };
 
-export default SidebarContext;
+export default SidebarProvider;

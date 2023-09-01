@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import { useEffect, useContext } from "react";
-import { PlayBoardContext } from "../../context/PlayBoardContext";
+import { usePlayBoardContext } from "../../context/PlayBoardContext";
 
 const Container = styled.button<{ $backgroundColor: string }>`
     width: 100%;
@@ -34,7 +33,7 @@ type CustomProps = {
 };
 
 const AnswerItem = (props: CustomProps) => {
-    const { nextQuestion, isShowAns } = useContext(PlayBoardContext);
+    const { nextQuestion, isShowAns } = usePlayBoardContext();
     const [backgroundColor, setBackgroundColor] = useState(
         props.backgroundColor
     );

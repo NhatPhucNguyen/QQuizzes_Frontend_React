@@ -1,6 +1,6 @@
-import React from "react";
-import Modal from "../../Layout/ModalLayout";
+import { useNavigate, useParams } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
+import Modal from "../../Layout/ModalLayout";
 import { API } from "../../config/API";
 import { customAxios } from "../../config/axiosConfig";
 import {
@@ -8,7 +8,6 @@ import {
     IQuiz,
     ModalCloseOptions,
 } from "../../interfaces/app_interfaces";
-import { useNavigate, useParams } from "react-router-dom";
 
 const moveDown = keyframes`
     from{

@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import ButtonContainer from "./ButtonContainer";
 import { devices } from "../../utils/devices";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ButtonContainer from "./ButtonContainer";
 import HamburgerMenu from "./HamburgerMenu";
 
 type navProps = {
@@ -31,16 +29,6 @@ const Link = styled.a`
     &:hover {
         cursor: pointer;
     }
-`;
-const BarsWrapper = styled.div`
-    display: none;
-    @media screen and (${devices.phones}) {
-        display: block;
-    }
-`;
-const IconWrapper = styled.div`
-    padding: 0.5rem 0 0.5rem 0;
-    color: #ffffff;
 `;
 const Navbar = (props: navProps) => {
     return (

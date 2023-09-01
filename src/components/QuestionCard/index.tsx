@@ -4,7 +4,6 @@ import { styled } from "styled-components";
 import { IQuestion } from "../../interfaces/app_interfaces";
 import BodyQuestionCard from "./BodyQuestionCard";
 import FooterQuestionCard from "./FooterQuestionCard";
-import { devices } from "../../utils/devices";
 
 type CustomProps = {
     question: IQuestion;

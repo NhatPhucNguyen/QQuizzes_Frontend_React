@@ -1,12 +1,12 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
+import { customAxios } from "../../config/axiosConfig";
+import { useSidebarContext } from "../../context/SidebarContext";
+import { ModalOptions } from "../../interfaces/app_interfaces";
 import { devices } from "../../utils/devices";
 import Tabs from "./Tabs";
-import { customAxios } from "../../config/axiosConfig";
-import { useNavigate } from "react-router-dom";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ModalOptions } from "../../interfaces/app_interfaces";
-import { useSidebarContext } from "../../context/SidebarContext";
 
 type CustomProps = {
     openModal: (options: ModalOptions) => void;
@@ -44,23 +44,6 @@ const SideContainer = styled.nav<{ $isShow?: boolean }>`
         height: 100%;
         gap: 1rem;
         animation: ${moveRightToLeft} 0.4s ease-in-out;
-    }
-`;
-const LogoContainer = styled.div`
-    width: 100%;
-    background-color: inherit;
-    padding: 0.3rem;
-`;
-const Logo = styled.img`
-    width: 8rem;
-    @media only screen and (${devices.phones}) {
-        width: 6rem;
-    }
-`;
-const Link = styled.a`
-    width: fit-content;
-    &:hover {
-        cursor: pointer;
     }
 `;
 const UserSummary = styled.span`

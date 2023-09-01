@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     useLoaderData,
     useNavigate,
     useParams,
     useSearchParams,
 } from "react-router-dom";
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
+import Modal from "../../Layout/ModalLayout";
 import { customAxios } from "../../config/axiosConfig";
 import { IAttempt, IQuestion, IQuiz } from "../../interfaces/app_interfaces";
-import Modal from "../../Layout/ModalLayout";
-import DetailItem from "./DetailItem";
 import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
+import DetailItem from "./DetailItem";
 import RuleInfo from "./RuleInfo";
-import { keyframes } from "styled-components";
 
 const moveDown = keyframes`
     from{

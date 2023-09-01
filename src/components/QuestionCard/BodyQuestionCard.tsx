@@ -1,11 +1,10 @@
-import React from "react";
-import { styled } from "styled-components";
-import { ISelection } from "../../interfaces/app_interfaces";
 import {
     faCircleCheck,
     faSquareXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { styled } from "styled-components";
+import { ISelection } from "../../interfaces/app_interfaces";
 
 type CustomProps = {
     question: string;

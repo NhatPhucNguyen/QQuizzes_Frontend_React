@@ -2,21 +2,18 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Main from "../../Layout/Main";
-import Modal from "../../Layout/ModalLayout";
+import Confirmation from "../../components/Confirmation";
 import Navbar from "../../components/Navbar";
+import NotificationBar from "../../components/NotificationBar";
 import QuestionCreateForm from "../../components/QuestionCreateForm";
+import QuizForm from "../../components/QuizForm";
 import SubNav from "../../components/SubNav";
 import {
     IAlert,
-    IQuestion,
-    IQuiz,
     ModalCloseOptions,
     ModalOptions,
-    ShowModal,
+    ShowModal
 } from "../../interfaces/app_interfaces";
-import QuizForm from "../../components/QuizForm";
-import NotificationBar from "../../components/NotificationBar";
-import Confirmation from "../../components/Confirmation";
 
 const Container = styled.div`
     width: 100%;

@@ -9,13 +9,13 @@ import {
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-type DefaultValue = {
+type AuthFormValue = {
     isSwitch: boolean;
     setIsSwitch: Dispatch<SetStateAction<boolean>>;
 };
 
-const CustomContext = createContext<DefaultValue | null>(null);
-const AuthFormContext = ({ children }: { children: React.ReactNode }) => {
+const AuthFormContext = createContext<AuthFormValue | null>(null);
+const AuthFormProvider = ({ children }: { children: React.ReactNode }) => {
     const [isSwitch, setIsSwitch] = useState(false);
     const location: { state?: { isSwitch?: boolean } } = useLocation();
     useEffect(() => {
@@ -24,19 +24,19 @@ const AuthFormContext = ({ children }: { children: React.ReactNode }) => {
         }
     }, [location.state?.isSwitch]);
     return (
-        <CustomContext.Provider value={{ isSwitch, setIsSwitch }}>
+        <AuthFormContext.Provider value={{ isSwitch, setIsSwitch }}>
             {children}
-        </CustomContext.Provider>
+        </AuthFormContext.Provider>
     );
 };
 
 export const useAuthFormContext = () => {
-    const context = useContext(CustomContext);
+    const context = useContext(AuthFormContext);
     if (!context) {
         throw new Error(
-            "useAuthFormContext must be used within AuthFormContext"
+            "useAuthFormContext must be used within AuthFormProvider"
         );
     }
     return context;
 };
-export default AuthFormContext;
+export default AuthFormProvider;
