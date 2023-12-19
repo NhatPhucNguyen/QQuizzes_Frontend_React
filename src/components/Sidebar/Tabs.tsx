@@ -52,10 +52,10 @@ const Tabs = () => {
             </TabItem>
             <TabItem
                 onClick={() => {
-                    navigate("user/quizzes");
+                    navigate("public/quizzes");
                     sidebarContext.closeSidebar();
                 }}
-                $onTab={noSlashPathname.includes("user")}
+                $onTab={noSlashPathname.includes("public")}
             >
                 <TabName>Explore</TabName>
             </TabItem>

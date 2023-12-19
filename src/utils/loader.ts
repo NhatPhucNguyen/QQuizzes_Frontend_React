@@ -30,7 +30,7 @@ export const quizLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
     if (quizId) {
         try {
-            const response = await customAxios.get(`api/quiz/get/${quizId}`);
+            const response = await customAxios.get(`quizzes/${quizId}`);
             if (response.status === 200) {
                 const data = response.data as IQuiz;
                 return data;
@@ -46,11 +46,11 @@ export const quizLoader: ActionFunction = async ({ params }) => {
 
 export const myQuizzesLoader: ActionFunction = async ({ params }) => {
     const { role } = params as { role: string };
-    if(role !== "user" && role !== "admin"){
+    if(role !== "public" && role !== "admin"){
         return redirect("/dashboard");
     }
     try {
-        const response = await customAxios.get(`/api/quiz/${role}/getAll`);
+        const response = await customAxios.get(`/quizzes/${role}`);
         if (response.status === 200) {
             const data = response.data as IQuiz[];
             return data;
@@ -66,7 +66,7 @@ export const questionsLoader: ActionFunction = async ({ params }) => {
     if (quizId) {
         try {
             const response = await customAxios.get(
-                `/api/quiz/${quizId}/get/admin/questions/getAll`
+                `/quizzes/${quizId}/questions`
             );
             if (response.status === 200) {
                 const data = response.data as IQuestion[];
@@ -85,7 +85,7 @@ export const quizPlayLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
     if (quizId) {
         try {
-            const response = await customAxios.get(`/api/quiz/${quizId}/play`);
+            const response = await customAxios.get(`/quizzes/${quizId}/play`);
             if (response.status === 200) {
                 const data = response.data as IQuestion[];
                 if(data.length > 0){

@@ -8,6 +8,7 @@ import {
     IQuiz,
     ModalCloseOptions,
 } from "../../interfaces/app_interfaces";
+import { devices } from "../../utils/devices";
 
 const moveDown = keyframes`
     from{
@@ -29,6 +30,9 @@ const Container = styled.div`
     margin-top: 10rem;
     width: 40rem;
     animation: ${moveDown} 0.4s ease-in-out;
+    @media screen and (${devices.phones}), (${devices.tablets}){
+        width: 90%;
+    }
 `;
 const WarningMessage = styled.p``;
 const KeyWord = styled.span`
@@ -77,7 +81,7 @@ const Confirmation = ({ question, quiz, closeModal }: CustomProps) => {
     const deleteQuiz = async () => {
         try {
             const response = await customAxios.delete(
-                API + `/api/quiz/delete/${quiz?._id as string}`
+                `/quizzes/${quiz?._id as string}`
             );
             if (response.status === 200) {
                 navigate("admin/quizzes");
@@ -93,8 +97,8 @@ const Confirmation = ({ question, quiz, closeModal }: CustomProps) => {
     const deleteQuestion = async () => {
         try {
             if (quizId) {
-                const response = await customAxios.get(
-                    `/api/quiz/${quizId}/delete/question/${
+                const response = await customAxios.delete(
+                    `/quizzes/${quizId}/questions/${
                         question?._id as string
                     }`
                 );

@@ -29,7 +29,7 @@ const SideContainer = styled.nav<{ $isShow?: boolean }>`
     background-color: #e7717d;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     color: #ffffff;
     align-items: center;
     padding-bottom: 0.5rem;

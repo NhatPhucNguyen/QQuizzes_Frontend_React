@@ -131,6 +131,7 @@ const QuestionCreateForm = (props: CustomProps) => {
     const { handleSubmit } = methods;
     const navigate = useNavigate();
     const [alert, setAlert] = useState<IAlert>({ isShow: false, message: "" });
+
     const onValid: SubmitErrorHandler<defaultValues> = (err, e) => {
         e?.preventDefault();
 
@@ -143,6 +144,40 @@ const QuestionCreateForm = (props: CustomProps) => {
                 isShow: true,
                 message: "Please select one true answer",
             });
+        }
+    };
+
+    const createQuestion = async (newQuestion: IQuestion) => {
+        const response = await customAxios.post(
+            `/quizzes/${props.quizId}/questions`,
+            JSON.stringify(newQuestion)
+        );
+        if (response.status === 200) {
+            navigate("questions");
+            props.closeModal({
+                isDisplayNotification: true,
+                message: `Question ${
+                    localStorage.getItem("nextQuestionNumber") as string
+                } was successfully added`,
+            });
+        }
+    };
+
+    const updateQuestion = async (updatedQuestion: IQuestion) => {
+        if (props.questionData?._id) {
+            const response = await customAxios.put(
+                `/quizzes/${props.quizId}/questions/${props.questionData._id}`,
+                JSON.stringify(updatedQuestion)
+            );
+            if (response.status === 200) {
+                navigate("questions");
+                props.closeModal({
+                    isDisplayNotification: true,
+                    message: `Question ${
+                        props.questionData.questionNumber as number
+                    } was successfully updated`,
+                });
+            }
         }
     };
     const onSubmit: SubmitHandler<defaultValues> = async (data, e) => {
@@ -174,34 +209,10 @@ const QuestionCreateForm = (props: CustomProps) => {
         };
         try {
             if (name === "create") {
-                const response = await customAxios.post(
-                    `/api/quiz/${props.quizId}/question/create`,
-                    JSON.stringify(newQuestion)
-                );
-                if (response.status === 200) {
-                    navigate("questions");
-                    props.closeModal({
-                        isDisplayNotification: true,
-                        message: `Question ${
-                            localStorage.getItem("nextQuestionNumber") as string
-                        } was successfully added`,
-                    });
-                }
+                await createQuestion(newQuestion);
             }
             if (name === "update" && props.questionData?._id) {
-                const response = await customAxios.post(
-                    `/api/quiz/${props.quizId}/question/${props.questionData?._id}/update`,
-                    JSON.stringify(newQuestion)
-                );
-                if (response.status === 200) {
-                    navigate("questions");
-                    props.closeModal({
-                        isDisplayNotification: true,
-                        message: `Question ${
-                            props.questionData.questionNumber as number
-                        } was successfully updated`,
-                    });
-                }
+                await updateQuestion(newQuestion);
             }
         } catch (error) {
             if (error instanceof AxiosError) {

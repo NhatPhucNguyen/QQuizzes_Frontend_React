@@ -107,7 +107,7 @@ const QuizForm = (props: CustomProps) => {
             if (name === "create") {
                 //create collection
                 const response = await customAxios.post(
-                    "/api/quiz/create",
+                    "/quizzes",
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {
@@ -117,8 +117,8 @@ const QuizForm = (props: CustomProps) => {
             }
             if (name === "update") {
                 //update collection
-                const response = await customAxios.patch(
-                    `/api/quiz/update/${props.quizData?._id as string}`,
+                const response = await customAxios.put(
+                    `quizzes/${props.quizData?._id as string}`,
                     JSON.stringify(data)
                 );
                 if (response.status === 200) {

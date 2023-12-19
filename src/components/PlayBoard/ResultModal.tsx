@@ -9,6 +9,10 @@ import Modal from "../../Layout/ModalLayout";
 import { usePlayBoardContext } from "../../context/PlayBoardContext";
 import { IQuestion } from "../../interfaces/app_interfaces";
 import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
+import { devices } from "../../utils/devices";
+import { customAxios } from "../../config/axiosConfig";
+import { Result } from ".";
+import { useEffect } from "react";
 
 const moveDown = keyframes`
     from{
@@ -27,6 +31,10 @@ const Container = styled.div`
     border: solid 5px #e7717d;
     border-radius: 15px;
     animation: ${moveDown} 0.4s ease-in-out;
+    width: 35rem;
+    @media screen and (${devices.phones}) {
+        width: 90%;
+    }
 `;
 const Title = styled.h2`
     text-align: center;
@@ -37,6 +45,7 @@ const ResultDetails = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem 10%;
+    align-items: center;
 `;
 const ResultField = styled.span`
     text-align: right;
@@ -79,10 +88,26 @@ const BackButton = styled(Button)`
 const ResultModal = () => {
     const navigate = useNavigate();
     const questions = useLoaderData() as IQuestion[];
-    const {result,totalTime} = usePlayBoardContext();
+    const { result, totalTime } = usePlayBoardContext();
     const { totalPoints } = questionsTotalCalculate(questions);
     const { quizId } = useParams() as { quizId: string };
     const [searchParams] = useSearchParams();
+    useEffect(() => {
+        const submitResult = async () => {
+            try {
+                await customAxios.patch(`/quizzes/${quizId}/play/result`, {
+                    point: result.point,
+                    timeCompleted: totalTime,
+                    correctAnswers: result.correctAnswers,
+                } as Result);
+            } catch (error) {
+                console.log(error);
+                navigate("/dashboard");
+            }
+        };
+        void submitResult();
+    }, []);
+
     return (
         <Modal>
             <Container>

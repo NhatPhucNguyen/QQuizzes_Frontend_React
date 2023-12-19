@@ -34,6 +34,7 @@ const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
     };
     const nextQuestion = (increasePoint?: boolean) => {
         setIsShow(true);
+        //increase point when answer is true
         if (increasePoint) {
             setResult((prevResult) => {
                 return {
@@ -43,26 +44,14 @@ const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
                 };
             });
         }
+        //submit result if index exceed number of questions
         if (index < questions.length - 1) {
             setTimeout(() => {
                 setIndex((prevIndex) => prevIndex + 1);
                 setIsShow(false);
             }, 1000);
         } else {
-            const submitResult = async (timeCompleted: number) => {
-                try {
-                    await customAxios.patch(`/api/quiz/${quizId}/play/result`, {
-                        point: result.point,
-                        timeCompleted: timeCompleted,
-                        correctAnswers: result.correctAnswers,
-                    } as Result);
-                } catch (error) {
-                    console.log(error);
-                    navigate("/dashboard");
-                }
-            };
             setTimeout(() => {
-                void submitResult(totalTime.current);
                 setShowModal({ ...showModal, isShow: true });
             }, 1000);
         }

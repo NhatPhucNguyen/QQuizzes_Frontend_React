@@ -4,7 +4,6 @@ import FormController from "./FormController";
 import { IAlert, IUser } from "../../interfaces/app_interfaces";
 import Alert from "./Alert";
 import axios, { AxiosError } from "axios";
-import { API } from "../../config/API";
 import { useNavigate } from "react-router-dom";
 import { emailValidate } from "../../utils/emailValidate";
 import { customAxios } from "../../config/axiosConfig";
@@ -36,8 +35,9 @@ const SignUpForm = () => {
                 //submit data
                 const submit = async () => {
                     try {
-                        let response = await axios.post(
-                            API + "/auth/register",
+                        //Register a new account
+                        let response = await customAxios.post(
+                            "auth/register",
                             JSON.stringify(userData),
                             {
                                 headers: {
@@ -47,6 +47,7 @@ const SignUpForm = () => {
                             }
                         );
                         if (response.status === 200) {
+                            //Login after being successfully created
                             response = await customAxios.post(
                                 "/auth/login",
                                 JSON.stringify({

@@ -85,11 +85,14 @@ const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
     const { quizId } = useParams();
     const questions = useLoaderData() as IQuestion[];
     const { totalPoints, timeConverted } = questionsTotalCalculate(questions);
+    const highestScore = Math.max(...attempts.map((attempts) => {
+        return attempts.point;
+    }));
     useEffect(() => {
         const getSingleQuiz = async () => {
             try {
                 const response = await customAxios.get(
-                    `api/quiz/get/${quizId as string}`
+                    `/quizzes/${quizId as string}`
                 );
                 if (response.status === 200) {
                     const quizData = response.data as IQuiz;
@@ -102,7 +105,7 @@ const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
         const getPlayerAttempt = async () => {
             try {
                 const response = await customAxios.get(
-                    `/api/quiz/${quizId as string}/play/get/attempts`
+                    `/quizzes/${quizId as string}/play/attempts`
                 );
                 if (response.status === 200) {
                     const { attempts } = response.data as {
@@ -130,7 +133,7 @@ const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
                 <Main>
                     <DetailItem
                         field="Questions"
-                        detail={quiz.quantity?.toString() as string}
+                        detail={quiz.quantity as number}
                     />
                     <DetailItem field="Level" detail={quiz.level} />
                     <DetailItem
@@ -142,6 +145,7 @@ const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
                         field="Attempts"
                         detail={`${attempts.length}/unlimited`}
                     />
+                    {attempts.length > 0 && <DetailItem field="Highest Point" detail={highestScore}/>}
                 </Main>
                 <RuleInfo />
                 <ButtonContainer>

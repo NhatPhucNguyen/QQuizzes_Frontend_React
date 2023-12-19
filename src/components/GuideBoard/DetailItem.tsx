@@ -15,7 +15,7 @@ const Detail = styled.span`
 
 type CustomProps = {
     field: string;
-    detail: string;
+    detail: string | number;
 };
 
 const DetailItem = (props:CustomProps) => {
