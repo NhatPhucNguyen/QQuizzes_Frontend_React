@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSidebarContext } from "../../context/SidebarContext";

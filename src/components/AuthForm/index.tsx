@@ -1,7 +1,7 @@
 import { keyframes, styled } from "styled-components";
 import LoginLayout from "./LoginLayout";
 import SignUpLayout from "./SignUpLayout";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import { useAuthFormContext } from "../../context/AuthFormContext";
 
 const moveDown = keyframes`

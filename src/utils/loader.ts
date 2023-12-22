@@ -2,7 +2,13 @@ import { ActionFunction, Params, redirect } from "react-router-dom";
 import { authenticatedCheck } from "./authenticatedCheck";
 import { customAxios } from "../config/axiosConfig";
 import { AxiosError } from "axios";
-import { IQuestion, IQuiz } from "../interfaces/app_interfaces";
+import {
+    IPlayer,
+    IQuestion,
+    IQuiz,
+    IResult,
+} from "../interfaces/app_interfaces";
+import Cookies from "js-cookie";
 
 export const requireAuth = async () => {
     const isAuthenticated = await authenticatedCheck();
@@ -46,7 +52,7 @@ export const quizLoader: ActionFunction = async ({ params }) => {
 
 export const myQuizzesLoader: ActionFunction = async ({ params }) => {
     const { role } = params as { role: string };
-    if(role !== "public" && role !== "admin"){
+    if (role !== "public" && role !== "admin") {
         return redirect("/dashboard");
     }
     try {
@@ -83,18 +89,32 @@ export const questionsLoader: ActionFunction = async ({ params }) => {
 
 export const quizPlayLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
+    let player: IPlayer | undefined;
+    let questions: IQuestion[] | undefined;
+
     if (quizId) {
-        try {
-            const response = await customAxios.get(`/quizzes/${quizId}/play`);
+        const getAllQuestions = async () => {
+            const response = await customAxios.get(
+                `/quizzes/${quizId}/questions`
+            );
             if (response.status === 200) {
                 const data = response.data as IQuestion[];
-                if(data.length > 0){
-                    return data;
-                }
-                else{
-                    return redirect("/dashboard")
-                }
+                return data;
             }
+        };
+        const getPlayerResult = async () => {
+            const response = await customAxios.get(
+                `/quizzes/${quizId}/play/result`
+            );
+            if (response.status === 200) {
+                const data = response.data as IPlayer;
+                return data;
+            }
+        };
+        try {
+            questions = await getAllQuestions();
+            player = await getPlayerResult();
+            return { questions, player };
         } catch (error) {
             if (error instanceof AxiosError) {
                 return redirect("/dashboard");

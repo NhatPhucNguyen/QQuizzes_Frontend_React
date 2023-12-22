@@ -34,6 +34,7 @@ type CustomProps = {
 
 const AnswerItem = (props: CustomProps) => {
     const { nextQuestion, isShowAns } = usePlayBoardContext();
+    const [isClicked, setIsClicked] = useState(false);
     const [backgroundColor, setBackgroundColor] = useState(
         props.backgroundColor
     );
@@ -42,16 +43,21 @@ const AnswerItem = (props: CustomProps) => {
             if (props.isTrue) {
                 setBackgroundColor("green");
             } else {
-                setBackgroundColor("#848484");
+                if (isClicked) {
+                    setBackgroundColor("red");
+                } else {
+                    setBackgroundColor("#848484");
+                }
             }
         }
-    }, [isShowAns, props.isTrue]);
+    }, [isClicked, isShowAns, props.isTrue]);
     return (
         <Container
             type="button"
             $backgroundColor={backgroundColor}
             disabled={isShowAns}
-            onClick={() => {
+            onClick={() => {                
+                setIsClicked(true);
                 if (props.isTrue) {
                     nextQuestion(true);
                 } else {

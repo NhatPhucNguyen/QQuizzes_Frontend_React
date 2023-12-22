@@ -2,7 +2,7 @@ import { useLoaderData, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import QuizCard from "../../components/QuizCard";
 import { IQuiz } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 
 const Container = styled.div`
     display: flex;

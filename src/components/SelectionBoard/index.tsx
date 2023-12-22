@@ -3,7 +3,7 @@ import Modal from "../../Layout/ModalLayout";
 import { useState } from "react";
 import Selections from "./Selections";
 import CloseMark from "../CloseMark";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import QuizForm from "../QuizForm";
 
 type CustomProps = {

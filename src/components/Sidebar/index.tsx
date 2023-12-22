@@ -5,7 +5,7 @@ import { keyframes, styled } from "styled-components";
 import { customAxios } from "../../config/axiosConfig";
 import { useSidebarContext } from "../../context/SidebarContext";
 import { ModalOptions } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import Tabs from "./Tabs";
 
 type CustomProps = {
@@ -15,11 +15,11 @@ type CustomProps = {
 const moveRightToLeft = keyframes`
     from{
         opacity: 0;
-        width: 10%;
+        transform: translateX(100px);
     }
     to{
         opacity: 1;
-        width: 100%;
+        transform: translateX(0);
     }
 `;
 
@@ -44,6 +44,7 @@ const SideContainer = styled.nav<{ $isShow?: boolean }>`
         height: 100%;
         gap: 1rem;
         animation: ${moveRightToLeft} 0.4s ease-in-out;
+        width: 70%;
     }
 `;
 const UserSummary = styled.span`
@@ -62,6 +63,9 @@ const CreateButton = styled.button`
     background-color: #ffffff;
     &:hover {
         cursor: pointer;
+        background-color: #e7717d;
+        color: #ffffff;
+        outline: 2px solid #ffffff;
     }
     @media screen and (${devices.phones}) {
         width: 50%;
@@ -72,6 +76,11 @@ const LogoutButton = styled(CreateButton)`
     border: 2px solid #ffffff;
     background-color: #e7717d;
     color: #ffffff;
+    &:hover {
+        background-color: #ffffff;
+        color: #e7717d;
+        outline: none;
+    }
 `;
 const Start = styled.div`
     text-align: end;
@@ -110,8 +119,10 @@ const Sidebar = (props: CustomProps) => {
                 onClick={() => {
                     const logout = async () => {
                         localStorage.clear();
-                        await customAxios.get("/auth/logout");
-                        navigate("/");
+                        const response = await customAxios.get("/auth/logout");
+                        if (response.status == 204) {
+                            navigate("/");
+                        }
                     };
                     void logout();
                 }}

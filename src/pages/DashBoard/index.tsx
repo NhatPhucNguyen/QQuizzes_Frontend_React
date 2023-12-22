@@ -12,7 +12,7 @@ import {
     ModalOptions,
     ShowModal,
 } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import NotificationBar from "../../components/NotificationBar";
 import SidebarProvider from "../../context/SidebarContext";
 
@@ -31,9 +31,8 @@ const Content = styled.div`
 `;
 const OutletContainer = styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: center;
     height: 100%;
     overflow-y: auto;
 `;

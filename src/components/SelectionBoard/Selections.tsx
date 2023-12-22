@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { Dispatch, SetStateAction } from "react";
 import { ShowForm } from ".";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 
 const SelectionsContainer = styled.div`
     display: grid;

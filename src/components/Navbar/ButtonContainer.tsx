@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import { customAxios } from "../../config/axiosConfig";

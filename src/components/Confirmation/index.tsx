@@ -8,7 +8,7 @@ import {
     IQuiz,
     ModalCloseOptions,
 } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 
 const moveDown = keyframes`
     from{

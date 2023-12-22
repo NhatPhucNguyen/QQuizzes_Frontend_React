@@ -19,6 +19,8 @@ export interface IQuiz {
     topic: string;
     level: string;
     quantity?: number;
+    timeLimit:number;
+    totalPoints:number;
 }
 export interface IQuestion {
     _id?: string;
@@ -35,12 +37,21 @@ export interface ISelection {
     desc: string;
     isTrue: boolean;
 }
-export interface IAttempt {
-    point: number;
+export interface IResult {
+    highestPoint: number;
     timeCompleted: number;
     correctAnswers: number;
     questionsCompleted?: number;
+    attempts?: number;
 }
+
+export interface IPlayer {
+    userId: string;
+    quizParticipated: string;
+    displayName: string;
+    result: IResult;
+}
+
 export type ModalContext = {
     openModal: (options?: ModalOptions) => void;
     closeModal: (options?: ModalCloseOptions) => void;

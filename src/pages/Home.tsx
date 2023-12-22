@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import Introduction from "../components/Introduction";
-import { devices } from "../utils/devices";
+import { devices } from "../config/devices";
 import Navbar from "../components/Navbar";
 import { faPlus, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

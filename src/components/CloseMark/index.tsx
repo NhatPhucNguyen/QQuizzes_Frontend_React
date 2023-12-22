@@ -1,7 +1,7 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styled } from "styled-components";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 const CloseMarkWrapper = styled.button`
     position: absolute;
     right: 10px;

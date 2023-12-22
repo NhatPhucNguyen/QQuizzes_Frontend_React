@@ -12,7 +12,7 @@ import { keyframes, styled } from "styled-components";
 import { customAxios } from "../../config/axiosConfig";
 import { topicSelections } from "../../config/topicSelections";
 import { IQuiz, ModalCloseOptions } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import Alert from "../AuthForm/Alert";
 import CloseMark from "../CloseMark";
 import QuizFormController from "./QuizFormController";

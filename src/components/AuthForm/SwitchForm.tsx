@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { FormTitle, LoginButton, SignUpButton } from ".";
 import { useAuthFormContext } from "../../context/AuthFormContext";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 const SwitchFormContainer = styled.div`
     display: flex;
     flex-direction: column;

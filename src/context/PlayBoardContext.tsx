@@ -1,8 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { IQuestion, ShowModal } from "../interfaces/app_interfaces";
-import { createContext, useRef, useState, useContext } from "react";
-import { Result } from "../components/PlayBoard";
+import {
+    IQuestion,
+    IQuiz,
+    IResult,
+    ShowModal,
+} from "../interfaces/app_interfaces";
+import { createContext, useRef, useState, useContext, useEffect } from "react";
 import { customAxios } from "../config/axiosConfig";
 
 type PlayBoardValue = {
@@ -11,8 +15,9 @@ type PlayBoardValue = {
     isShowAns: boolean;
     isShowModal: boolean;
     totalTime: number;
-    result: Result;
+    result: IResult;
     getCurrentTime: (elapsedTime: number) => void;
+    quiz: IQuiz;
 };
 
 export const PlayBoardContext = createContext<PlayBoardValue | null>(null);
@@ -20,13 +25,14 @@ export const PlayBoardContext = createContext<PlayBoardValue | null>(null);
 const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
     const { quizId } = useParams() as { quizId: string };
-    const questions = useLoaderData() as IQuestion[];
+    const { questions } = useLoaderData() as { questions: IQuestion[] };
+    const [quiz, setQuiz] = useState<IQuiz>({} as IQuiz);
     const [index, setIndex] = useState(0);
     const totalTime = useRef(0);
     const [result, setResult] = useState({
-        point: 0,
+        highestPoint: 0,
         correctAnswers: 0,
-    } as Result);
+    } as IResult);
     const [isShow, setIsShow] = useState(false); //showing the right and wrong answers
     const [showModal, setShowModal] = useState({} as ShowModal);
     const getCurrentTime = (elapsedTime: number) => {
@@ -39,7 +45,8 @@ const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
             setResult((prevResult) => {
                 return {
                     ...prevResult,
-                    point: prevResult.point + questions[index].point,
+                    highestPoint:
+                        prevResult.highestPoint + questions[index].point,
                     correctAnswers: prevResult.correctAnswers + 1,
                 };
             });
@@ -56,6 +63,19 @@ const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
             }, 1000);
         }
     };
+    useEffect(() => {
+        const getQuizData = async () => {
+            try {
+                const response = await customAxios(`/quizzes/${quizId}`);
+                const data = response.data as IQuiz;
+                setQuiz(data);
+            } catch (error) {
+                console.log(error);
+                navigate("/dashboard");
+            }
+        };
+        void getQuizData();
+    }, []);
     return (
         <PlayBoardContext.Provider
             value={{
@@ -66,6 +86,7 @@ const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
                 totalTime: totalTime.current,
                 result: result,
                 getCurrentTime: getCurrentTime,
+                quiz: quiz,
             }}
         >
             {children}

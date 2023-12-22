@@ -8,10 +8,17 @@ import {
 import { keyframes, styled } from "styled-components";
 import Modal from "../../Layout/ModalLayout";
 import { customAxios } from "../../config/axiosConfig";
-import { IAttempt, IQuestion, IQuiz } from "../../interfaces/app_interfaces";
+import {
+    IPlayer,
+    IQuestion,
+    IQuiz,
+    IResult,
+} from "../../interfaces/app_interfaces";
 import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
 import DetailItem from "./DetailItem";
 import RuleInfo from "./RuleInfo";
+import timeToString from "../../utils/timeConvert";
+import { usePlayBoardContext } from "../../context/PlayBoardContext";
 
 const moveDown = keyframes`
     from{
@@ -78,51 +85,10 @@ const BackButton = styled(Button)`
     }
 `;
 const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
-    const [quiz, setQuiz] = useState({} as IQuiz);
-    const [searchParams] = useSearchParams();
-    const [attempts, setAttempts] = useState<IAttempt[]>([]);
+    const { quiz } = usePlayBoardContext();
     const navigate = useNavigate();
-    const { quizId } = useParams();
-    const questions = useLoaderData() as IQuestion[];
-    const { totalPoints, timeConverted } = questionsTotalCalculate(questions);
-    const highestScore = Math.max(...attempts.map((attempts) => {
-        return attempts.point;
-    }));
-    useEffect(() => {
-        const getSingleQuiz = async () => {
-            try {
-                const response = await customAxios.get(
-                    `/quizzes/${quizId as string}`
-                );
-                if (response.status === 200) {
-                    const quizData = response.data as IQuiz;
-                    setQuiz(quizData);
-                }
-            } catch (error) {
-                navigate(-1);
-            }
-        };
-        const getPlayerAttempt = async () => {
-            try {
-                const response = await customAxios.get(
-                    `/quizzes/${quizId as string}/play/attempts`
-                );
-                if (response.status === 200) {
-                    const { attempts } = response.data as {
-                        attempts: IAttempt[];
-                    };
-                    setAttempts(attempts);
-                }
-            } catch (error) {
-                console.log(error);
-                navigate(-1);
-            }
-        };
-        void getSingleQuiz();
-        if (searchParams.get("type") !== "preview") {
-            void getPlayerAttempt();
-        }
-    }, []);
+    const { player } = useLoaderData() as { player?: IPlayer };
+    const timeConverted = timeToString(quiz.timeLimit);
     return (
         <Modal>
             <Container>
@@ -136,16 +102,22 @@ const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
                         detail={quiz.quantity as number}
                     />
                     <DetailItem field="Level" detail={quiz.level} />
-                    <DetailItem
-                        field="Total point"
-                        detail={totalPoints.toString()}
-                    />
+                    <DetailItem field="Total point" detail={quiz.totalPoints} />
                     <DetailItem field="Time limit" detail={timeConverted} />
                     <DetailItem
                         field="Attempts"
-                        detail={`${attempts.length}/unlimited`}
+                        detail={`${
+                            player?.result && player?.result.attempts
+                                ? player.result.attempts
+                                : 0
+                        }/unlimited`}
                     />
-                    {attempts.length > 0 && <DetailItem field="Highest Point" detail={highestScore}/>}
+                    {player?.result && (
+                        <DetailItem
+                            field="Highest Point"
+                            detail={player.result.highestPoint}
+                        />
+                    )}
                 </Main>
                 <RuleInfo />
                 <ButtonContainer>

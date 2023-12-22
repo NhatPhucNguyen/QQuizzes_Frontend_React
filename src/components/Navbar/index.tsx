@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import ButtonContainer from "./ButtonContainer";
 import HamburgerMenu from "./HamburgerMenu";
 

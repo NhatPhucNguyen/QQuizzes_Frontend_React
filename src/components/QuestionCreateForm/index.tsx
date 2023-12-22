@@ -18,7 +18,7 @@ import {
     ISelection,
     ModalCloseOptions,
 } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import Alert from "../AuthForm/Alert";
 import AnswersGroup from "./AnswersGroup";
 import QuestionFormHeader from "./QuestionFormHeader";

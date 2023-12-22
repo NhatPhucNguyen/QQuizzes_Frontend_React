@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { styled } from "styled-components";
 import { IQuiz, ModalContext } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import { btnColorGenerate, levelColorText } from "../../utils/stylingMethod";
 
 type CustomProps = {

@@ -4,34 +4,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styled } from "styled-components";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    align-items: center;
-    justify-content: center;
     font-weight: bold;
     padding: 1rem;
     width: 100%;
-    height: 100%;
-    @media screen and (${devices.phones}){
-        font-size: 1rem;
-    }
+    height: fit-content;
 `;
 
 const Title = styled.h1`
-    font-size: 3.5rem;
+    font-size: 5vw;
     font-family: "Lumanosimo", cursive;
     color: #86a69d;
     text-align: center;
-    @media screen and (${devices.phones}){
-        font-size: 1.5rem;
-    }
-    @media screen and (${devices.tablets}){
-        font-size: 2.5rem;
-    }
+    margin: 1.5rem 0;
 `;
 const SubTitle = styled(Title)`
     color: #f2b263;
@@ -44,7 +31,8 @@ const SearchBoxContainer = styled.form`
     grid-template-columns: 80% 20%;
     justify-content: flex-end;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    @media screen and (${devices.phones}){
+    margin: auto;
+    @media screen and (${devices.phones}) {
         width: 100%;
     }
 `;
@@ -53,13 +41,13 @@ const SearchBox = styled.input`
     width: 100%;
     border-bottom-left-radius: 50px;
     border-top-left-radius: 50px;
-    font-size: 2rem;
-    padding: 1rem 2rem;
+    font-size: 24px;
+    padding: 0.8rem 2rem;
     border: none;
     outline: none;
-    @media screen and (${devices.phones}){
+    @media screen and (${devices.phones}) {
         font-size: 1rem;
-        &::placeholder{
+        &::placeholder {
             font-size: 0.8rem;
         }
     }
@@ -78,7 +66,7 @@ const SearchButton = styled.button`
 `;
 const JoinContainer = styled(SearchBoxContainer)`
     width: 70%;
-    @media screen and (${devices.phones}){
+    @media screen and (${devices.phones}) {
         width: 90%;
     }
 `;

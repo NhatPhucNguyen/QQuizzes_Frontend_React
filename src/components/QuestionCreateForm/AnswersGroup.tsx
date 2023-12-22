@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { styled } from "styled-components";
 import { ISelection } from "../../interfaces/app_interfaces";
 import SelectionItem from "./SelectionItem";
-import { devices } from '../../utils/devices';
+import { devices } from '../../config/devices';
 
 const AnswersContainer = styled.div`
     display: grid;

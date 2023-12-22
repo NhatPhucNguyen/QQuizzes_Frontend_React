@@ -6,7 +6,11 @@ import { AxiosError } from "axios";
 import { customAxios } from "../../config/axiosConfig";
 import Alert from "./Alert";
 import { useNavigate } from "react-router-dom";
-
+type DataReturn = {
+    accessToken: string;
+    fullName: string;
+    userId: string;
+};
 const LoginForm = () => {
     const [userData, setUserData] = useState({
         username: "",
@@ -29,12 +33,11 @@ const LoginForm = () => {
                         JSON.stringify(userData)
                     );
                     if (response.status === 200) {
-                        const { accessToken, fullName } = response.data as {
-                            accessToken: string;
-                            fullName: string;
-                        };
+                        const { accessToken, fullName, userId } =
+                            response.data as DataReturn;
                         localStorage.setItem("accessToken", accessToken);
                         localStorage.setItem("fullName", fullName);
+                        localStorage.setItem("userId", userId);
                         navigate("/dashboard");
                     }
                 } catch (err) {

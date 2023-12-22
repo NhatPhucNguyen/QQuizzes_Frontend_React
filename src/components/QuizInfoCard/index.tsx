@@ -10,7 +10,7 @@ import {
     IQuiz,
     ModalContext,
 } from "../../interfaces/app_interfaces";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
 import QuizDetailItem from "./QuizDetailItem";
 

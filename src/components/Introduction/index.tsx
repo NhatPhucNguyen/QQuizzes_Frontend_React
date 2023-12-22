@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 
 const IntroTitle = styled.span`
     font-family: "Slackey", cursive;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { styled } from "styled-components";
-import { devices } from "../../utils/devices";
+import { devices } from "../../config/devices";
 
 const Container = styled.div`
     display: flex;
