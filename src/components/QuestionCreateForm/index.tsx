@@ -190,14 +190,12 @@ const QuestionCreateForm = (props: CustomProps) => {
             if (index == data.trueIndexAns) {
                 const selection: ISelection = {
                     isTrue: true,
-                    desc: answer,
-                    selectionNumber: index,
+                    desc: answer
                 };
                 return selection;
             } else {
                 return {
-                    desc: answer,
-                    selectionNumber: index,
+                    desc: answer
                 };
             }
         }) as ISelection[];

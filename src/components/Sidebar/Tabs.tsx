@@ -52,15 +52,6 @@ const Tabs = () => {
             </TabItem>
             <TabItem
                 onClick={() => {
-                    navigate("public/quizzes");
-                    sidebarContext.closeSidebar();
-                }}
-                $onTab={noSlashPathname.includes("public")}
-            >
-                <TabName>Explore</TabName>
-            </TabItem>
-            <TabItem
-                onClick={() => {
                     console.log("Hello");
                 }}
             >

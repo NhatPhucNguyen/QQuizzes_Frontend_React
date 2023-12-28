@@ -30,9 +30,6 @@ const Content = styled.div`
     }
 `;
 const OutletContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 100%;
     overflow-y: auto;
 `;

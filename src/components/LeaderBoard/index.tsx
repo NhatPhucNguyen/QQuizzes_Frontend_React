@@ -32,10 +32,10 @@ const LeaderBoard = ({ style }: CustomProps) => {
     const { quizId } = useParams();
     useEffect(() => {
         const getTopPlayers = async () => {
-            const offset = 7;
+            const limit = 7;
             if (quizId) {
                 const response = await customAxios.get(
-                    `/quizzes/${quizId}/play/playersParticipated?offset=${offset}`
+                    `/quizzes/${quizId}/play/playersParticipated?limit=${limit}`
                 );
                 setPlayers(response.data as IPlayer[]);
             }

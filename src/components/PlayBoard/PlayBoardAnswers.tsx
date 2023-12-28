@@ -24,12 +24,12 @@ const PlayBoardAnswers = () => {
     const { question } = usePlayBoardContext();
     return (
         <AnswerContainer>
-            {question.selections.map((selection) => {
+            {question.selections.map((selection,index) => {
                 return (
                     <AnswerItem
-                        key={selection.selectionNumber}
+                        key={index}
                         backgroundColor={
-                            backgroundColors[selection.selectionNumber]
+                            backgroundColors[index]
                         }
                         desc={selection.desc}
                         isTrue={selection.isTrue}

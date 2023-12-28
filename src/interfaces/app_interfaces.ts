@@ -14,13 +14,15 @@ export interface IAlert {
     message: string;
 }
 export interface IQuiz {
+    numberOfPlays: number;
     _id?: string;
     quizName: string;
     topic: string;
     level: string;
-    quantity?: number;
+    quantity: number;
     timeLimit:number;
     totalPoints:number;
+    updatedAt:Date;
 }
 export interface IQuestion {
     _id?: string;
@@ -33,7 +35,6 @@ export interface IQuestion {
 }
 export interface ISelection {
     _id?: string;
-    selectionNumber: number;
     desc: string;
     isTrue: boolean;
 }

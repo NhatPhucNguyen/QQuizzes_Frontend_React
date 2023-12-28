@@ -23,6 +23,7 @@ import MyQuizzes from "./pages/DashBoard/MyQuizzes";
 import QuestionManagement from "./pages/QuestionManagement";
 import QuestionList from "./pages/QuestionManagement/QuestionList";
 import QuizPlay from "./pages/QuizPlay";
+import QuizzesSearch from "./pages/DashBoard/QuizzesSearch";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
                         element={<MyQuizzes />}
                         loader={myQuizzesLoader}
                     />
+                    <Route path="quizzes" element={<QuizzesSearch />} />
                 </Route>
             </Route>
             <Route path="/admin/quizzes" loader={requireAuth}>

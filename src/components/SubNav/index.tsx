@@ -1,6 +1,4 @@
-import {
-    faClipboardList
-} from "@fortawesome/free-solid-svg-icons";
+import { faClipboardList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLoaderData } from "react-router-dom";
 import { styled } from "styled-components";
@@ -22,7 +20,7 @@ const Start = styled.div`
     color: #aae87d;
     width: max-content;
     max-width: 100%;
-    
+
     text-align: center;
 `;
 const Text = styled.span`
@@ -30,11 +28,15 @@ const Text = styled.span`
 `;
 const SubNav = () => {
     const quizData = useLoaderData() as IQuiz;
+    const quizName =
+        quizData.quizName.length > 30
+            ? quizData.quizName.slice(0, 30) + "..."
+            : quizData.quizName;
     return (
         <Container id="subNav">
             <Start>
                 <FontAwesomeIcon icon={faClipboardList} size="xl" />
-                <Text>{quizData.quizName}</Text>
+                <Text>{quizName}</Text>
             </Start>
         </Container>
     );

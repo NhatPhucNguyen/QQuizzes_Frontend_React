@@ -8,13 +8,13 @@ import { IQuestion } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
 
 const Container = styled.div`
-    width: 70%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
     gap: 2rem;
     padding: 1rem;
-    @media screen and (${devices.phones}) {
+    @media screen and (${devices.laptops}) {
         width: 100%;
     }
 `;

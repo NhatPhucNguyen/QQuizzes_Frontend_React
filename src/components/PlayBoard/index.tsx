@@ -52,9 +52,6 @@ const Question = styled.p`
 `;
 const PlayBoard = () => {
     const { question, isShowModal } = usePlayBoardContext();
-    useEffect(() => {
-        console.log("run hi");
-    }, []);
     return (
         <Fragment>
             <Container>

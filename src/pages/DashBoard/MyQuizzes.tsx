@@ -39,9 +39,7 @@ const MyQuizzes = () => {
     return (
         <Container>
             <Title>
-                {role === "admin"
-                    ? "Manage Your Quizzes"
-                    : "Explore All Quizzes"}
+                Manage Your Quizzes
             </Title>
             <CardsContainer>
                 {quizzesData.map((quiz) => {

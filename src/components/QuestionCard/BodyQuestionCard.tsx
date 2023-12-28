@@ -65,7 +65,11 @@ const BodyQuestionCard = (props: CustomProps) => {
                                     />
                                 )}
                             </IconWrapper>
-                            <Answer>{selection.desc.slice(0, 20)}</Answer>
+                            <Answer>
+                                {selection.desc.length > 20
+                                    ? selection.desc.slice(0, 17) + "..."
+                                    : selection.desc}
+                            </Answer>
                         </SelectionItem>
                     );
                 })}

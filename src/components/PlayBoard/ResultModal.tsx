@@ -39,7 +39,6 @@ const ResultModal = () => {
     const [showLeaderBoard, setShowLeaderBoard] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        console.log("run me");
         const submitResult = async () => {
             try {
                 await customAxios.put(`/quizzes/${quizId}/play/result`, {

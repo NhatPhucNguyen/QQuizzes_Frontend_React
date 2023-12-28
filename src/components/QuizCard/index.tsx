@@ -20,8 +20,8 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 10rem;
     gap: 0.5rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
 const QuizName = styled.span`
     font-weight: bold;
@@ -41,10 +41,12 @@ const SubContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    font-weight: bold;
 `;
 const Quantity = styled.span`
     font-size: 0.8rem;
 `;
+const Plays = styled(Quantity)``;
 const Level = styled.span<{ $level?: string }>`
     font-size: 0.8rem;
     font-weight: bold;
@@ -98,6 +100,11 @@ const QuizCard = ({ quiz, role }: CustomProps) => {
                         : `0 questions`}{" "}
                 </Quantity>
                 <Level $level={quiz.level}>{quiz.level || " "}</Level>
+            </SubContainer>
+            <SubContainer>
+                <Plays>
+                    {quiz.numberOfPlays} plays
+                </Plays>
             </SubContainer>
             {role === "admin" ? (
                 <ButtonContainer>

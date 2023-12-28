@@ -15,16 +15,14 @@ import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
 import QuizDetailItem from "./QuizDetailItem";
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     padding: 0.5rem;
     background-color: #f2b807;
     height: fit-content;
     top: 0;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    @media screen and (${devices.phones}) {
-        margin: auto;
+    @media screen and (${devices.tablets}){
+        margin: auto;        
+        width: 90%;
     }
 `;
 const ButtonContainer = styled.div`
@@ -69,6 +67,7 @@ const QuizInfoCard = () => {
             <QuizDetailItem field="Quantity" desc={`${questions.length}/30`} />
             <QuizDetailItem field="Total point" desc={`${totalPoints} pts`} />
             <QuizDetailItem field="Time limit" desc={timeConverted} />
+            <QuizDetailItem field="Number of plays" desc={`${quiz.numberOfPlays} plays`} />
             <ButtonContainer>
                 <Button
                     onClick={() => {

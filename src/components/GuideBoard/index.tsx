@@ -102,7 +102,7 @@ const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
                         detail={quiz.quantity as number}
                     />
                     <DetailItem field="Level" detail={quiz.level} />
-                    <DetailItem field="Total point" detail={quiz.totalPoints} />
+                    <DetailItem field="Total point" detail={`${quiz.totalPoints}pts`} />
                     <DetailItem field="Time limit" detail={timeConverted} />
                     <DetailItem
                         field="Attempts"
@@ -115,7 +115,7 @@ const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
                     {player?.result && (
                         <DetailItem
                             field="Highest Point"
-                            detail={player.result.highestPoint}
+                            detail={`${player.result.highestPoint}pts`}
                         />
                     )}
                 </Main>
