@@ -4,10 +4,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormEvent } from "react";
-import { useOutletContext } from "react-router-dom";
 import { styled } from "styled-components";
-import { ModalContext } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
+import { useModalContext } from "../../context/ModalContext";
 
 const Container = styled.div`
     display: flex;
@@ -78,7 +77,7 @@ const CreateButton = styled.button`
     }
 `;
 const QuestionListFunctions = () => {
-    const modalContext = useOutletContext<ModalContext>();
+    const {openModal} = useModalContext();
     return (
         <Container>
             <SearchContainer
@@ -94,7 +93,7 @@ const QuestionListFunctions = () => {
             </SearchContainer>
             <CreateButton
                 onClick={() => {
-                    modalContext.openModal({ formName: "QuestionCreate" });
+                    openModal({ formName: "QuestionCreate" });
                 }}
             >
                 <FontAwesomeIcon icon={faCirclePlus} /> New question

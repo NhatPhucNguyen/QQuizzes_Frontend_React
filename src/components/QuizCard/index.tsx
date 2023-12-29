@@ -1,9 +1,10 @@
 import { faPen, faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { IQuiz, ModalContext } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
+import { useModalContext } from "../../context/ModalContext";
+import { IQuiz } from "../../interfaces/app_interfaces";
 import { btnColorGenerate, levelColorText } from "../../utils/stylingMethod";
 
 type CustomProps = {
@@ -81,9 +82,9 @@ const Button = styled.button<{ $method?: string }>`
 
 const QuizCard = ({ quiz, role }: CustomProps) => {
     const navigate = useNavigate();
-    const outletContext = useOutletContext<ModalContext>();
+    const modalContext = useModalContext();
     const handleDeleteClick = () => {
-        outletContext.openModal({ formName: "Confirmation", quizData: quiz });
+        modalContext.openModal({ formName: "Confirmation", quizData: quiz });
     };
     return (
         <Container>

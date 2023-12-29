@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Keyframes from "styled-components/dist/models/Keyframes";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useModalContext } from "../../context/ModalContext";
 
 const existTime = 3000; //millisecond
 const fadeIn = keyframes`
@@ -46,10 +47,10 @@ const Message = styled.span`
 `;
 type CustomProps = {
     message: string;
-    closeNotification: () => void;
 };
 const NotificationBar = (props: CustomProps) => {
     const [anim, setAnim] = useState(fadeIn);
+    const { closeNotification } = useModalContext();
     return (
         <Container
             key={props.message}
@@ -57,6 +58,9 @@ const NotificationBar = (props: CustomProps) => {
                 setTimeout(() => {
                     setAnim(fadeOut);
                 }, existTime);
+                setTimeout(() => {
+                    closeNotification();
+                }, existTime + 1000);
             }}
             $animName={anim}
         >

@@ -1,7 +1,8 @@
-import { useOutletContext } from "react-router-dom";
 import { styled } from "styled-components";
-import { IQuestion, ModalContext } from "../../interfaces/app_interfaces";
+import { IQuestion } from "../../interfaces/app_interfaces";
 import { btnColorGenerate } from "../../utils/stylingMethod";
+import { useModalContext } from "../../context/ModalContext";
+import Confirmation from "../Confirmation";
 
 const Container = styled.div`
     width: 100%;
@@ -29,13 +30,13 @@ const Button = styled.button<{ $method?: string }>`
     }
 `;
 const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
-    const outletContext = useOutletContext<ModalContext>();
+    const { openModal, showModal } = useModalContext();
     return (
         <Container>
             <ButtonContainer>
                 <Button
                     onClick={() => {
-                        outletContext.openModal({
+                        openModal({
                             formName: "QuestionCreate",
                             questionData: questionData,
                         });
@@ -46,7 +47,7 @@ const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
                 </Button>
                 <Button
                     onClick={() => {
-                        outletContext.openModal({
+                        openModal({
                             formName: "Confirmation",
                             questionData: questionData,
                         });
@@ -56,6 +57,9 @@ const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
                     Delete
                 </Button>
             </ButtonContainer>
+            {showModal.isShow && showModal.formName === "Confirmation" && (
+                <Confirmation question={showModal.questionData} />
+            )}
         </Container>
     );
 };

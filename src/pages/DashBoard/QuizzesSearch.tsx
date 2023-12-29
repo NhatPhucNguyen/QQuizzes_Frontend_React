@@ -1,14 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { IQuiz } from "../../interfaces/app_interfaces";
-import { customAxios } from "../../config/axiosConfig";
-import {
-    createSearchParams,
-    useParams,
-    useSearchParams,
-} from "react-router-dom";
-import QuizCard from "../../components/QuizCard";
+import { QuizAPI } from "../../apis/QuizAPI";
 import Filter from "../../components/Filter";
+import LoaderSpin from "../../components/LoaderSpin";
+import QuizCard from "../../components/QuizCard";
 
 const Container = styled.div`
     display: grid;
@@ -25,34 +21,44 @@ const ResultsContainer = styled.div`
     gap: 1rem;
     padding: 1rem;
 `;
+const ResultBar = styled.div`
+    background-color: #a8485c;
+    color: #ffffff;
+    width: fit-content;
+    margin-left: 1rem;
+    padding: 0.2rem 1rem;
+    font-size: 1rem;
+    border-radius: 15px;
+`;
+const LoaderContainer = styled.div`
+    width: 100%;
+    margin-top: 2rem;
+`;
 const QuizzesSearch = () => {
-    const [quizzes, setQuizzes] = useState<IQuiz[]>();
     const [searchParams] = useSearchParams();
-    useEffect(() => {
-        const getAllQuizzes = async () => {
-            try {
-                const response = await customAxios.get(
-                    `/quizzes/public/?${searchParams.toString()}`
-                );
-                setQuizzes(response.data as IQuiz[]);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        void getAllQuizzes();
-    }, [searchParams]);
+    const { data: quizzes, isLoading } = useQuery({
+        queryFn: () => QuizAPI.getPublicQuizzes(searchParams.toString()),
+        queryKey: ["quizzes", searchParams.toString()],
+    });
     return (
         <Container>
             <LeftContainer>
                 <Filter />
             </LeftContainer>
+
             <RightContainer>
-                <ResultsContainer>
-                    {quizzes &&
-                        quizzes.map((quiz) => {
+                <ResultBar>{quizzes?.length} results</ResultBar>
+                {isLoading ? (
+                    <LoaderContainer>
+                        <LoaderSpin $color="#a8485c" $size={3} $thickness={5}/>
+                    </LoaderContainer>
+                ) : (
+                    <ResultsContainer>
+                        {quizzes?.map((quiz) => {
                             return <QuizCard key={quiz._id} quiz={quiz} />;
                         })}
-                </ResultsContainer>
+                    </ResultsContainer>
+                )}
             </RightContainer>
         </Container>
     );

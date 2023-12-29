@@ -2,13 +2,8 @@ import { ActionFunction, Params, redirect } from "react-router-dom";
 import { authenticatedCheck } from "./authenticatedCheck";
 import { customAxios } from "../config/axiosConfig";
 import { AxiosError } from "axios";
-import {
-    IPlayer,
-    IQuestion,
-    IQuiz,
-    IResult,
-} from "../interfaces/app_interfaces";
-import Cookies from "js-cookie";
+import { IPlayer, IQuestion, IQuiz } from "../interfaces/app_interfaces";
+import { QuizAPI } from "../apis/QuizAPI";
 
 export const requireAuth = async () => {
     const isAuthenticated = await authenticatedCheck();
@@ -35,34 +30,8 @@ export const navLoader = async () => {
 export const quizLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
     if (quizId) {
-        try {
-            const response = await customAxios.get(`quizzes/${quizId}`);
-            if (response.status === 200) {
-                const data = response.data as IQuiz;
-                return data;
-            }
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                return redirect("/dashboard");
-            }
-        }
-    }
-    return null;
-};
-
-export const myQuizzesLoader: ActionFunction = async ({ params }) => {
-    const { role } = params as { role: string };
-    if (role !== "public" && role !== "admin") {
-        return redirect("/dashboard");
-    }
-    try {
-        const response = await customAxios.get(`/quizzes/${role}`);
-        if (response.status === 200) {
-            const data = response.data as IQuiz[];
-            return data;
-        }
-    } catch (error) {
-        return redirect("/dashboard");
+        const quiz = await QuizAPI.getQuizById(quizId);
+        return quiz;
     }
     return null;
 };

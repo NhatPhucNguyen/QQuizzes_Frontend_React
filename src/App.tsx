@@ -11,7 +11,6 @@ import Authentication from "./pages/Authentication";
 import DashBoard from "./pages/DashBoard";
 import {
     authFormAccess,
-    myQuizzesLoader,
     navLoader,
     questionsLoader,
     quizLoader,
@@ -24,6 +23,8 @@ import QuestionManagement from "./pages/QuestionManagement";
 import QuestionList from "./pages/QuestionManagement/QuestionList";
 import QuizPlay from "./pages/QuizPlay";
 import QuizzesSearch from "./pages/DashBoard/QuizzesSearch";
+import { QueryClient, QueryClientProvider } from "react-query";
+import ModalProvider from "./context/ModalContext";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -34,20 +35,28 @@ const router = createBrowserRouter(
                 loader={authFormAccess}
             />
             <Route path="/dashboard" loader={requireAuth}>
-                <Route path="" element={<DashBoard />}>
+                <Route
+                    path=""
+                    element={
+                        <ModalProvider>
+                            <DashBoard />
+                        </ModalProvider>
+                    }
+                >
                     <Route index element={<InitialContent />} />
-                    <Route
-                        path=":role/quizzes"
-                        element={<MyQuizzes />}
-                        loader={myQuizzesLoader}
-                    />
+                    <Route path="admin/quizzes" element={<MyQuizzes />} />
                     <Route path="quizzes" element={<QuizzesSearch />} />
                 </Route>
             </Route>
             <Route path="/admin/quizzes" loader={requireAuth}>
+                <Route index element={<Navigate to={"questions"} />} />
                 <Route
                     path=":quizId"
-                    element={<QuestionManagement />}
+                    element={
+                        <ModalProvider>
+                            <QuestionManagement />
+                        </ModalProvider>
+                    }
                     loader={quizLoader}
                     id="quiz"
                 >
@@ -71,8 +80,13 @@ const router = createBrowserRouter(
         </>
     )
 );
+const client = new QueryClient();
 function App() {
-    return <RouterProvider router={router} />;
+    return (
+        <QueryClientProvider client={client}>
+            <RouterProvider router={router} />
+        </QueryClientProvider>
+    );
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { useSidebarContext } from "../../context/SidebarContext";
 
@@ -25,45 +25,56 @@ const TabItem = styled.div<{ $onTab?: boolean }>`
 const TabName = styled.span`
     font-weight: bold;
 `;
+const TabLink = styled(NavLink)`
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 0rem;
+    background-color: #e7717d;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    &:hover {
+        background-color: #ffffff;
+        color: #e7717d;
+        cursor: pointer;
+    }
+    &.active {
+        background-color: #ffffff;
+        color: #e7717d;
+    }
+`;
 const Tabs = () => {
-    const navigate = useNavigate();
-    const { pathname } = useLocation();
     const sidebarContext = useSidebarContext();
-    const noSlashPathname = pathname.replace(/\/+$/, "").toLowerCase();
     return (
         <TabContainer>
-            <TabItem
+            <TabLink
+                to={"/dashboard"}
                 onClick={() => {
-                    navigate("/dashboard");
                     sidebarContext.closeSidebar();
                 }}
-                $onTab={noSlashPathname.endsWith("dashboard")}
+                end
             >
-                <TabName>DashBoard</TabName>
-            </TabItem>
-            <TabItem
+                DashBoard
+            </TabLink>
+            <TabLink
+                to={"/dashboard/admin/quizzes"}
                 onClick={() => {
-                    navigate("admin/quizzes");
                     sidebarContext.closeSidebar();
                 }}
-                $onTab={noSlashPathname.includes("admin")}
             >
-                <TabName>My Quizzes</TabName>
-            </TabItem>
-            <TabItem
+                My Quizzes
+            </TabLink>
+            <TabLink
+                to={"/dashboard/quizzes"}
                 onClick={() => {
-                    console.log("Hello");
+                    sidebarContext.closeSidebar();
                 }}
             >
-                <TabName>Report</TabName>
-            </TabItem>
-            <TabItem
-                onClick={() => {
-                    console.log("Hello");
-                }}
-            >
-                <TabName>Profile</TabName>
-            </TabItem>
+                Explore
+            </TabLink>
         </TabContainer>
     );
 };

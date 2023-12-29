@@ -1,8 +1,13 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 import { styled } from "styled-components";
+import { QuizAPI } from "../../apis/QuizAPI";
+import Confirmation from "../../components/Confirmation";
+import NotificationBar from "../../components/NotificationBar";
 import QuizCard from "../../components/QuizCard";
-import { IQuiz } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
+import { useModalContext } from "../../context/ModalContext";
+import { IQuiz } from "../../interfaces/app_interfaces";
+import { useEffect } from "react";
 
 const Container = styled.div`
     display: flex;
@@ -34,24 +39,25 @@ const CardsContainer = styled.div`
     }
 `;
 const MyQuizzes = () => {
-    const quizzesData = useLoaderData() as IQuiz[];
-    const { role } = useParams();
+    const { showModal, notification } = useModalContext();
+    const { data: quizzes } = useQuery({
+        queryFn: () => QuizAPI.getPrivateQuizzes(),
+        queryKey: ["myQuizzes"],
+    });
     return (
         <Container>
-            <Title>
-                Manage Your Quizzes
-            </Title>
-            <CardsContainer>
-                {quizzesData.map((quiz) => {
-                    return (
-                        <QuizCard
-                            key={quiz._id}
-                            quiz={quiz}
-                            role={role}
-                        />
-                    );
+            {notification.isShow && (
+                <NotificationBar message={notification.message} />
+            )}
+            <Title>Manage Your Quizzes</Title>
+            <CardsContainer key={showModal.formName}>
+                {quizzes?.map((quiz) => {
+                    return <QuizCard key={quiz._id} quiz={quiz} role="admin" />;
                 })}
             </CardsContainer>
+            {showModal.isShow && showModal.formName === "Confirmation" && (
+                <Confirmation quiz={showModal.quizData as IQuiz} />
+            )}
         </Container>
     );
 };

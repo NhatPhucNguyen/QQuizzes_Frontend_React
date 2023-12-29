@@ -1,18 +1,15 @@
 import {
     useLoaderData,
     useNavigate,
-    useOutletContext,
-    useRouteLoaderData
+    useRouteLoaderData,
 } from "react-router-dom";
 import { styled } from "styled-components";
-import {
-    IQuestion,
-    IQuiz,
-    ModalContext,
-} from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
-import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
+import { useModalContext } from "../../context/ModalContext";
+import { IQuestion, IQuiz } from "../../interfaces/app_interfaces";
 import QuizDetailItem from "./QuizDetailItem";
+import QuizForm from "../QuizForm";
+import timeToString from "../../utils/timeToString";
 
 const Container = styled.div`
     padding: 0.5rem;
@@ -20,8 +17,8 @@ const Container = styled.div`
     height: fit-content;
     top: 0;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    @media screen and (${devices.tablets}){
-        margin: auto;        
+    @media screen and (${devices.tablets}) {
+        margin: auto;
         width: 90%;
     }
 `;
@@ -52,22 +49,28 @@ const Button = styled.button`
 const QuizInfoCard = () => {
     const quiz = useRouteLoaderData("quiz") as IQuiz;
     const questions = useLoaderData() as IQuestion[];
-    const { totalPoints, timeConverted } = questionsTotalCalculate(questions);
+    const timeLimit = timeToString(quiz.timeLimit);
     const navigate = useNavigate();
-    const outLetContext = useOutletContext<ModalContext>();
+    const { openModal, showModal, closeModal } = useModalContext();
     return (
         <Container>
             <QuizDetailItem field="Topic" desc={quiz.topic} />
-            <QuizDetailItem field="Type" desc="Multiple Choice"/>
+            <QuizDetailItem field="Type" desc="Multiple Choice" />
             <QuizDetailItem
                 field="Level"
                 desc={quiz.level}
                 level={quiz.level}
             />
-            <QuizDetailItem field="Quantity" desc={`${questions.length}/30`} />
-            <QuizDetailItem field="Total point" desc={`${totalPoints} pts`} />
-            <QuizDetailItem field="Time limit" desc={timeConverted} />
-            <QuizDetailItem field="Number of plays" desc={`${quiz.numberOfPlays} plays`} />
+            <QuizDetailItem field="Quantity" desc={`${quiz.quantity}/30`} />
+            <QuizDetailItem
+                field="Total point"
+                desc={`${quiz.totalPoints} pts`}
+            />
+            <QuizDetailItem field="Time limit" desc={timeLimit} />
+            <QuizDetailItem
+                field="Number of plays"
+                desc={`${quiz.numberOfPlays} plays`}
+            />
             <ButtonContainer>
                 <Button
                     onClick={() => {
@@ -80,15 +83,21 @@ const QuizInfoCard = () => {
                 </Button>
                 <Button
                     onClick={() => {
-                        outLetContext.openModal({
-                            formName: "QuizForm",
+                        openModal({
                             quizData: quiz,
+                            formName: "QuizForm",
                         });
                     }}
                 >
                     Edit
                 </Button>
             </ButtonContainer>
+            {showModal.isShow && showModal.formName === "QuizForm" && (
+                <QuizForm
+                    closeModal={closeModal}
+                    quizData={showModal.quizData}
+                />
+            )}
         </Container>
     );
 };

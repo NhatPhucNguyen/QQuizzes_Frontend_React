@@ -17,6 +17,8 @@ import Alert from "../AuthForm/Alert";
 import CloseMark from "../CloseMark";
 import QuizFormController from "./QuizFormController";
 import Modal from "../../Layout/ModalLayout";
+import { useQuery } from "react-query";
+import { QuizAPI } from "../../apis/QuizAPI";
 
 type CustomProps = {
     selection?: string;
@@ -105,29 +107,23 @@ const QuizForm = (props: CustomProps) => {
         const { name } = e?.target as HTMLFormElement;
         try {
             if (name === "create") {
-                //create collection
-                const response = await customAxios.post(
-                    "/quizzes",
-                    JSON.stringify(data)
-                );
-                if (response.status === 200) {
-                    const { quizId } = response.data as { quizId: string };
-                    navigate(`/admin/quizzes/${quizId}/questions`);
+                //create quiz
+                const createdQuiz = await QuizAPI.createQuiz(data);
+                if (createdQuiz) {
+                    navigate(`/admin/quizzes/${createdQuiz?._id}/questions`);
                 }
             }
-            if (name === "update") {
-                //update collection
-                const response = await customAxios.put(
-                    `quizzes/${props.quizData?._id as string}`,
-                    JSON.stringify(data)
+            if (name === "update" && props.quizData) {
+                //update quiz
+                await QuizAPI.updateQuiz(
+                    props.quizData._id,
+                    data
                 );
-                if (response.status === 200) {
-                    navigate("questions");
-                    props.closeModal({
-                        isDisplayNotification: true,
-                        message: "Quiz was successfully updated",
-                    });
-                }
+                navigate(`/admin/quizzes/${props.quizData._id}/questions`);
+                props.closeModal({
+                    isDisplayNotification: true,
+                    message: "Quiz was successfully updated",
+                });
             }
         } catch (error) {
             if (error instanceof AxiosError) {

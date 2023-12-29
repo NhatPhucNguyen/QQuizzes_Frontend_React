@@ -9,6 +9,9 @@ import {
     ModalCloseOptions,
 } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
+import { QueryClient, useMutation, useQueryClient } from "react-query";
+import { QuizAPI } from "../../apis/QuizAPI";
+import { useModalContext } from "../../context/ModalContext";
 
 const moveDown = keyframes`
     from{
@@ -30,7 +33,7 @@ const Container = styled.div`
     margin-top: 10rem;
     width: 40rem;
     animation: ${moveDown} 0.4s ease-in-out;
-    @media screen and (${devices.phones}), (${devices.tablets}){
+    @media screen and (${devices.phones}), (${devices.tablets}) {
         width: 90%;
     }
 `;
@@ -73,37 +76,31 @@ const CancelButton = styled(Button)`
 type CustomProps = {
     question?: IQuestion;
     quiz?: IQuiz;
-    closeModal: (options?: ModalCloseOptions) => void;
 };
-const Confirmation = ({ question, quiz, closeModal }: CustomProps) => {
+const Confirmation = ({ question, quiz }: CustomProps) => {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
     const { quizId } = useParams();
-    const deleteQuiz = async () => {
-        try {
-            const response = await customAxios.delete(
-                `/quizzes/${quiz?._id as string}`
-            );
-            if (response.status === 200) {
-                navigate("admin/quizzes");
-                closeModal({
-                    isDisplayNotification: true,
-                    message: "Quiz was successfully deleted",
-                });
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const { closeModal } = useModalContext();
+    const { mutateAsync: deleteQuizAsync } = useMutation({
+        mutationFn: () => QuizAPI.deleteQuiz(quiz?._id as string),
+        mutationKey: ["myQuizzes"],
+        onSuccess: () => {
+            void queryClient.invalidateQueries(["myQuizzes"]);
+            closeModal({
+                isDisplayNotification: true,
+                message: "Quiz was successfully deleted",
+            });
+        },
+    });
     const deleteQuestion = async () => {
         try {
             if (quizId) {
                 const response = await customAxios.delete(
-                    `/quizzes/${quizId}/questions/${
-                        question?._id as string
-                    }`
+                    `/quizzes/${quizId}/questions/${question?._id as string}`
                 );
                 if (response.status === 200) {
-                    navigate("questions");
+                    navigate(`/admin/quizzes/${quizId}/questions/`);
                     closeModal({
                         isDisplayNotification: true,
                         message: `Question ${
@@ -133,9 +130,10 @@ const Confirmation = ({ question, quiz, closeModal }: CustomProps) => {
                 )}
                 <ButtonContainer>
                     <DeleteButton
-                        onClick={() => {
+                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                        onClick={async () => {
                             if (quiz) {
-                                void deleteQuiz();
+                                await deleteQuizAsync();
                             }
                             if (question) {
                                 void deleteQuestion();

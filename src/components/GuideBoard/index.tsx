@@ -1,24 +1,16 @@
-import { useEffect, useState } from "react";
 import {
     useLoaderData,
-    useNavigate,
-    useParams,
-    useSearchParams,
+    useNavigate
 } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
 import Modal from "../../Layout/ModalLayout";
-import { customAxios } from "../../config/axiosConfig";
+import { usePlayBoardContext } from "../../context/PlayBoardContext";
 import {
-    IPlayer,
-    IQuestion,
-    IQuiz,
-    IResult,
+    IPlayer
 } from "../../interfaces/app_interfaces";
-import { questionsTotalCalculate } from "../../utils/questionsTotalCalculate";
+import timeToString from "../../utils/timeToString";
 import DetailItem from "./DetailItem";
 import RuleInfo from "./RuleInfo";
-import timeToString from "../../utils/timeConvert";
-import { usePlayBoardContext } from "../../context/PlayBoardContext";
 
 const moveDown = keyframes`
     from{
@@ -99,7 +91,7 @@ const GuideBoard = ({ allowedToPlay }: { allowedToPlay: () => void }) => {
                 <Main>
                     <DetailItem
                         field="Questions"
-                        detail={quiz.quantity as number}
+                        detail={quiz.quantity}
                     />
                     <DetailItem field="Level" detail={quiz.level} />
                     <DetailItem field="Total point" detail={`${quiz.totalPoints}pts`} />

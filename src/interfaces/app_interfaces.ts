@@ -15,14 +15,14 @@ export interface IAlert {
 }
 export interface IQuiz {
     numberOfPlays: number;
-    _id?: string;
+    _id: string;
     quizName: string;
     topic: string;
     level: string;
     quantity: number;
-    timeLimit:number;
-    totalPoints:number;
-    updatedAt:Date;
+    timeLimit: number;
+    totalPoints: number;
+    updatedAt: Date;
 }
 export interface IQuestion {
     _id?: string;
@@ -54,6 +54,7 @@ export interface IPlayer {
 }
 
 export type ModalContext = {
+    isShowModal: boolean;
     openModal: (options?: ModalOptions) => void;
     closeModal: (options?: ModalCloseOptions) => void;
 };

@@ -1,15 +1,11 @@
-import {
-    faMagnifyingGlass
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import QuizzesOnTopic from "../../components/QuizzesOnTopic";
-import { customAxios } from "../../config/axiosConfig";
 import { devices } from "../../config/devices";
 import { topicSelections } from "../../config/topicSelections";
-import { IQuiz } from "../../interfaces/app_interfaces";
 
 const Container = styled.div`
     font-weight: bold;
@@ -112,14 +108,6 @@ const InitialContent = () => {
     const navigate = useNavigate();
     const searchRef = useRef<HTMLInputElement>(null);
     const [topicSelected, setTopicSelected] = useState<string>();
-    const [quizzes, setQuizzes] = useState<IQuiz[]>();
-    useEffect(() => {
-        const getAllQuizzes = async () => {
-            const response = await customAxios.get("/quizzes/public");
-            setQuizzes(response.data as IQuiz[]);
-        };
-        void getAllQuizzes();
-    }, []);
     const handleSearchClick = () => {
         const key = searchRef.current ? searchRef.current.value : "";
         if (!topicSelected) {
@@ -168,19 +156,11 @@ const InitialContent = () => {
                     );
                 })}
             </TopicList>
-            {quizzes && (
-                <QuizzesContainer>
-                    {Object.values(topicSelections).map((topic, index) => {
-                        return (
-                            <QuizzesOnTopic
-                                topicName={topic}
-                                quizzes={quizzes || []}
-                                key={index}
-                            />
-                        );
-                    })}
-                </QuizzesContainer>
-            )}
+            <QuizzesContainer>
+                {Object.values(topicSelections).map((topic, index) => {
+                    return <QuizzesOnTopic topicName={topic} key={index} />;
+                })}
+            </QuizzesContainer>
         </Container>
     );
 };

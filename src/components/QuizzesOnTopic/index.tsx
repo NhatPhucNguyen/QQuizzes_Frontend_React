@@ -4,10 +4,12 @@ import styled from "styled-components";
 import QuizCard from "../QuizCard";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "react-query";
+import { QuizAPI } from "../../apis/QuizAPI";
 
 type CustomProps = {
     topicName: string;
-    quizzes: IQuiz[];
+    mostPlayedQuizzes?: IQuiz[];
 };
 const Container = styled.div`
     margin-top: 2rem;
@@ -34,20 +36,25 @@ const QuizList = styled.div`
     gap: 1rem;
 `;
 const QuizzesOnTopic = (props: CustomProps) => {
+    const { data: quizzes } = useQuery({
+        queryKey: [props.topicName],
+        queryFn: () =>
+            QuizAPI.getPublicQuizzes(`?topicName=${props.topicName}`),
+    });
     return (
         <Container>
             <Topic>
                 <FontAwesomeIcon icon={faStar} color="#f8d93d" />
                 <TopicName>{props.topicName}</TopicName>
             </Topic>
-
             <QuizList>
-                {props.quizzes
-                    .filter((quiz) => quiz.topic === props.topicName)
-                    .slice(0, 4)
-                    .map((item) => {
-                        return <QuizCard quiz={item} key={item._id}/>;
-                    })}
+                {quizzes &&
+                    quizzes
+                        .filter((quiz) => quiz.topic === props.topicName)
+                        .slice(0, 4)
+                        .map((item) => {
+                            return <QuizCard quiz={item} key={item._id} />;
+                        })}
             </QuizList>
         </Container>
     );

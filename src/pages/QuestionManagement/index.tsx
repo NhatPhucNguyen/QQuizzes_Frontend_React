@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Main from "../../Layout/Main";
 import Confirmation from "../../components/Confirmation";
@@ -8,12 +7,7 @@ import NotificationBar from "../../components/NotificationBar";
 import QuestionCreateForm from "../../components/QuestionCreateForm";
 import QuizForm from "../../components/QuizForm";
 import SubNav from "../../components/SubNav";
-import {
-    IAlert,
-    ModalCloseOptions,
-    ModalOptions,
-    ShowModal
-} from "../../interfaces/app_interfaces";
+import { useModalContext } from "../../context/ModalContext";
 
 const Container = styled.div`
     width: 100%;
@@ -23,33 +17,8 @@ const Container = styled.div`
 `;
 
 const QuestionManagement = () => {
-    const [showModal, setShowModal] = useState<ShowModal>({} as ShowModal);
-    const [notification, setNotification] = useState<IAlert>({
-        isShow: false,
-        message: "",
-    });
-    const openModal = (options: ModalOptions = {}) => {
-        setShowModal({
-            ...showModal,
-            isShow: true,
-            questionData: options.questionData,
-            formName: options.formName,
-            quizData: options.quizData,
-        });
-        setNotification({ ...notification, isShow: false });
-    };
-
-    const closeModal = (options?: ModalCloseOptions) => {
-        setShowModal({ ...showModal, isShow: false });
-        if (options?.isDisplayNotification) {
-            setNotification({ isShow: true, message: options.message });
-        }
-    };
     const { quizId } = useParams();
-    const navigate = useNavigate();
-    useEffect(() => {
-        navigate("questions");
-    }, []);
+    const {notification,showModal,closeModal} = useModalContext();
     return (
         <Main props={{ noGap: true }}>
             <Navbar isHideButtons={true} />
@@ -57,13 +26,10 @@ const QuestionManagement = () => {
             {notification.isShow && (
                 <NotificationBar
                     message={notification.message}
-                    closeNotification={() => {
-                        setNotification({ ...notification, isShow: false });
-                    }}
                 />
             )}
             <Container>
-                <Outlet context={{ openModal }} />
+                <Outlet/>
             </Container>
             {showModal?.isShow && (
                 <>
@@ -78,12 +44,6 @@ const QuestionManagement = () => {
                             closeModal={closeModal}
                             quizId={quizId as string}
                             questionData={showModal.questionData}
-                        />
-                    )}
-                    {showModal.formName === "Confirmation" && (
-                        <Confirmation
-                            closeModal={closeModal}
-                            question={showModal.questionData}
                         />
                     )}
                 </>

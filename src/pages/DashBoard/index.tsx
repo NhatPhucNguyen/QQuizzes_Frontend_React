@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { styled } from "styled-components";
-import Confirmation from "../../components/Confirmation";
 import Navbar from "../../components/Navbar";
 import SelectionBoard from "../../components/SelectionBoard";
 import Sidebar from "../../components/Sidebar";
+import { devices } from "../../config/devices";
+import ModalProvider from "../../context/ModalContext";
+import SidebarProvider from "../../context/SidebarContext";
 import {
     IAlert,
     IQuiz,
@@ -12,9 +14,6 @@ import {
     ModalOptions,
     ShowModal,
 } from "../../interfaces/app_interfaces";
-import { devices } from "../../config/devices";
-import NotificationBar from "../../components/NotificationBar";
-import SidebarProvider from "../../context/SidebarContext";
 
 const Container = styled.div`
     height: 100%;
@@ -60,36 +59,17 @@ const DashBoard = () => {
         <Container>
             <SidebarProvider>
                 <Navbar isShowBurgerBar={true} height="3.5rem" />
-                <Content>
-                    <Sidebar openModal={openModal} />
-                    {/* Display notification */}
-                    {notification.isShow && (
-                        <NotificationBar
-                            message={notification.message}
-                            closeNotification={() => {
-                                setNotification({
-                                    ...notification,
-                                    isShow: false,
-                                });
-                            }}
-                        />
-                    )}
-                    {/* Display from base on specific route*/}
-                    <OutletContainer>
-                        <Outlet context={{ openModal, closeModal }} />
-                    </OutletContainer>
-                    {showModal.isShow &&
-                        showModal.formName === "QuizCreate" && (
+                <ModalProvider>
+                    <Content>
+                        <Sidebar openModal={openModal} />{" "}
+                        <OutletContainer>
+                            <Outlet />
+                        </OutletContainer>
+                        {showModal.isShow && (
                             <SelectionBoard closeModal={closeModal} />
                         )}
-                    {showModal.isShow &&
-                        showModal.formName === "Confirmation" && (
-                            <Confirmation
-                                quiz={showModal.quizData as IQuiz}
-                                closeModal={closeModal}
-                            />
-                        )}
-                </Content>
+                    </Content>
+                </ModalProvider>
             </SidebarProvider>
         </Container>
     );
