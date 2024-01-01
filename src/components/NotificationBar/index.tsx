@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { keyframes, styled } from "styled-components";
-import { useEffect } from "react";
-import Keyframes from "styled-components/dist/models/Keyframes";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { keyframes, styled } from "styled-components";
+import Keyframes from "styled-components/dist/models/Keyframes";
 import { useModalContext } from "../../context/ModalContext";
 
 const existTime = 3000; //millisecond
@@ -60,7 +59,7 @@ const NotificationBar = (props: CustomProps) => {
                 }, existTime);
                 setTimeout(() => {
                     closeNotification();
-                }, existTime + 1000);
+                }, existTime + 400);
             }}
             $animName={anim}
         >

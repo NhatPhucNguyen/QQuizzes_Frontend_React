@@ -1,13 +1,12 @@
 import { useQuery } from "react-query";
 import { styled } from "styled-components";
-import { QuizAPI } from "../../apis/QuizAPI";
 import Confirmation from "../../components/Confirmation";
 import NotificationBar from "../../components/NotificationBar";
 import QuizCard from "../../components/QuizCard";
 import { devices } from "../../config/devices";
 import { useModalContext } from "../../context/ModalContext";
 import { IQuiz } from "../../interfaces/app_interfaces";
-import { useEffect } from "react";
+import { getPrivateQuizzes } from "../../apis/QuizAPI";
 
 const Container = styled.div`
     display: flex;
@@ -41,7 +40,7 @@ const CardsContainer = styled.div`
 const MyQuizzes = () => {
     const { showModal, notification } = useModalContext();
     const { data: quizzes } = useQuery({
-        queryFn: () => QuizAPI.getPrivateQuizzes(),
+        queryFn: () => getPrivateQuizzes(),
         queryKey: ["myQuizzes"],
     });
     return (

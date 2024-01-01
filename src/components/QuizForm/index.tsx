@@ -9,16 +9,14 @@ import {
 } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
-import { customAxios } from "../../config/axiosConfig";
+import Modal from "../../Layout/ModalLayout";
+import { createQuiz, updateQuiz } from "../../apis/QuizAPI";
+import { devices } from "../../config/devices";
 import { topicSelections } from "../../config/topicSelections";
 import { IQuiz, ModalCloseOptions } from "../../interfaces/app_interfaces";
-import { devices } from "../../config/devices";
 import Alert from "../AuthForm/Alert";
 import CloseMark from "../CloseMark";
 import QuizFormController from "./QuizFormController";
-import Modal from "../../Layout/ModalLayout";
-import { useQuery } from "react-query";
-import { QuizAPI } from "../../apis/QuizAPI";
 
 type CustomProps = {
     selection?: string;
@@ -108,14 +106,14 @@ const QuizForm = (props: CustomProps) => {
         try {
             if (name === "create") {
                 //create quiz
-                const createdQuiz = await QuizAPI.createQuiz(data);
+                const createdQuiz = await createQuiz(data);
                 if (createdQuiz) {
                     navigate(`/admin/quizzes/${createdQuiz?._id}/questions`);
                 }
             }
             if (name === "update" && props.quizData) {
                 //update quiz
-                await QuizAPI.updateQuiz(
+                await updateQuiz(
                     props.quizData._id,
                     data
                 );

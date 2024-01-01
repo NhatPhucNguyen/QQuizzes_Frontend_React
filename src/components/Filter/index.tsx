@@ -1,19 +1,37 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import styled from "styled-components";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
 import { topicSelections } from "../../config/topicSelections";
-import {
-    SetURLSearchParams,
-    useNavigate,
-    useParams,
-    useSearchParams,
-} from "react-router-dom";
-
-const Container = styled.div`
+import { devices } from "../../config/devices";
+const fadeIn = keyframes`
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+`;
+const Container = styled.div<{ $show: boolean }>`
     width: 80%;
     margin: auto;
     border-radius: 15px;
     font-size: 0.8em;
     background-color: #ffffff;
+    @media screen and (${devices.tablets}) {
+        display: ${(props) => (props.$show ? "block" : "none")};
+        animation: ${fadeIn} 0.4s ease-in-out;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 60%;
+        height: 100%;
+        z-index: 1;
+        border-radius: 0;
+    }
+    @media screen and (${devices.phones}) {
+        width: 100%;
+    }
 `;
 const Header = styled.div`
     width: 100%;
@@ -36,14 +54,37 @@ const FilterItem = styled.div`
     grid-template-columns: 20% 80%;
     margin-top: 1rem;
 `;
-const Button = styled.input``;
+const FilterInput = styled.input``;
 const Label = styled.label``;
 const TopicSelection = styled.select`
     width: 100%;
     font-size: inherit;
 `;
 const TopicOption = styled.option``;
-const Filter = () => {
+const ApplyButton = styled.button`
+    background-color: #a8485c;
+    color: #ffffff;
+    text-align: center;
+    border-radius: inherit;
+    padding: 0.2rem 0;
+    font-size: 1rem;
+    border-radius: 15px;
+    &:hover{
+        cursor: pointer;
+        background-color: #893a4a;
+    }
+    border: none;
+    outline: none;
+    display: none;
+    @media screen and (${devices.tablets}) {
+        display: block;
+    }
+`;
+type CustomProps = {
+    showFilter: boolean;
+    closeFilter: () => void;
+};
+const Filter = ({ showFilter, closeFilter }: CustomProps) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [questionsRange, setQuestionRanges] = useState<number[][]>([]);
     const mergeArrays = (arrays: number[][]) => {
@@ -126,12 +167,12 @@ const Filter = () => {
         });
     }, [questionsRange, searchParams]);
     return (
-        <Container>
+        <Container $show={showFilter}>
             <Header>Filter</Header>
             <FilterContainer>
                 <FilterGroupName>Sort by</FilterGroupName>
                 <FilterItem>
-                    <Button
+                    <FilterInput
                         type="radio"
                         name="sort"
                         id="mostPlays"
@@ -140,7 +181,7 @@ const Filter = () => {
                     <Label>Most Plays</Label>
                 </FilterItem>
                 <FilterItem>
-                    <Button
+                    <FilterInput
                         type="radio"
                         name="sort"
                         id="recent"
@@ -175,7 +216,7 @@ const Filter = () => {
                 </TopicSelection>
                 <FilterGroupName>Number of questions</FilterGroupName>
                 <FilterItem>
-                    <Button
+                    <FilterInput
                         type="checkbox"
                         name="questions"
                         id="10-20"
@@ -184,7 +225,7 @@ const Filter = () => {
                     <Label>10 - 20 questions</Label>
                 </FilterItem>
                 <FilterItem>
-                    <Button
+                    <FilterInput
                         type="checkbox"
                         name="questions"
                         id="20-30"
@@ -193,7 +234,7 @@ const Filter = () => {
                     <Label>20 - 30 questions</Label>
                 </FilterItem>
                 <FilterItem>
-                    <Button
+                    <FilterInput
                         type="checkbox"
                         name="questions"
                         id="30-100"
@@ -203,7 +244,7 @@ const Filter = () => {
                 </FilterItem>
                 <FilterGroupName>Levels</FilterGroupName>
                 <FilterItem>
-                    <Button
+                    <FilterInput
                         type="checkbox"
                         name="level"
                         id="basic"
@@ -212,7 +253,7 @@ const Filter = () => {
                     <Label>Basic</Label>
                 </FilterItem>
                 <FilterItem>
-                    <Button
+                    <FilterInput
                         type="checkbox"
                         name="level"
                         id="medium"
@@ -221,13 +262,22 @@ const Filter = () => {
                     <Label>Medium</Label>
                 </FilterItem>
                 <FilterItem>
-                    <Button
+                    <FilterInput
                         type="checkbox"
                         name="level"
                         id="hard"
                         onChange={handleFilterChange}
                     />
                     <Label>Hard</Label>
+                </FilterItem>
+                <FilterItem>
+                    <ApplyButton
+                        onClick={() => {
+                            closeFilter();
+                        }}
+                    >
+                        Apply
+                    </ApplyButton>
                 </FilterItem>
             </FilterContainer>
         </Container>

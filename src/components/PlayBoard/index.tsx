@@ -1,10 +1,10 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { keyframes, styled } from "styled-components";
+import { devices } from "../../config/devices";
 import { usePlayBoardContext } from "../../context/PlayBoardContext";
 import PlayBoardAnswers from "./PlayBoardAnswers";
 import PlayBoardHeader from "./PlayBoardHeader";
 import ResultModal from "./ResultModal";
-import { devices } from "../../config/devices";
 
 const fadeLeftIn = keyframes`
     from{

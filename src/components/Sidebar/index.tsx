@@ -118,9 +118,9 @@ const Sidebar = (props: CustomProps) => {
             <LogoutButton
                 onClick={() => {
                     const logout = async () => {
-                        localStorage.clear();
                         const response = await customAxios.get("/auth/logout");
                         if (response.status == 204) {
+                            localStorage.clear();
                             navigate("/");
                         }
                     };

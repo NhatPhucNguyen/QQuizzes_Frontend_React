@@ -65,6 +65,7 @@ const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
     };
     useEffect(() => {
         const getQuizData = async () => {
+            console.log("get quiz data");
             try {
                 const response = await customAxios(`/quizzes/${quizId}`);
                 const data = response.data as IQuiz;

@@ -1,13 +1,13 @@
 export enum topicSelections{
-    AC = "Arts and Culture",
+    AC = "Arts",
     FUN = "Funny",
     GEO = "Geography",
     HIS = "History",
     TEC = "Technology",
-    MBT = "Movies, Books & TV-Shows",
+    EN = "Entertainments",
     MSC = "Music",
     AN = "Animals",
     SCI = "Science",
     MH = "Math",
-    GK = "General Knowledge",
+    GK = "General",
 }

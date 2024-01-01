@@ -15,7 +15,6 @@ const Container = styled.div`
     padding: 0.5rem;
     background-color: #f2b807;
     height: fit-content;
-    top: 0;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     @media screen and (${devices.tablets}) {
         margin: auto;
@@ -74,7 +73,7 @@ const QuizInfoCard = () => {
             <ButtonContainer>
                 <Button
                     onClick={() => {
-                        navigate(`/play/${quiz._id as string}?type=preview`);
+                        navigate(`/play/${quiz._id}?type=preview`);
                     }}
                     // at least 10 questions to play
                     disabled={questions.length >= 10 ? false : true}

@@ -1,17 +1,15 @@
+import { useMutation, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
 import Modal from "../../Layout/ModalLayout";
-import { API } from "../../config/API";
+import { deleteQuiz } from "../../apis/QuizAPI";
 import { customAxios } from "../../config/axiosConfig";
+import { devices } from "../../config/devices";
+import { useModalContext } from "../../context/ModalContext";
 import {
     IQuestion,
-    IQuiz,
-    ModalCloseOptions,
+    IQuiz
 } from "../../interfaces/app_interfaces";
-import { devices } from "../../config/devices";
-import { QueryClient, useMutation, useQueryClient } from "react-query";
-import { QuizAPI } from "../../apis/QuizAPI";
-import { useModalContext } from "../../context/ModalContext";
 
 const moveDown = keyframes`
     from{
@@ -83,7 +81,7 @@ const Confirmation = ({ question, quiz }: CustomProps) => {
     const { quizId } = useParams();
     const { closeModal } = useModalContext();
     const { mutateAsync: deleteQuizAsync } = useMutation({
-        mutationFn: () => QuizAPI.deleteQuiz(quiz?._id as string),
+        mutationFn: () => deleteQuiz(quiz?._id as string),
         mutationKey: ["myQuizzes"],
         onSuccess: () => {
             void queryClient.invalidateQueries(["myQuizzes"]);

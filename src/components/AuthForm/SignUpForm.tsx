@@ -1,12 +1,12 @@
+import { AxiosError } from "axios";
 import { FormEvent, useState } from "react";
-import { FormLayout, FormTitle, SignUpButton } from ".";
-import FormController from "./FormController";
-import { IAlert, IUser } from "../../interfaces/app_interfaces";
-import Alert from "./Alert";
-import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import { emailValidate } from "../../utils/emailValidate";
+import { FormLayout, FormTitle, SignUpButton } from ".";
 import { customAxios } from "../../config/axiosConfig";
+import { IAlert, IUser } from "../../interfaces/app_interfaces";
+import { emailValidate } from "../../utils/emailValidate";
+import Alert from "./Alert";
+import FormController from "./FormController";
 
 const defaultUserData: IUser = {
     fullName: "",

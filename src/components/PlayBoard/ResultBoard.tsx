@@ -1,11 +1,10 @@
-import React from "react";
-import styled from "styled-components";
 import {
-    useNavigate,
     useLoaderData,
+    useNavigate,
     useParams,
     useSearchParams,
 } from "react-router-dom";
+import styled from "styled-components";
 import { usePlayBoardContext } from "../../context/PlayBoardContext";
 import { IQuestion } from "../../interfaces/app_interfaces";
 const Container = styled.div``;

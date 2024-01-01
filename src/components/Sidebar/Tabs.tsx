@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 import { useSidebarContext } from "../../context/SidebarContext";
 
@@ -6,24 +6,6 @@ const TabContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-`;
-const TabItem = styled.div<{ $onTab?: boolean }>`
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 1rem 0rem;
-    background-color: ${(props) => (props.$onTab ? "#ffffff" : "#e7717d")};
-    color: ${(props) => (props.$onTab ? "#e7717d" : "#ffffff")};
-    &:hover {
-        background-color: #ffffff;
-        color: #e7717d;
-        cursor: pointer;
-    }
-`;
-const TabName = styled.span`
-    font-weight: bold;
 `;
 const TabLink = styled(NavLink)`
     display: flex;

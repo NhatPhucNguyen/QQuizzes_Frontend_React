@@ -1,13 +1,13 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
 import Modal from "../../Layout/ModalLayout";
+import { customAxios } from "../../config/axiosConfig";
 import { devices } from "../../config/devices";
+import { usePlayBoardContext } from "../../context/PlayBoardContext";
+import { IResult } from "../../interfaces/app_interfaces";
 import LeaderBoard from "../LeaderBoard";
 import ResultBoard from "./ResultBoard";
-import { useCallback, useEffect, useState } from "react";
-import { usePlayBoardContext } from "../../context/PlayBoardContext";
-import { customAxios } from "../../config/axiosConfig";
-import { IResult } from "../../interfaces/app_interfaces";
-import { useNavigate, useParams } from "react-router-dom";
 
 const moveDown = keyframes`
     from{
@@ -60,7 +60,7 @@ const ResultModal = () => {
                 {/* Display result */}
                 <ResultBoard />
                 {showLeaderBoard ? (
-                    <LeaderBoard style="Simple" />
+                    <LeaderBoard/>
                 ) : (
                     "Loading..."
                 )}

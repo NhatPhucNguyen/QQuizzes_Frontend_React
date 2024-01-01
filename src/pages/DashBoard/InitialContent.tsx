@@ -1,6 +1,6 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import QuizzesOnTopic from "../../components/QuizzesOnTopic";
@@ -38,15 +38,12 @@ const SearchBoxContainer = styled.form`
 
 const SearchBox = styled.input`
     width: 100%;
-    font-size: 24px;
+    font-size: 2vw;
     padding: 0.8rem 0rem;
     border: none;
     outline: none;
     @media screen and (${devices.phones}) {
-        font-size: 1rem;
-        &::placeholder {
-            font-size: 0.8rem;
-        }
+        font-size: 0.6rem;
     }
 `;
 const SearchButton = styled.button`
@@ -63,11 +60,11 @@ const SearchButton = styled.button`
     }
 `;
 const TopicSelected = styled.div`
-    font-size: 0.9rem;
+    font-size: 1.5vw;
     background-color: #b041af;
     margin: 0.5rem auto;
     border-radius: 0;
-    width: 60%;
+    width: 80%;
     padding: 0;
     color: #ffffff;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -77,6 +74,9 @@ const TopicSelected = styled.div`
     text-align: center;
     &:hover {
         cursor: pointer;
+    }
+    @media screen and (${devices.tablets}) {
+        font-size: 0.7rem;
     }
 `;
 const TopicList = styled.div`
@@ -101,6 +101,9 @@ const Topic = styled.button`
         cursor: pointer;
         background-color: #a8485c;
         color: #ffffff;
+    }
+    &:active{
+        background-color: #813846;
     }
 `;
 const QuizzesContainer = styled.div``;

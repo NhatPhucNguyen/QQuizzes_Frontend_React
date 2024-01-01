@@ -1,14 +1,21 @@
+import { QueryClient, QueryClientProvider } from "react-query";
 import {
-    Route,
-    createBrowserRouter,
-    createRoutesFromElements,
-    RouterProvider,
-    Outlet,
     Navigate,
+    Route,
+    RouterProvider,
+    createBrowserRouter,
+    createRoutesFromElements
 } from "react-router-dom";
-import Home from "./pages/Home";
+import ModalProvider from "./context/ModalContext";
 import Authentication from "./pages/Authentication";
 import DashBoard from "./pages/DashBoard";
+import InitialContent from "./pages/DashBoard/InitialContent";
+import MyQuizzes from "./pages/DashBoard/MyQuizzes";
+import QuizzesSearch from "./pages/DashBoard/QuizzesSearch";
+import Home from "./pages/Home";
+import QuestionManagement from "./pages/QuestionManagement";
+import QuestionList from "./pages/QuestionManagement/QuestionList";
+import QuizPlay from "./pages/QuizPlay";
 import {
     authFormAccess,
     navLoader,
@@ -17,14 +24,6 @@ import {
     quizPlayLoader,
     requireAuth,
 } from "./utils/loader";
-import InitialContent from "./pages/DashBoard/InitialContent";
-import MyQuizzes from "./pages/DashBoard/MyQuizzes";
-import QuestionManagement from "./pages/QuestionManagement";
-import QuestionList from "./pages/QuestionManagement/QuestionList";
-import QuizPlay from "./pages/QuizPlay";
-import QuizzesSearch from "./pages/DashBoard/QuizzesSearch";
-import { QueryClient, QueryClientProvider } from "react-query";
-import ModalProvider from "./context/ModalContext";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>

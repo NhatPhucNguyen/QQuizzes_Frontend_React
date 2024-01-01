@@ -1,9 +1,9 @@
-import { ActionFunction, Params, redirect } from "react-router-dom";
-import { authenticatedCheck } from "./authenticatedCheck";
-import { customAxios } from "../config/axiosConfig";
 import { AxiosError } from "axios";
-import { IPlayer, IQuestion, IQuiz } from "../interfaces/app_interfaces";
-import { QuizAPI } from "../apis/QuizAPI";
+import { ActionFunction, redirect } from "react-router-dom";
+import { getQuizById } from "../apis/QuizAPI";
+import { customAxios } from "../config/axiosConfig";
+import { IPlayer, IQuestion } from "../interfaces/app_interfaces";
+import { authenticatedCheck } from "./authenticatedCheck";
 
 export const requireAuth = async () => {
     const isAuthenticated = await authenticatedCheck();
@@ -30,7 +30,7 @@ export const navLoader = async () => {
 export const quizLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
     if (quizId) {
-        const quiz = await QuizAPI.getQuizById(quizId);
+        const quiz = await getQuizById(quizId);
         return quiz;
     }
     return null;

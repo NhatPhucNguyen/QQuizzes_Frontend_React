@@ -8,25 +8,19 @@ import { IQuestion } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
 
 const Container = styled.div`
-    width: 80%;
-    display: flex;
-    flex-direction: column;
     background-color: #ffffff;
-    gap: 2rem;
-    padding: 1rem;
-    @media screen and (${devices.laptops}) {
-        width: 100%;
-    }
+    width: 100%;
 `;
 const SubContainer = styled.div`
     width: 100%;
     display: grid;
     grid-template-columns: 60% 40%;
-    gap: 1rem 0.2rem;
     height: 100%;
+    margin-top: 2rem;
     @media screen and (${devices.phones}), (${devices.tablets}) {
         display: flex;
         flex-direction: column;
+        gap: 1rem;
     }
 `;
 const QuestionCardsContainer = styled.div`

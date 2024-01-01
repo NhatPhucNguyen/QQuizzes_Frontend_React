@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { customAxios } from "../config/axiosConfig";
 export const refreshToken = async () => {
+    console.log("run me");
     try {
         const response = await customAxios.get("/auth/refreshToken");
         const { accessToken } = response.data as { accessToken: string };

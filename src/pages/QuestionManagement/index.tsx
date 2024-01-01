@@ -1,7 +1,6 @@
 import { Outlet, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Main from "../../Layout/Main";
-import Confirmation from "../../components/Confirmation";
 import Navbar from "../../components/Navbar";
 import NotificationBar from "../../components/NotificationBar";
 import QuestionCreateForm from "../../components/QuestionCreateForm";
@@ -11,9 +10,8 @@ import { useModalContext } from "../../context/ModalContext";
 
 const Container = styled.div`
     width: 100%;
-    display: flex;
-    justify-content: center;
     min-height: 100%;
+    background-color: #ffffff;
 `;
 
 const QuestionManagement = () => {
@@ -25,7 +23,7 @@ const QuestionManagement = () => {
             <SubNav />
             {notification.isShow && (
                 <NotificationBar
-                    message={notification.message}
+                   message={notification.message}
                 />
             )}
             <Container>

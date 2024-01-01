@@ -1,11 +1,11 @@
-import React from "react";
 import { IQuiz } from "../../interfaces/app_interfaces";
 import styled from "styled-components";
 import QuizCard from "../QuizCard";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
-import { QuizAPI } from "../../apis/QuizAPI";
+import { Link } from "react-router-dom";
+import { getPublicQuizzes } from "../../apis/QuizAPI";
 
 type CustomProps = {
     topicName: string;
@@ -20,7 +20,7 @@ const Topic = styled.div`
     align-items: center;
     gap: 0.5rem;
 `;
-const TopicName = styled.a`
+const TopicName = styled(Link)`
     color: #f29f05;
     font-size: 1.2rem;
     &:hover {
@@ -38,14 +38,15 @@ const QuizList = styled.div`
 const QuizzesOnTopic = (props: CustomProps) => {
     const { data: quizzes } = useQuery({
         queryKey: [props.topicName],
-        queryFn: () =>
-            QuizAPI.getPublicQuizzes(`?topicName=${props.topicName}`),
+        queryFn: () => getPublicQuizzes(`?topicName=${props.topicName}`),
     });
     return (
         <Container>
             <Topic>
                 <FontAwesomeIcon icon={faStar} color="#f8d93d" />
-                <TopicName>{props.topicName}</TopicName>
+                <TopicName to={`quizzes?topicName=${props.topicName}`}>
+                    {props.topicName}
+                </TopicName>
             </Topic>
             <QuizList>
                 {quizzes &&

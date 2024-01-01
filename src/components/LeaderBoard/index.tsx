@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { IPlayer } from "../../interfaces/app_interfaces";
 import { customAxios } from "../../config/axiosConfig";
-import { useLoaderData, useParams } from "react-router-dom";
-
-type CustomProps = {
-    style: "Detail" | "Simple";
-};
+import { IPlayer } from "../../interfaces/app_interfaces";
 
 const Container = styled.div``;
 const Title = styled.h2`
@@ -26,7 +22,7 @@ const TableRow = styled.tr<{ $isPlayer?: boolean }>`
     background-color: ${(props) => props.$isPlayer && "#fcba03"};
 `;
 const TableData = styled.td``;
-const LeaderBoard = ({ style }: CustomProps) => {
+const LeaderBoard = () => {
     const [players, setPlayers] = useState<IPlayer[]>();
     const userId = localStorage.getItem("userId");
     const { quizId } = useParams();

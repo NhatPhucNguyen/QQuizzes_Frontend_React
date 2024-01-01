@@ -113,7 +113,7 @@ const QuizCard = ({ quiz, role }: CustomProps) => {
                         onClick={() => {
                             //navigate to list of questions
                             navigate(
-                                `/admin/quizzes/${quiz._id as string}/questions`
+                                `/admin/quizzes/${quiz._id}/questions`
                             );
                         }}
                         $method="edit"
@@ -128,7 +128,7 @@ const QuizCard = ({ quiz, role }: CustomProps) => {
                 <ButtonContainer>
                     <Button
                         onClick={() => {
-                            navigate(`/play/${quiz._id as string}`);
+                            navigate(`/play/${quiz._id}`);
                         }}
                         $method="play"
                     >
