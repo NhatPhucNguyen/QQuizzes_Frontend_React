@@ -42,7 +42,7 @@ export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
         font-size: 1rem;
         height: auto;
     }
-    @media (${devices.phones}) {
+    @media screen and (max-width:375px) {
         display: none;
     }
 `;
