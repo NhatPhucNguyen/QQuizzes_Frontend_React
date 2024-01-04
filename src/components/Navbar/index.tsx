@@ -21,7 +21,7 @@ const NavContainer = styled.nav<{ $height?: string }>`
 `;
 const Logo = styled.img`
     width: 8rem;
-    @media only screen and (${devices.phones}) {
+    @media screen and (${devices.phones}) {
         width: 6rem;
     }
 `;

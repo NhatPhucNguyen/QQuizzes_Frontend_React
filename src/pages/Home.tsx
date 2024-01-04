@@ -15,7 +15,7 @@ const Container = styled.div`
     text-align: center;
     gap: 4em;
     min-height: 100dvh;
-    @media only screen and (${devices.phones}) {
+    @media screen and (${devices.phones}) {
         gap: 2rem;
     }
 `;
@@ -23,7 +23,7 @@ const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 1em;
-    @media only screen and (${devices.tablets}) {
+    @media screen and (${devices.tablets}) {
         flex-direction: row;
     }
 `;
@@ -45,7 +45,7 @@ const CreateButton = styled.button`
         border-bottom: 2px solid #bc2445;
         cursor: pointer;
     }
-    @media only screen and (${devices.phones}) {
+    @media screen and (${devices.phones}) {
         font-size: 1.2rem;
         width: 9rem;
         padding: 0.2rem;

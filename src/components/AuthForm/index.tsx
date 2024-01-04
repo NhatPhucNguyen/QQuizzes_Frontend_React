@@ -32,11 +32,11 @@ export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     border-radius: 15px;
     animation: ${moveDown} 0.4s ease-in-out;
-    @media only screen and (${devices.tablets}) {
+    @media screen and (${devices.tablets}) {
         width: 80%;
         height: auto;
     }
-    @media only screen and (${devices.phones}) {
+    @media screen and (${devices.phones}) {
         width: 100%;
         grid-template-columns: none;
         font-size: 1rem;
@@ -51,7 +51,7 @@ export const FormLayout = styled.form`
     gap: 1rem;
     width: 100%;
     padding: 1rem;
-    @media only screen and (${devices.phones}) {
+    @media screen and (${devices.phones}) {
         padding: 0.5rem;
     }
 `;
@@ -80,7 +80,7 @@ export const FormTitle = styled.span`
     font-size: 1.2rem;
     text-align: center;
     font-weight: bold;
-    @media only screen and (${devices.phones}) {
+    @media screen and (${devices.phones}) {
         font-size: 1rem;
     }
 `;
