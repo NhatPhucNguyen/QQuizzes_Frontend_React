@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import { IQuestion } from "../../interfaces/app_interfaces";
 import { btnColorGenerate } from "../../utils/stylingMethod";
 import { useModalContext } from "../../context/ModalContext";
-import Confirmation from "../Confirmation";
 
 const Container = styled.div`
     width: 100%;
@@ -30,7 +29,7 @@ const Button = styled.button<{ $method?: string }>`
     }
 `;
 const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
-    const { openModal, showModal } = useModalContext();
+    const { openModal } = useModalContext();
     return (
         <Container>
             <ButtonContainer>
@@ -57,9 +56,6 @@ const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
                     Delete
                 </Button>
             </ButtonContainer>
-            {showModal.isShow && showModal.formName === "Confirmation" && (
-                <Confirmation question={showModal.questionData} />
-            )}
         </Container>
     );
 };

@@ -7,8 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { customAxios } from "../config/axiosConfig";
 
 const Container = styled.div`
-    height: 100%;
-    overflow-y: hidden;
+    min-height: 100%;
 `;
 const QuizPlay = () => {
     const [isShowGuide, setIsShowGuide] = useState(true);

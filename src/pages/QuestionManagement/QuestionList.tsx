@@ -6,6 +6,8 @@ import QuestionListFunctions from "../../components/QuestionListFunctions";
 import QuizInfoCard from "../../components/QuizInfoCard";
 import { IQuestion } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
+import { useModalContext } from "../../context/ModalContext";
+import Confirmation from "../../components/Confirmation";
 
 const Container = styled.div`
     background-color: #ffffff;
@@ -34,6 +36,7 @@ const QuestionCardsContainer = styled.div`
 `;
 const QuestionList = () => {
     const questions = useLoaderData() as IQuestion[];
+    const {showModal} = useModalContext();
     useEffect(() => {
         localStorage.setItem(
             "nextQuestionNumber",
@@ -55,7 +58,10 @@ const QuestionList = () => {
                     })}
                 </QuestionCardsContainer>
                 <QuizInfoCard />
-            </SubContainer>
+            </SubContainer>            
+            {showModal.isShow && showModal.formName === "Confirmation" && (
+                <Confirmation question={showModal.questionData} />
+            )}
         </Container>
     );
 };

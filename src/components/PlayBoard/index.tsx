@@ -24,7 +24,8 @@ const Container = styled.div`
     padding: 3rem;
     height: 100%;
     @media screen and (${devices.tablets}) {
-        padding: 1rem;
+        padding: 1rem;        
+        font-size: 3vw;
     }
 `;
 const QuestionContainer = styled.div`
@@ -42,6 +43,7 @@ const QuestionContainer = styled.div`
     animation: ${fadeLeftIn} 0.4s ease-in-out;
     @media screen and (${devices.tablets}) {
         width: 100%;
+        font-size: inherit;
     }
 `;
 const Question = styled.p`

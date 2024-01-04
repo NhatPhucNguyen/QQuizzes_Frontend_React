@@ -1,8 +1,5 @@
 import {
-    useLoaderData,
-    useNavigate,
-    useParams,
-    useSearchParams,
+    useLoaderData
 } from "react-router-dom";
 import styled from "styled-components";
 import { usePlayBoardContext } from "../../context/PlayBoardContext";
@@ -28,41 +25,9 @@ const ResultStat = styled.span`
     text-align: left;
     font-size: 1.2rem;
 `;
-const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
-`;
-const Button = styled.button`
-    padding: 0.5rem 2rem;
-    border: none;
-    font-size: inherit;
-    font-weight: bold;
-    color: #ffffff;
-    &:hover {
-        cursor: pointer;
-    }
-`;
-const RetryButton = styled(Button)`
-    background-color: #73a64e;
-    &:hover {
-        background-color: #558534;
-    }
-`;
-const BackButton = styled(Button)`
-    background-color: #e1a22d;
-    &:hover {
-        background-color: #c58b1f;
-    }
-`;
 const ResultBoard = () => {
-    const navigate = useNavigate();
     const { questions } = useLoaderData() as { questions: IQuestion[] };
     const { result, totalTime, quiz } = usePlayBoardContext();
-    const { quizId } = useParams() as { quizId: string };
-    const [searchParams] = useSearchParams();
-    const type = searchParams.get("type");
     return (
         <Container>
             <Title>Result</Title>
@@ -83,27 +48,7 @@ const ResultBoard = () => {
                           )}s`
                         : `${Math.ceil(totalTime)}s`}
                 </ResultStat>
-            </ResultDetails>
-            <ButtonContainer>
-                <RetryButton
-                    onClick={() => {
-                        navigate(0);
-                    }}
-                >
-                    Retry
-                </RetryButton>
-                <BackButton
-                    onClick={() => {
-                        if (type === "preview") {
-                            navigate(`/admin/quizzes/${quizId}/questions`);
-                        } else {
-                            navigate(`/dashboard/user/quizzes`);
-                        }
-                    }}
-                >
-                    Cancel
-                </BackButton>
-            </ButtonContainer>
+            </ResultDetails>            
         </Container>
     );
 };

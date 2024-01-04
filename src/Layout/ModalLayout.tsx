@@ -9,7 +9,7 @@ const Container = styled.div`
     justify-content: center;
     height: 100%;
     width: 100%;
-    background-color: rgb(55, 54, 54, 0.4);
+    background-color: rgb(55, 54, 54, 0.5);
     position: fixed;
     z-index: 1;
     left: 0;
