@@ -42,9 +42,6 @@ export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
         font-size: 1rem;
         height: auto;
     }
-    @media screen and (max-width:375px) {
-        display: none;
-    }
 `;
 export const FormLayout = styled.form`
     display: flex;

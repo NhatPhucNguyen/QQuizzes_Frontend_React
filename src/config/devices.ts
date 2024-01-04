@@ -6,8 +6,8 @@ const breakpoints = {
     xl:"1200px"
 };
 export const devices = {
-    phones:`(max-width: ${breakpoints.s})`,
-    tablets:`(max-width: ${breakpoints.m})`,
-    laptops:`(max-width: ${breakpoints.lg})`,
-    desktops:`(max-width: ${breakpoints.xl})`,
+    phones:`max-width: ${breakpoints.s}`,
+    tablets:`max-width: ${breakpoints.m}`,
+    laptops:`max-width: ${breakpoints.lg}`,
+    desktops:`max-width: ${breakpoints.xl}`,
 }
