@@ -42,6 +42,9 @@ export const AuthLayout = styled.div<{ $isAutoHeight?: boolean }>`
         font-size: 1rem;
         height: auto;
     }
+    @media (${devices.phones}) {
+        display: none;
+    }
 `;
 export const FormLayout = styled.form`
     display: flex;
