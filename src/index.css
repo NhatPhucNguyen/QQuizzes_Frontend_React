@@ -23,6 +23,6 @@ body,
   html,
   body,
   #root {
-    overflow-x: hidden;
+    display: none;
   }
 }
