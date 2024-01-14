@@ -1,23 +1,23 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import {
-    IQuestion,
-    IQuiz,
-    IResult,
+    Question,
+    Quiz,
+    Result,
     ShowModal,
 } from "../interfaces/app_interfaces";
 import { createContext, useRef, useState, useContext, useEffect } from "react";
 import { customAxios } from "../config/axiosConfig";
 
 type PlayBoardValue = {
-    question: IQuestion;
+    question: Question;
     nextQuestion: (increasePoint?: boolean) => void;
     isShowAns: boolean;
     isShowModal: boolean;
     totalTime: number;
-    result: IResult;
+    result: Result;
     getCurrentTime: (elapsedTime: number) => void;
-    quiz: IQuiz;
+    quiz: Quiz;
 };
 
 export const PlayBoardContext = createContext<PlayBoardValue | null>(null);
@@ -25,14 +25,14 @@ export const PlayBoardContext = createContext<PlayBoardValue | null>(null);
 const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
     const { quizId } = useParams() as { quizId: string };
-    const { questions } = useLoaderData() as { questions: IQuestion[] };
-    const [quiz, setQuiz] = useState<IQuiz>({} as IQuiz);
+    const { questions } = useLoaderData() as { questions: Question[] };
+    const [quiz, setQuiz] = useState<Quiz>({} as Quiz);
     const [index, setIndex] = useState(0);
     const totalTime = useRef(0);
     const [result, setResult] = useState({
         highestPoint: 0,
         correctAnswers: 0,
-    } as IResult);
+    } as Result);
     const [isShow, setIsShow] = useState(false); //showing the right and wrong answers
     const [showModal, setShowModal] = useState({} as ShowModal);
     const getCurrentTime = (elapsedTime: number) => {
@@ -68,7 +68,7 @@ const PlayBoardProvider = ({ children }: { children: React.ReactNode }) => {
             console.log("get quiz data");
             try {
                 const response = await customAxios(`/quizzes/${quizId}`);
-                const data = response.data as IQuiz;
+                const data = response.data as Quiz;
                 setQuiz(data);
             } catch (error) {
                 console.log(error);

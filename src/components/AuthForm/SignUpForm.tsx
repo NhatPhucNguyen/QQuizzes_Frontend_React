@@ -3,12 +3,12 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormLayout, FormTitle, SignUpButton } from ".";
 import { customAxios } from "../../config/axiosConfig";
-import { IAlert, IUser } from "../../interfaces/app_interfaces";
+import { Alert, User } from "../../interfaces/app_interfaces";
 import { emailValidate } from "../../utils/emailValidate";
-import Alert from "./Alert";
+import AlertBar from "./AlertBar";
 import FormController from "./FormController";
 
-const defaultUserData: IUser = {
+const defaultUserData: User = {
     fullName: "",
     username: "",
     password: "",
@@ -17,8 +17,8 @@ const defaultUserData: IUser = {
 };
 
 const SignUpForm = () => {
-    const [userData, setUserData] = useState<IUser>(defaultUserData);
-    const [alert, setAlert] = useState({} as IAlert);
+    const [userData, setUserData] = useState<User>(defaultUserData);
+    const [alert, setAlert] = useState({} as Alert);
     const navigate = useNavigate();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -98,7 +98,7 @@ const SignUpForm = () => {
     return (
         <FormLayout onSubmit={handleSubmit}>
             <FormTitle>Sign Up to QQuizzes</FormTitle>
-            {alert.isShow && <Alert message={alert.message} />}
+            {alert.isShow && <AlertBar message={alert.message} />}
             <FormController
                 type="text"
                 label="Full Name"

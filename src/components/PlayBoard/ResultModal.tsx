@@ -5,7 +5,7 @@ import Modal from "../../Layout/ModalLayout";
 import { customAxios } from "../../config/axiosConfig";
 import { devices } from "../../config/devices";
 import { usePlayBoardContext } from "../../context/PlayBoardContext";
-import { IResult } from "../../interfaces/app_interfaces";
+import { Result } from "../../interfaces/app_interfaces";
 import LeaderBoard from "../LeaderBoard";
 import ResultBoard from "./ResultBoard";
 
@@ -25,8 +25,10 @@ const Container = styled.div`
     border-radius: 15px;
     animation: ${moveDown} 0.4s ease-in-out;
     padding: 0.5rem;
+    width: 50%;
     @media screen and (${devices.phones}) {
-        width: 90%;
+        width: 100%;
+        font-size: 0.9rem;
     }
 `;
 const ResultContainer = styled.div`
@@ -76,7 +78,7 @@ const ResultModal = () => {
                     highestPoint: result.highestPoint,
                     timeCompleted: totalTime,
                     correctAnswers: result.correctAnswers,
-                } as IResult);
+                } as Result);
                 setShowLeaderBoard(true);
             } catch (error) {
                 console.log(error);
@@ -106,7 +108,7 @@ const ResultModal = () => {
                             if (type === "preview") {
                                 navigate(`/admin/quizzes/${quizId}/questions`);
                             } else {
-                                navigate(`/dashboard/user/quizzes`);
+                                navigate(`/dashboard/admin/quizzes`);
                             }
                         }}
                     >

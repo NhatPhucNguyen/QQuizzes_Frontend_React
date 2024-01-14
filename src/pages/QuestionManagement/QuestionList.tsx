@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionListFunctions from "../../components/QuestionListFunctions";
 import QuizInfoCard from "../../components/QuizInfoCard";
-import { IQuestion } from "../../interfaces/app_interfaces";
+import { Question } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
 import { useModalContext } from "../../context/ModalContext";
 import Confirmation from "../../components/Confirmation";
@@ -35,7 +35,7 @@ const QuestionCardsContainer = styled.div`
     }
 `;
 const QuestionList = () => {
-    const questions = useLoaderData() as IQuestion[];
+    const questions = useLoaderData() as Question[];
     const {showModal} = useModalContext();
     useEffect(() => {
         localStorage.setItem(

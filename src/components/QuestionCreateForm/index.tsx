@@ -13,13 +13,13 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { customAxios } from "../../config/axiosConfig";
 import {
-    IAlert,
-    IQuestion,
-    ISelection,
+    Alert,
+    Question,
+    Selection,
     ModalCloseOptions,
 } from "../../interfaces/app_interfaces";
 import { devices } from "../../config/devices";
-import Alert from "../AuthForm/Alert";
+import AlertBar from "../AuthForm/AlertBar";
 import AnswersGroup from "./AnswersGroup";
 import QuestionFormHeader from "./QuestionFormHeader";
 import Modal from "../../Layout/ModalLayout";
@@ -28,7 +28,7 @@ import { keyframes } from "styled-components";
 type CustomProps = {
     closeModal: (options?: ModalCloseOptions) => void;
     quizId: string;
-    questionData?: IQuestion;
+    questionData?: Question;
 };
 
 const moveDown = keyframes`
@@ -130,7 +130,7 @@ const QuestionCreateForm = (props: CustomProps) => {
     const methods = useForm<defaultValues>();
     const { handleSubmit } = methods;
     const navigate = useNavigate();
-    const [alert, setAlert] = useState<IAlert>({ isShow: false, message: "" });
+    const [alert, setAlert] = useState<Alert>({ isShow: false, message: "" });
 
     const onValid: SubmitErrorHandler<defaultValues> = (err, e) => {
         e?.preventDefault();
@@ -147,7 +147,7 @@ const QuestionCreateForm = (props: CustomProps) => {
         }
     };
 
-    const createQuestion = async (newQuestion: IQuestion) => {
+    const createQuestion = async (newQuestion: Question) => {
         const response = await customAxios.post(
             `/quizzes/${props.quizId}/questions`,
             JSON.stringify(newQuestion)
@@ -163,7 +163,7 @@ const QuestionCreateForm = (props: CustomProps) => {
         }
     };
 
-    const updateQuestion = async (updatedQuestion: IQuestion) => {
+    const updateQuestion = async (updatedQuestion: Question) => {
         if (props.questionData?._id) {
             const response = await customAxios.put(
                 `/quizzes/${props.quizId}/questions/${props.questionData._id}`,
@@ -188,7 +188,7 @@ const QuestionCreateForm = (props: CustomProps) => {
         const selections = data.answers.map((answer, index) => {
             //use === because type of trueIndexAns is string due to react hook form default
             if (index == data.trueIndexAns) {
-                const selection: ISelection = {
+                const selection: Selection = {
                     isTrue: true,
                     desc: answer
                 };
@@ -198,8 +198,8 @@ const QuestionCreateForm = (props: CustomProps) => {
                     desc: answer
                 };
             }
-        }) as ISelection[];
-        const newQuestion: IQuestion = {
+        }) as Selection[];
+        const newQuestion: Question = {
             question: data.question,
             selections: selections,
             point: Number(data.point),
@@ -240,7 +240,7 @@ const QuestionCreateForm = (props: CustomProps) => {
                             point={props.questionData?.point}
                             timeLimit={props.questionData?.timeLimit}
                         />
-                        {alert.isShow && <Alert message={alert.message} />}
+                        {alert.isShow && <AlertBar message={alert.message} />}
                         <QuestionInput
                             rows={5}
                             placeholder="Please enter a question..."

@@ -1,12 +1,12 @@
 import { faClock, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styled } from "styled-components";
-import { IQuestion } from "../../interfaces/app_interfaces";
+import { Question } from "../../interfaces/app_interfaces";
 import BodyQuestionCard from "./BodyQuestionCard";
 import FooterQuestionCard from "./FooterQuestionCard";
 
 type CustomProps = {
-    question: IQuestion;
+    question: Question;
 };
 
 const Container = styled.div`

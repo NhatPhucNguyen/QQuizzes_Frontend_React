@@ -13,15 +13,15 @@ import Modal from "../../Layout/ModalLayout";
 import { createQuiz, updateQuiz } from "../../apis/QuizAPI";
 import { devices } from "../../config/devices";
 import { topicSelections } from "../../config/topicSelections";
-import { IQuiz, ModalCloseOptions } from "../../interfaces/app_interfaces";
-import Alert from "../AuthForm/Alert";
+import { Quiz, ModalCloseOptions } from "../../interfaces/app_interfaces";
+import Alert from "../AuthForm/AlertBar";
 import CloseMark from "../CloseMark";
 import QuizFormController from "./QuizFormController";
 
 type CustomProps = {
     selection?: string;
     title?: string;
-    quizData?: IQuiz;
+    quizData?: Quiz;
     closeModal: (options?: ModalCloseOptions) => void;
     backToSelection?: () => void;
 };
@@ -96,11 +96,11 @@ const BackButton = styled(Button)`
     }
 `;
 const QuizForm = (props: CustomProps) => {
-    const methods = useForm<IQuiz>();
+    const methods = useForm<Quiz>();
     const navigate = useNavigate();
     const [alert, setAlert] = useState({ isShow: false, message: "" });
     const { handleSubmit } = methods;
-    const onSubmit: SubmitHandler<IQuiz> = async (data, e) => {
+    const onSubmit: SubmitHandler<Quiz> = async (data, e) => {
         e?.preventDefault();
         const { name } = e?.target as HTMLFormElement;
         try {
@@ -133,7 +133,7 @@ const QuizForm = (props: CustomProps) => {
             }
         }
     };
-    const onInvalid: SubmitErrorHandler<IQuiz> = (err, e) => {
+    const onInvalid: SubmitErrorHandler<Quiz> = (err, e) => {
         e?.preventDefault();
         if (err) {
             if (err.quizName?.type === "maxLength") {

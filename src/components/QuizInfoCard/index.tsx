@@ -6,7 +6,7 @@ import {
 import { styled } from "styled-components";
 import { devices } from "../../config/devices";
 import { useModalContext } from "../../context/ModalContext";
-import { IQuestion, IQuiz } from "../../interfaces/app_interfaces";
+import { Question, Quiz } from "../../interfaces/app_interfaces";
 import QuizDetailItem from "./QuizDetailItem";
 import QuizForm from "../QuizForm";
 import timeToString from "../../utils/timeToString";
@@ -46,8 +46,8 @@ const Button = styled.button`
     }
 `;
 const QuizInfoCard = () => {
-    const quiz = useRouteLoaderData("quiz") as IQuiz;
-    const questions = useLoaderData() as IQuestion[];
+    const quiz = useRouteLoaderData("quiz") as Quiz;
+    const questions = useLoaderData() as Question[];
     const timeLimit = timeToString(quiz.timeLimit);
     const navigate = useNavigate();
     const { openModal, showModal, closeModal } = useModalContext();

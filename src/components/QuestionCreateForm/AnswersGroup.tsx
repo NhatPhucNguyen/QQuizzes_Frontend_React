@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { styled } from "styled-components";
-import { ISelection } from "../../interfaces/app_interfaces";
+import { Selection } from "../../interfaces/app_interfaces";
 import SelectionItem from "./SelectionItem";
 import { devices } from '../../config/devices';
 
@@ -15,7 +15,7 @@ const AnswersContainer = styled.div`
         flex-direction: column;
     }
 `;
-const AnswersGroup = ({ selections }: { selections?: ISelection[] }) => {
+const AnswersGroup = ({ selections }: { selections?: Selection[] }) => {
     const [isRefresh, setIsRefresh] = useState(false);
     return (
         <AnswersContainer>

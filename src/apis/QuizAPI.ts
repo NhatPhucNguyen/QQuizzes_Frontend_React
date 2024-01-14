@@ -1,15 +1,13 @@
 import { redirect } from "react-router-dom";
 import { customAxios } from "../config/axiosConfig";
-import { IQuiz } from "../interfaces/app_interfaces";
+import { Quiz } from "../interfaces/app_interfaces";
 
 export const getPrivateQuizzes = async () => {
     try {
         const response = await customAxios.get("/quizzes/admin");
-        return response.data as IQuiz[];
+        return response.data as Quiz[];
     } catch (error) {
-        redirect("/error");
-        console.log(error);
-        throw error;
+        handleError(error);
     }
 };
 export const getPublicQuizzes = async (queryParams?: string) => {
@@ -17,55 +15,50 @@ export const getPublicQuizzes = async (queryParams?: string) => {
         const response = await customAxios.get(
             `/quizzes/public?${queryParams || ""}`
         );
-        return response.data as IQuiz[];
+        return response.data as Quiz[];
     } catch (error) {
-        redirect("/error");
-        console.log(error);
-        throw error;
+        handleError(error);
     }
 };
 export const getQuizById = async (quizId: string) => {
     try {
         const response = await customAxios.get(`/quizzes/${quizId}`);
-        return response.data as IQuiz;
+        return response.data as Quiz;
     } catch (error) {
-        redirect("/error");
-        console.log(error);
-        throw error;
+        handleError(error);
     }
 };
-export const createQuiz = async (data: IQuiz) => {
+export const createQuiz = async (data: Quiz) => {
     try {
         const response = await customAxios.post(
             "/quizzes",
             JSON.stringify(data)
         );
-        return response.data as IQuiz;
+        return response.data as Quiz;
     } catch (error) {
-        redirect("/error");
-        console.log(error);
-        throw error;
+        handleError(error);
     }
 };
-export const updateQuiz = async (quizId: string, data: IQuiz) => {
+export const updateQuiz = async (quizId: string, data: Quiz) => {
     try {
         const response = await customAxios.put(
             `/quizzes/${quizId}`,
             JSON.stringify(data)
         );
-        return response.data as IQuiz;
+        return response.data as Quiz;
     } catch (error) {
-        redirect("/error");
-        console.log(error);
-        throw error;
+        handleError(error);
     }
 };
 export const deleteQuiz = async (quizId: string) => {
     try {
         await customAxios.delete(`/quizzes/${quizId}`);
     } catch (error) {
-        redirect("/error");
-        console.log(error);
-        throw error;
+        handleError(error);
     }
+};
+const handleError = (error: unknown) => {
+    redirect("/error");
+    console.log(error);
+    throw error;
 };

@@ -1,6 +1,6 @@
-import { IQuestion } from "../interfaces/app_interfaces";
+import { Question } from "../interfaces/app_interfaces";
 
-export const questionsTotalCalculate = (questions: IQuestion[]) => {
+export const questionsTotalCalculate = (questions: Question[]) => {
     const totalPoints = questions.reduce(
         (x, question) => x + question.point,
         0

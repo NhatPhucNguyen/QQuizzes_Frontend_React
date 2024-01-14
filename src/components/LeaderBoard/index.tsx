@@ -28,7 +28,7 @@ const LeaderBoard = () => {
     const { quizId } = useParams();
     useEffect(() => {
         const getTopPlayers = async () => {
-            const limit = 7;
+            const limit = 5;
             if (quizId) {
                 const response = await customAxios.get(
                     `/quizzes/${quizId}/play/playersParticipated?limit=${limit}`
@@ -54,7 +54,10 @@ const LeaderBoard = () => {
                         <>
                             {players.map((player, index) => {
                                 return (
-                                    <TableRow key={player.userId} $isPlayer={player.userId === userId}>
+                                    <TableRow
+                                        key={player.userId}
+                                        $isPlayer={player.userId === userId}
+                                    >
                                         <TableData>#{index + 1}</TableData>
                                         <TableData>
                                             {player.displayName}

@@ -1,4 +1,4 @@
-export interface IUser {
+export interface User {
     _id?: string;
     username: string;
     password: string;
@@ -9,11 +9,11 @@ export interface IUser {
     job?: string;
     role?: string;
 }
-export interface IAlert {
+export interface Alert {
     isShow: boolean;
     message: string;
 }
-export interface IQuiz {
+export interface Quiz {
     numberOfPlays: number;
     _id: string;
     quizName: string;
@@ -24,21 +24,21 @@ export interface IQuiz {
     totalPoints: number;
     updatedAt: Date;
 }
-export interface IQuestion {
+export interface Question {
     _id?: string;
     questionNumber?: number;
     question: string;
     desc?: string;
-    selections: ISelection[];
+    selections: Selection[];
     point: number;
     timeLimit: number;
 }
-export interface ISelection {
+export interface Selection {
     _id?: string;
     desc: string;
     isTrue: boolean;
 }
-export interface IResult {
+export interface Result {
     highestPoint: number;
     timeCompleted: number;
     correctAnswers: number;
@@ -50,7 +50,7 @@ export interface IPlayer {
     userId: string;
     quizParticipated: string;
     displayName: string;
-    result: IResult;
+    result: Result;
 }
 
 export type ModalContext = {
@@ -59,8 +59,8 @@ export type ModalContext = {
     closeModal: (options?: ModalCloseOptions) => void;
 };
 export type ModalOptions = {
-    questionData?: IQuestion;
-    quizData?: IQuiz;
+    questionData?: Question;
+    quizData?: Quiz;
     formName?: string;
 };
 export type ModalCloseOptions = {
@@ -70,7 +70,7 @@ export type ModalCloseOptions = {
 export type ShowModal = {
     isShow: boolean;
     formName?: string;
-    quizData?: IQuiz;
-    questionData?: IQuestion;
+    quizData?: Quiz;
+    questionData?: Question;
     modalName?: string;
 };

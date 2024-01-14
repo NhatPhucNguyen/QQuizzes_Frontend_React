@@ -5,7 +5,7 @@ import NotificationBar from "../../components/NotificationBar";
 import QuizCard from "../../components/QuizCard";
 import { devices } from "../../config/devices";
 import { useModalContext } from "../../context/ModalContext";
-import { IQuiz } from "../../interfaces/app_interfaces";
+import { Quiz } from "../../interfaces/app_interfaces";
 import { getPrivateQuizzes } from "../../apis/QuizAPI";
 
 const Container = styled.div`
@@ -55,7 +55,7 @@ const MyQuizzes = () => {
                 })}
             </CardsContainer>
             {showModal.isShow && showModal.formName === "Confirmation" && (
-                <Confirmation quiz={showModal.quizData as IQuiz} />
+                <Confirmation quiz={showModal.quizData as Quiz} />
             )}
         </Container>
     );

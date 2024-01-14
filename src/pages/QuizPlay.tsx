@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { customAxios } from "../config/axiosConfig";
 
 const Container = styled.div`
+    height: 100%;
     min-height: 100%;
 `;
 const QuizPlay = () => {

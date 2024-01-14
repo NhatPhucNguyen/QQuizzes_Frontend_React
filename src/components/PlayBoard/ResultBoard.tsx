@@ -3,13 +3,13 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import { usePlayBoardContext } from "../../context/PlayBoardContext";
-import { IQuestion } from "../../interfaces/app_interfaces";
+import { Question } from "../../interfaces/app_interfaces";
 const Container = styled.div``;
 const Title = styled.h2`
     text-align: center;
 `;
 const ResultDetails = styled.div`
-    width: 80%;
+    width: 100%;
     margin: 1rem auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -18,15 +18,13 @@ const ResultDetails = styled.div`
 `;
 const ResultField = styled.span`
     text-align: right;
-    font-size: 1.2rem;
     width: 100%;
 `;
 const ResultStat = styled.span`
     text-align: left;
-    font-size: 1.2rem;
 `;
 const ResultBoard = () => {
-    const { questions } = useLoaderData() as { questions: IQuestion[] };
+    const { questions } = useLoaderData() as { questions: Question[] };
     const { result, totalTime, quiz } = usePlayBoardContext();
     return (
         <Container>

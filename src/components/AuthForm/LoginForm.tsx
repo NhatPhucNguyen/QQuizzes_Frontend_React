@@ -1,10 +1,10 @@
 import { FormLayout, FormTitle, LoginButton } from ".";
-import { IAlert, IUser } from "../../interfaces/app_interfaces";
+import { Alert, User } from "../../interfaces/app_interfaces";
 import FormController from "./FormController";
 import { useState, FormEvent } from "react";
 import { AxiosError } from "axios";
 import { customAxios } from "../../config/axiosConfig";
-import Alert from "./Alert";
+import AlertBar from "./AlertBar";
 import { useNavigate } from "react-router-dom";
 type DataReturn = {
     accessToken: string;
@@ -15,8 +15,8 @@ const LoginForm = () => {
     const [userData, setUserData] = useState({
         username: "",
         password: "",
-    } as IUser);
-    const [alert, setAlert] = useState({} as IAlert);
+    } as User);
+    const [alert, setAlert] = useState({} as Alert);
     const navigate = useNavigate();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -64,7 +64,7 @@ const LoginForm = () => {
     return (
         <FormLayout onSubmit={handleSubmit}>
             <FormTitle>Login to QQuizzes</FormTitle>
-            {alert.isShow && <Alert message={alert.message} />}
+            {alert.isShow && <AlertBar message={alert.message} />}
             <FormController
                 name="username"
                 label="Username"

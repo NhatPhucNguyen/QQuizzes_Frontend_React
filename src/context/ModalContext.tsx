@@ -1,21 +1,21 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import {
-    IAlert,
-    IQuestion,
-    IQuiz,
+    Alert,
+    Question,
+    Quiz,
     ShowModal,
 } from "../interfaces/app_interfaces";
 
 type ModalValues = {
-    notification: IAlert;
+    notification: Alert;
     showModal: ShowModal;
     openModal: (options: ModalOptions) => void;
     closeModal: (options?: ModalCloseOptions) => void;
     closeNotification: () => void;
 };
 type ModalOptions = {
-    questionData?: IQuestion;
-    quizData?: IQuiz;
+    questionData?: Question;
+    quizData?: Quiz;
     formName?: string;
 };
 type ModalCloseOptions = {
@@ -26,7 +26,7 @@ const ModalContext = createContext<ModalValues | null>(null);
 
 const ModalProvider = ({ children }: { children: ReactNode }) => {
     const [showModal, setShowModal] = useState<ShowModal>({ isShow: false });
-    const [notification, setNotification] = useState<IAlert>({
+    const [notification, setNotification] = useState<Alert>({
         isShow: false,
         message: "",
     });

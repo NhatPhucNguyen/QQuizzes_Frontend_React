@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { devices } from "../../config/devices";
 import { useModalContext } from "../../context/ModalContext";
-import { IQuiz } from "../../interfaces/app_interfaces";
+import { Quiz } from "../../interfaces/app_interfaces";
 import { btnColorGenerate, levelColorText } from "../../utils/stylingMethod";
 
 type CustomProps = {
-    quiz: IQuiz;
+    quiz: Quiz;
     role?: string;
 };
 

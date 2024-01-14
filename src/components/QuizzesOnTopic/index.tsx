@@ -1,4 +1,4 @@
-import { IQuiz } from "../../interfaces/app_interfaces";
+import { Quiz } from "../../interfaces/app_interfaces";
 import styled from "styled-components";
 import QuizCard from "../QuizCard";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +9,7 @@ import { getPublicQuizzes } from "../../apis/QuizAPI";
 
 type CustomProps = {
     topicName: string;
-    mostPlayedQuizzes?: IQuiz[];
+    mostPlayedQuizzes?: Quiz[];
 };
 const Container = styled.div`
     margin-top: 2rem;

@@ -8,8 +8,8 @@ import { devices } from "../../config/devices";
 import ModalProvider from "../../context/ModalContext";
 import SidebarProvider from "../../context/SidebarContext";
 import {
-    IAlert,
-    IQuiz,
+    Alert,
+    Quiz,
     ModalCloseOptions,
     ModalOptions,
     ShowModal,
@@ -34,7 +34,7 @@ const OutletContainer = styled.div`
 `;
 const DashBoard = () => {
     const [showModal, setShowModal] = useState<ShowModal>({ isShow: false });
-    const [notification, setNotification] = useState<IAlert>({
+    const [notification, setNotification] = useState<Alert>({
         isShow: false,
         message: "",
     });
@@ -44,7 +44,7 @@ const DashBoard = () => {
             ...showModal,
             isShow: true,
             formName: formName,
-            quizData: quizData as IQuiz,
+            quizData: quizData as Quiz,
         });
         setNotification({ ...notification, isShow: false });
     };

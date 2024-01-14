@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { IQuestion } from "../../interfaces/app_interfaces";
+import { Question } from "../../interfaces/app_interfaces";
 import { btnColorGenerate } from "../../utils/stylingMethod";
 import { useModalContext } from "../../context/ModalContext";
 
@@ -28,7 +28,7 @@ const Button = styled.button<{ $method?: string }>`
         color: #ffffff;
     }
 `;
-const FooterQuestionCard = ({ questionData }: { questionData: IQuestion }) => {
+const FooterQuestionCard = ({ questionData }: { questionData: Question }) => {
     const { openModal } = useModalContext();
     return (
         <Container>

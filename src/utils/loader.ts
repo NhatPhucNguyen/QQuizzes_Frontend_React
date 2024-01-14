@@ -2,8 +2,9 @@ import { AxiosError } from "axios";
 import { ActionFunction, redirect } from "react-router-dom";
 import { getQuizById } from "../apis/QuizAPI";
 import { customAxios } from "../config/axiosConfig";
-import { IPlayer, IQuestion } from "../interfaces/app_interfaces";
+import { IPlayer, Question } from "../interfaces/app_interfaces";
 import { authenticatedCheck } from "./authenticatedCheck";
+import { getAllQuestionsByQuiz } from "../apis/QuestionAPI";
 
 export const requireAuth = async () => {
     const isAuthenticated = await authenticatedCheck();
@@ -39,19 +40,8 @@ export const quizLoader: ActionFunction = async ({ params }) => {
 export const questionsLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
     if (quizId) {
-        try {
-            const response = await customAxios.get(
-                `/quizzes/${quizId}/questions`
-            );
-            if (response.status === 200) {
-                const data = response.data as IQuestion[];
-                return data;
-            }
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                return redirect("/dashboard");
-            }
-        }
+        const data = await getAllQuestionsByQuiz(quizId);
+        return data;
     }
     return null;
 };
@@ -59,7 +49,7 @@ export const questionsLoader: ActionFunction = async ({ params }) => {
 export const quizPlayLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
     let player: IPlayer | undefined;
-    let questions: IQuestion[] | undefined;
+    let questions: Question[] | undefined;
 
     if (quizId) {
         const getAllQuestions = async () => {
@@ -67,7 +57,7 @@ export const quizPlayLoader: ActionFunction = async ({ params }) => {
                 `/quizzes/${quizId}/questions`
             );
             if (response.status === 200) {
-                const data = response.data as IQuestion[];
+                const data = response.data as Question[];
                 return data;
             }
         };

@@ -4,11 +4,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styled } from "styled-components";
-import { ISelection } from "../../interfaces/app_interfaces";
+import { Selection } from "../../interfaces/app_interfaces";
 
 type CustomProps = {
     question: string;
-    selections: ISelection[];
+    selections: Selection[];
 };
 
 const Container = styled.div`

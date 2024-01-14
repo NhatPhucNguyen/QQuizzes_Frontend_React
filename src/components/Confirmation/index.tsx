@@ -7,8 +7,8 @@ import { customAxios } from "../../config/axiosConfig";
 import { devices } from "../../config/devices";
 import { useModalContext } from "../../context/ModalContext";
 import {
-    IQuestion,
-    IQuiz
+    Question,
+    Quiz
 } from "../../interfaces/app_interfaces";
 
 const moveDown = keyframes`
@@ -72,8 +72,8 @@ const CancelButton = styled(Button)`
     }
 `;
 type CustomProps = {
-    question?: IQuestion;
-    quiz?: IQuiz;
+    question?: Question;
+    quiz?: Quiz;
 };
 const Confirmation = ({ question, quiz }: CustomProps) => {
     const navigate = useNavigate();

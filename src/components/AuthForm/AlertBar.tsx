@@ -9,7 +9,7 @@ const Message = styled.span`
     font-size: 0.8rem;
     font-family: inherit;
 `;
-export const Alert = ({ message }: { message: string }) => {
+export const AlertBar = ({ message }: { message: string }) => {
     return (
         <AlertContainer>
             <Message>{message}</Message>
@@ -17,4 +17,4 @@ export const Alert = ({ message }: { message: string }) => {
     );
 };
 
-export default Alert;
+export default AlertBar;

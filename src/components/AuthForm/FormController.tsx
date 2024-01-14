@@ -7,7 +7,7 @@ import {
     useRef,
     useState,
 } from "react";
-import { IUser } from "../../interfaces/app_interfaces";
+import { User } from "../../interfaces/app_interfaces";
 import { emailValidate } from "../../utils/emailValidate";
 type FormControllerProps = {
     label: string;
@@ -16,7 +16,7 @@ type FormControllerProps = {
     type: string;
     value?: string;
     placeHolder?: string;
-    setUserData: Dispatch<SetStateAction<IUser>>;
+    setUserData: Dispatch<SetStateAction<User>>;
 };
 const ControllerContainer = styled.div`
     display: flex;
@@ -31,11 +31,11 @@ const FormInput = styled.input<{ $isValid?: boolean }>`
     font-size: inherit;
     font-family: inherit;
     padding: 0.5rem 1rem;
-    outline: ${(props) =>
+    outline: none;
+    border: ${(props) =>
         props.$isValid ? "solid 2px #AFD270" : "solid 2px #df0000"};
-    border: none;
     &:focus {
-        outline: ${(props) =>
+        border: ${(props) =>
             props.$isValid ? "solid 2px #AFD270" : "solid 2px #df0000"};
     }
     border-radius: 10px;
