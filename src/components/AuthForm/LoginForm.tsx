@@ -38,7 +38,7 @@ const LoginForm = () => {
                         localStorage.setItem("accessToken", accessToken);
                         localStorage.setItem("fullName", fullName);
                         localStorage.setItem("userId", userId);
-                        navigate("/dashboard");
+                        navigate(-1);
                     }
                 } catch (err) {
                     if (err instanceof AxiosError) {

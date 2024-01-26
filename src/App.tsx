@@ -4,7 +4,7 @@ import {
     Route,
     RouterProvider,
     createBrowserRouter,
-    createRoutesFromElements
+    createRoutesFromElements,
 } from "react-router-dom";
 import ModalProvider from "./context/ModalContext";
 import Authentication from "./pages/Authentication";
@@ -24,6 +24,7 @@ import {
     quizPlayLoader,
     requireAuth,
 } from "./utils/loader";
+import NotFound from "./pages/NotFound";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -47,7 +48,11 @@ const router = createBrowserRouter(
                     <Route path="quizzes" element={<QuizzesSearch />} />
                 </Route>
             </Route>
-            <Route path="/admin/quizzes" loader={requireAuth}>
+            <Route
+                path="/admin/quizzes"
+                loader={requireAuth}
+                errorElement={<NotFound />}
+            >
                 <Route index element={<Navigate to={"questions"} />} />
                 <Route
                     path=":quizId"
@@ -75,7 +80,7 @@ const router = createBrowserRouter(
                     loader={quizPlayLoader}
                 />
             </Route>
-            <Route path="*" element={<h1>Not found</h1>} />
+            <Route path="*" element={<NotFound />} />
         </>
     )
 );

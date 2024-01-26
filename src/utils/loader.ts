@@ -4,7 +4,10 @@ import { getQuizById } from "../apis/QuizAPI";
 import { customAxios } from "../config/axiosConfig";
 import { IPlayer, Question } from "../interfaces/app_interfaces";
 import { authenticatedCheck } from "./authenticatedCheck";
-import { getAllQuestionsByQuiz } from "../apis/QuestionAPI";
+import {
+    getAllPrivateQuestionsByQuiz,
+    getAllQuestionsByQuiz,
+} from "../apis/QuestionAPI";
 
 export const requireAuth = async () => {
     const isAuthenticated = await authenticatedCheck();
@@ -40,7 +43,7 @@ export const quizLoader: ActionFunction = async ({ params }) => {
 export const questionsLoader: ActionFunction = async ({ params }) => {
     const { quizId } = params;
     if (quizId) {
-        const data = await getAllQuestionsByQuiz(quizId);
+        const data = await getAllPrivateQuestionsByQuiz(quizId);
         return data;
     }
     return null;
@@ -52,15 +55,6 @@ export const quizPlayLoader: ActionFunction = async ({ params }) => {
     let questions: Question[] | undefined;
 
     if (quizId) {
-        const getAllQuestions = async () => {
-            const response = await customAxios.get(
-                `/quizzes/${quizId}/questions`
-            );
-            if (response.status === 200) {
-                const data = response.data as Question[];
-                return data;
-            }
-        };
         const getPlayerResult = async () => {
             const response = await customAxios.get(
                 `/quizzes/${quizId}/play/result`
@@ -71,7 +65,7 @@ export const quizPlayLoader: ActionFunction = async ({ params }) => {
             }
         };
         try {
-            questions = await getAllQuestions();
+            questions = await getAllQuestionsByQuiz(quizId);
             player = await getPlayerResult();
             return { questions, player };
         } catch (error) {

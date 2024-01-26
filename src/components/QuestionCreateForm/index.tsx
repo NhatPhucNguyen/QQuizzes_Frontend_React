@@ -11,7 +11,6 @@ import {
 } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { customAxios } from "../../config/axiosConfig";
 import {
     Alert,
     Question,
@@ -24,6 +23,7 @@ import AnswersGroup from "./AnswersGroup";
 import QuestionFormHeader from "./QuestionFormHeader";
 import Modal from "../../Layout/ModalLayout";
 import { keyframes } from "styled-components";
+import { addNewQuestion, updateQuestion } from "../../apis/QuestionAPI";
 
 type CustomProps = {
     closeModal: (options?: ModalCloseOptions) => void;
@@ -147,12 +147,8 @@ const QuestionCreateForm = (props: CustomProps) => {
         }
     };
 
-    const createQuestion = async (newQuestion: Question) => {
-        const response = await customAxios.post(
-            `/quizzes/${props.quizId}/questions`,
-            JSON.stringify(newQuestion)
-        );
-        if (response.status === 200) {
+    const questionCreate = async (newQuestion: Question) => {
+        if (await addNewQuestion(props.quizId, newQuestion)) {
             navigate("questions");
             props.closeModal({
                 isDisplayNotification: true,
@@ -163,13 +159,15 @@ const QuestionCreateForm = (props: CustomProps) => {
         }
     };
 
-    const updateQuestion = async (updatedQuestion: Question) => {
+    const questionUpdate = async (updatedQuestion: Question) => {
         if (props.questionData?._id) {
-            const response = await customAxios.put(
-                `/quizzes/${props.quizId}/questions/${props.questionData._id}`,
-                JSON.stringify(updatedQuestion)
-            );
-            if (response.status === 200) {
+            if (
+                await updateQuestion(
+                    props.quizId,
+                    props.questionData?._id,
+                    updatedQuestion
+                )
+            ) {
                 navigate("questions");
                 props.closeModal({
                     isDisplayNotification: true,
@@ -190,12 +188,12 @@ const QuestionCreateForm = (props: CustomProps) => {
             if (index == data.trueIndexAns) {
                 const selection: Selection = {
                     isTrue: true,
-                    desc: answer
+                    desc: answer,
                 };
                 return selection;
             } else {
                 return {
-                    desc: answer
+                    desc: answer,
                 };
             }
         }) as Selection[];
@@ -207,10 +205,10 @@ const QuestionCreateForm = (props: CustomProps) => {
         };
         try {
             if (name === "create") {
-                await createQuestion(newQuestion);
+                await questionCreate(newQuestion);
             }
             if (name === "update" && props.questionData?._id) {
-                await updateQuestion(newQuestion);
+                await questionUpdate(newQuestion);
             }
         } catch (error) {
             if (error instanceof AxiosError) {

@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import { customAxios } from "../config/axiosConfig";
 import { Quiz } from "../interfaces/app_interfaces";
 
@@ -58,7 +57,6 @@ export const deleteQuiz = async (quizId: string) => {
     }
 };
 const handleError = (error: unknown) => {
-    redirect("/error");
     console.log(error);
     throw error;
 };

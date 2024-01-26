@@ -7,8 +7,15 @@ import { devices } from "../../config/devices";
 import { useModalContext } from "../../context/ModalContext";
 import { Quiz } from "../../interfaces/app_interfaces";
 import { getPrivateQuizzes } from "../../apis/QuizAPI";
+import MyQuizzesSidebar from "../../components/MyQuizzesSidebar";
 
 const Container = styled.div`
+    display: grid;
+    grid-template-columns: 30% 70%;
+    margin: 2rem 3rem 0 3rem;
+`;
+
+const RightContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -45,18 +52,23 @@ const MyQuizzes = () => {
     });
     return (
         <Container>
-            {notification.isShow && (
-                <NotificationBar message={notification.message} />
-            )}
-            <Title>Manage Your Quizzes</Title>
-            <CardsContainer key={showModal.formName}>
-                {quizzes?.map((quiz) => {
-                    return <QuizCard key={quiz._id} quiz={quiz} role="admin" />;
-                })}
-            </CardsContainer>
-            {showModal.isShow && showModal.formName === "Confirmation" && (
-                <Confirmation quiz={showModal.quizData as Quiz} />
-            )}
+            <MyQuizzesSidebar />
+            <RightContainer>
+                {notification.isShow && (
+                    <NotificationBar message={notification.message} />
+                )}
+                <Title>Manage Your Quizzes</Title>
+                <CardsContainer key={showModal.formName}>
+                    {quizzes?.map((quiz) => {
+                        return (
+                            <QuizCard key={quiz._id} quiz={quiz} role="admin" />
+                        );
+                    })}
+                </CardsContainer>
+                {showModal.isShow && showModal.formName === "Confirmation" && (
+                    <Confirmation quiz={showModal.quizData as Quiz} />
+                )}
+            </RightContainer>
         </Container>
     );
 };
