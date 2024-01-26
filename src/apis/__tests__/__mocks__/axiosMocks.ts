@@ -22,4 +22,10 @@ vi.mock("axios", async (importActual) => {
     };
     return mockAxios;
 });
+beforeEach(() => {
+    mocks.post.mockReset();
+    mocks.get.mockReset();
+    mocks.put.mockReset();
+    mocks.delete.mockReset();
+});
 export default mocks;

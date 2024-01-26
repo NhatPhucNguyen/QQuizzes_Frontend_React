@@ -1,4 +1,4 @@
-import { Question } from "../../../interfaces/app_interfaces";
+import { Question, Quiz } from "../../../interfaces/app_interfaces";
 
 export const questionsTest: Question[] = [
     {
@@ -30,17 +30,27 @@ export const questionsTest: Question[] = [
         timeLimit: 1,
     },
 ];
-export const newQuestionTest:Question = {
-    _id: "testId",
-    questionNumber: 1,
-    question: "questionTest",
-    selections: [
-        {
-            _id: "test1",
-            desc: "string",
-            isTrue: true,
-        },
-    ],
-    point: 1,
-    timeLimit: 1,
-};
+export const quizzesTest: Quiz[] = [
+    {
+        _id: "testId",
+        numberOfPlays: 1,
+        quizName: "test",
+        topic: "test",
+        level: "test",
+        quantity: 1,
+        timeLimit: 1,
+        totalPoints: 1,
+        updatedAt: new Date(),
+    },
+    {
+        _id: "testId2",
+        numberOfPlays: 1,
+        quizName: "test",
+        topic: "test",
+        level: "test",
+        quantity: 1,
+        timeLimit: 1,
+        totalPoints: 1,
+        updatedAt: new Date(),
+    },
+];

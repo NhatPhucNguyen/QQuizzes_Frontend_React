@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach, vi } from "vitest";
 import mocks from "./__mocks__/axiosMocks";
-import { newQuestionTest, questionsTest } from "./__mocks__/data";
+import { questionsTest } from "./__mocks__/data";
 import {
     addNewQuestion,
     getAllPrivateQuestionsByQuiz,
@@ -12,9 +12,11 @@ beforeEach(() => {
     mocks.post.mockReset();
     mocks.get.mockReset();
     mocks.put.mockReset();
+    mocks.delete.mockReset();
 });
 describe("Questions API testing", () => {
     const quizId = "testId";
+    const newQuestionTest = questionsTest[0];
     describe("Get all question test", () => {
         const testData = questionsTest;
         test("Get all public questions", async () => {
@@ -69,10 +71,11 @@ describe("Questions API testing", () => {
         );
     });
     test("Error handling", async () => {
-        mocks.get.mockRejectedValue(new Error("error"));
-        mocks.post.mockRejectedValue(new Error("error"));
-        mocks.put.mockRejectedValue(new Error("error"));
-        mocks.delete.mockRejectedValue(new Error("error"));
+        const error = new Error("error");
+        mocks.get.mockRejectedValue(error);
+        mocks.post.mockRejectedValue(error);
+        mocks.put.mockRejectedValue(error);
+        mocks.delete.mockRejectedValue(error);
         await expect(getAllQuestionsByQuiz("testid")).rejects.toThrow();
         await expect(getAllPrivateQuestionsByQuiz("testid")).rejects.toThrow();
         await expect(addNewQuestion(quizId, newQuestionTest)).rejects.toThrow();
