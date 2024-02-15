@@ -28,9 +28,9 @@ const SwitchForm = () => {
                     : "Do not have an account ?"}
             </FormTitle>
             {isSwitch ? (
-                <LoginButton onClick={handleClick}>Login</LoginButton>
+                <LoginButton onClick={handleClick} role="btn-switch">Login</LoginButton>
             ) : (
-                <SignUpButton onClick={handleClick}>Sign Up</SignUpButton>
+                <SignUpButton onClick={handleClick} role="btn-switch">Sign Up</SignUpButton>
             )}
         </SwitchFormContainer>
     );

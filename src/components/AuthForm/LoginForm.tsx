@@ -67,6 +67,7 @@ const LoginForm = () => {
             {alert.isShow && <AlertBar message={alert.message} />}
             <FormController
                 name="username"
+                id="username"
                 label="Username"
                 type="text"
                 value={userData.username}
@@ -74,6 +75,7 @@ const LoginForm = () => {
             />
             <FormController
                 name="password"
+                id="password"
                 label="Password"
                 type="password"
                 value={userData.password}

@@ -11,7 +11,7 @@ const Message = styled.span`
 `;
 export const AlertBar = ({ message }: { message: string }) => {
     return (
-        <AlertContainer>
+        <AlertContainer role="alert-message">
             <Message>{message}</Message>
         </AlertContainer>
     );

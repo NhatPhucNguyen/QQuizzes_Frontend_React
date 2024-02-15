@@ -4,7 +4,7 @@ import SwitchForm from "./SwitchForm";
 
 const LoginLayout = () => {
     return (
-        <AuthLayout>
+        <AuthLayout role="login-layout">
             <LoginForm />
             <SwitchForm />
         </AuthLayout>

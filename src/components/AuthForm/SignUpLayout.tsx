@@ -4,7 +4,7 @@ import SwitchForm from "./SwitchForm";
 
 const SignUpLayout = () => {
     return (
-        <AuthLayout $isAutoHeight={true}>
+        <AuthLayout $isAutoHeight={true} role="signUp-layout">
             <SignUpForm />
             <SwitchForm />
         </AuthLayout>
