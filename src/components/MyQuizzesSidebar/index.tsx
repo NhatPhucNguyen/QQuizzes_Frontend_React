@@ -1,4 +1,4 @@
-import React, { useEffect, useState, MouseEvent } from "react";
+import { MouseEvent, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 

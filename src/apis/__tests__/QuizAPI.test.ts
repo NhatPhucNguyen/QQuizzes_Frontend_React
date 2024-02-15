@@ -1,6 +1,4 @@
-import { describe, test, vi } from "vitest";
-import { quizzesTest } from "./__mocks__/data";
-import mocks from "./__mocks__/axiosMocks";
+import { describe, test } from "vitest";
 import {
     createQuiz,
     deleteQuiz,
@@ -9,6 +7,8 @@ import {
     getQuizById,
     updateQuiz,
 } from "../QuizAPI";
+import mocks from "./__mocks__/axiosMocks";
+import { quizzesTest } from "./__mocks__/data";
 beforeEach(() => {
     mocks.post.mockReset();
     mocks.get.mockReset();

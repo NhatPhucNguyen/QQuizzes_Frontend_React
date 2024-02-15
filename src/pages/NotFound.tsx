@@ -1,7 +1,6 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Navbar from "../components/Navbar";
 const Container = styled.div`
     display: flex;
     margin-top: 2rem;
