@@ -1,4 +1,6 @@
-import { describe, test } from "vitest";
+import { describe, test,beforeEach } from "vitest";
+import mocks from "./__mocks__/axiosMocks";
+import { quizzesTest } from "./__mocks__/data";
 import {
     createQuiz,
     deleteQuiz,
@@ -7,14 +9,16 @@ import {
     getQuizById,
     updateQuiz,
 } from "../QuizAPI";
-import mocks from "./__mocks__/axiosMocks";
-import { quizzesTest } from "./__mocks__/data";
 beforeEach(() => {
+    vi.resetModules();
     mocks.post.mockReset();
     mocks.get.mockReset();
     mocks.put.mockReset();
     mocks.delete.mockReset();
 });
+afterEach(()=>{
+    vi.resetModules();
+})
 describe("Quiz API service test", () => {
     test("Get all private quizzes", async () => {
         const response = { data: quizzesTest };
