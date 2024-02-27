@@ -1,4 +1,4 @@
-import { describe, test,beforeEach } from "vitest";
+import { beforeEach, describe, test } from "vitest";
 import mocks from "./__mocks__/axiosMocks";
 import { quizzesTest } from "./__mocks__/data";
 import {
@@ -9,6 +9,7 @@ import {
     getQuizById,
     updateQuiz,
 } from "../QuizAPI";
+
 beforeEach(() => {
     vi.resetModules();
     mocks.post.mockReset();
@@ -16,9 +17,9 @@ beforeEach(() => {
     mocks.put.mockReset();
     mocks.delete.mockReset();
 });
-afterEach(()=>{
+afterEach(() => {
     vi.resetModules();
-})
+});
 describe("Quiz API service test", () => {
     test("Get all private quizzes", async () => {
         const response = { data: quizzesTest };
@@ -35,9 +36,7 @@ describe("Quiz API service test", () => {
         expect(data).toStrictEqual(quizzesTest);
         expect(mocks.get).toHaveBeenCalledWith("/quizzes/public?");
         await getPublicQuizzes("testQuery=test");
-        expect(mocks.get).toHaveBeenCalledWith(
-            "/quizzes/public?testQuery=test"
-        );
+        expect(mocks.get).toHaveBeenCalledWith("/quizzes/public?testQuery=test");
         expect(mocks.get).toHaveBeenCalledTimes(2);
     });
     test("Get quiz by id", async () => {
@@ -60,7 +59,7 @@ describe("Quiz API service test", () => {
         expect(data).toStrictEqual(newQuiz);
         expect(mocks.post).toHaveBeenCalledWith(
             "/quizzes",
-            JSON.stringify(newQuiz)
+            JSON.stringify(newQuiz),
         );
         expect(mocks.post).toHaveBeenCalledTimes(1);
     });
@@ -74,7 +73,7 @@ describe("Quiz API service test", () => {
         expect(data).toStrictEqual(updateQuizTest);
         expect(mocks.put).toHaveBeenCalledWith(
             `/quizzes/${updateQuizTest._id}`,
-            JSON.stringify(updateQuizTest)
+            JSON.stringify(updateQuizTest),
         );
         expect(mocks.put).toHaveBeenCalledTimes(1);
     });
@@ -85,9 +84,7 @@ describe("Quiz API service test", () => {
         };
         mocks.delete.mockResolvedValue(response);
         await deleteQuiz(deleteQuizTest._id);
-        expect(mocks.delete).toHaveBeenCalledWith(
-            `/quizzes/${deleteQuizTest._id}`
-        );
+        expect(mocks.delete).toHaveBeenCalledWith(`/quizzes/${deleteQuizTest._id}`);
         expect(mocks.delete).toHaveBeenCalledTimes(1);
     });
     test("Error handling", async () => {
@@ -100,7 +97,7 @@ describe("Quiz API service test", () => {
         await expect(getPublicQuizzes()).rejects.toThrow();
         await expect(getQuizById("test")).rejects.toThrow();
         await expect(createQuiz(quizzesTest[0])).rejects.toThrow();
-        await expect(updateQuiz("test",quizzesTest[0])).rejects.toThrow();
+        await expect(updateQuiz("test", quizzesTest[0])).rejects.toThrow();
         await expect(deleteQuiz("test")).rejects.toThrow();
     });
 });
