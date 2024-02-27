@@ -57,7 +57,7 @@ npm run build
 7.To test the application
 
 ```bash
-npm run build
+npm run test
 ```
 
 ## Technologies used
