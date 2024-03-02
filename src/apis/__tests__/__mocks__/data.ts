@@ -40,6 +40,7 @@ export const quizzesTest: Quiz[] = [
         quantity: 1,
         timeLimit: 1,
         totalPoints: 1,
+        userId:"Test",
         updatedAt: new Date(),
     },
     {
@@ -51,6 +52,7 @@ export const quizzesTest: Quiz[] = [
         quantity: 1,
         timeLimit: 1,
         totalPoints: 1,
+        userId:"Test",
         updatedAt: new Date(),
     },
 ];

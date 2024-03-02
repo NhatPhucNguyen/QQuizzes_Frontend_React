@@ -27,6 +27,14 @@ export const getQuizById = async (quizId: string) => {
         handleError(error);
     }
 };
+export const getQuizzesParticipated = async () => {
+    try {
+        const response = await customAxios.get("/quizzes/admin/quizzesParticipated");
+        return response.data as Quiz[];
+    } catch (error) {
+        handleError(error);
+    }
+}
 export const createQuiz = async (data: Quiz) => {
     try {
         const response = await customAxios.post(
