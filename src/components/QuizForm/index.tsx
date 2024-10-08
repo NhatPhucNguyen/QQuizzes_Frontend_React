@@ -9,7 +9,7 @@ import {
 } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
-import Modal from "../../Layout/ModalLayout";
+import Modal from "../../layout/ModalLayout";
 import { createQuiz, updateQuiz } from "../../apis/QuizAPI";
 import { devices } from "../../config/devices";
 import { topicSelections } from "../../config/topicSelections";

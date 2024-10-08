@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
-import Modal from "../../Layout/ModalLayout";
+import Modal from "../../layout/ModalLayout";
 import { deleteQuiz } from "../../apis/QuizAPI";
 import { customAxios } from "../../config/axiosConfig";
 import { devices } from "../../config/devices";

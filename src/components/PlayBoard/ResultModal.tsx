@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
-import Modal from "../../Layout/ModalLayout";
+import Modal from "../../layout/ModalLayout";
 import { customAxios } from "../../config/axiosConfig";
 import { devices } from "../../config/devices";
 import { usePlayBoardContext } from "../../context/PlayBoardContext";

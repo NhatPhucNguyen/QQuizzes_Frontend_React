@@ -3,7 +3,7 @@ import {
     useNavigate
 } from "react-router-dom";
 import { keyframes, styled } from "styled-components";
-import Modal from "../../Layout/ModalLayout";
+import Modal from "../../layout/ModalLayout";
 import { usePlayBoardContext } from "../../context/PlayBoardContext";
 import {
     IPlayer

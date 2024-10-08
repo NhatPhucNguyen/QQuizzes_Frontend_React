@@ -1,5 +1,5 @@
 import { keyframes, styled } from "styled-components";
-import Modal from "../../Layout/ModalLayout";
+import Modal from "../../layout/ModalLayout";
 import { useState } from "react";
 import Selections from "./Selections";
 import CloseMark from "../CloseMark";

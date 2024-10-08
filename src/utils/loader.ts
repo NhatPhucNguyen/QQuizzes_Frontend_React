@@ -24,6 +24,7 @@ export const authFormAccess = async () => {
     return null;
 };
 export const navLoader = async () => {
+    if(!localStorage.getItem("accessToken")) return null;
     const isAuthenticated = await authenticatedCheck();
     if (isAuthenticated) {
         return redirect("/dashboard");

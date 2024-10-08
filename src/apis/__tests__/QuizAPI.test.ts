@@ -88,7 +88,7 @@ describe("Quiz API service test", () => {
         expect(mocks.delete).toHaveBeenCalledTimes(1);
     });
     test("Error handling", async () => {
-        const error = new Error("Error");
+        const error = new Error("Test Error");
         mocks.get.mockRejectedValue(error);
         mocks.post.mockRejectedValue(error);
         mocks.put.mockRejectedValue(error);

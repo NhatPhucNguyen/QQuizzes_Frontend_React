@@ -21,7 +21,7 @@ import { devices } from "../../config/devices";
 import AlertBar from "../AuthForm/AlertBar";
 import AnswersGroup from "./AnswersGroup";
 import QuestionFormHeader from "./QuestionFormHeader";
-import Modal from "../../Layout/ModalLayout";
+import Modal from "../../layout/ModalLayout";
 import { keyframes } from "styled-components";
 import { addNewQuestion, updateQuestion } from "../../apis/QuestionAPI";
 
