@@ -1,6 +1,6 @@
 import { Outlet, useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import Main from "../../Layout/Main";
+import Main from "../../layout/Main";
 import Navbar from "../../components/Navbar";
 import NotificationBar from "../../components/NotificationBar";
 import QuestionCreateForm from "../../components/QuestionCreateForm";

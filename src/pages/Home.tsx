@@ -4,7 +4,7 @@ import { devices } from "../config/devices";
 import Navbar from "../components/Navbar";
 import { faPlus, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Main from "../Layout/Main";
+import Main from "../layout/Main";
 import { useNavigate } from "react-router-dom";
 const Container = styled.div`
     display: flex;

@@ -1,4 +1,4 @@
-import Main from "../Layout/Main";
+import Main from "../layout/Main";
 import AuthForm from "../components/AuthForm";
 import Navbar from "../components/Navbar";
 import AuthFormProvider from "../context/AuthFormContext";
