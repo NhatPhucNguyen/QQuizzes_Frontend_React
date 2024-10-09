@@ -32,7 +32,8 @@ const PlayBoardAnswers = () => {
                             backgroundColors[index]
                         }
                         desc={selection.desc}
-                        isTrue={selection.isTrue}
+                        questionId={question._id || ""}
+                        selection={selection}
                     />
                 );
             })}
